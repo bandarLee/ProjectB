@@ -1,0 +1,22 @@
+---If Using Basic RP, How do I change the Material parameters?---
+In your Scene heirarchy, there is a game object called "Material_Color_Changer"
+Click on this, and take a play around with the settings in the inspector.
+
+---How to swap to URP or HDRP Render Pipelines---
+
+1.) Install your Render Pipeline if you have not already.
+2.) Switch to your Render Pipeline in the Project Settings.
+3.) Delete all Folders under "ModularScifiInterior" folder, except for the "Textures" folder
+(So delete these folders:)
+- Materials
+- Meshes
+- Prefabs
+- Scenes
+- Scripts
+- Shaders
+- Sound
+
+Extract your chosen Render Pipeline Patch
+(Choose from the following)
+- ModularScifiInterior HDRP Patch
+- ModularScifiInterior URP Patch
