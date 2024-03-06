@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Animator playerAnimator; // 플레이어 캐릭터의 애니메이터
-    private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
-    private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
+    private Animator playerAnimator; 
+    private PlayerInput playerInput; 
+    private Rigidbody playerRigidbody; 
 
-    public float speed = 5f;
-    private float rotspeed = 10f;
-
-    public float jumpheight = 3f;
-    public float dash = 5f;
-    public Vector3 dir = Vector3.zero;
+    public float moveSpeed = 5f;
+    public float rotateSpeed = 90f;
 
     void Start()
     {
@@ -24,19 +20,27 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        dir.x = Input.GetAxis("Horizontal");
-        dir.y = 0;
-        dir.z = Input.GetAxis("Vertical");
-    
-
+        Move();
+        Rotate(); // 마우스 입력에 따른 회전도 Update에서 처리.
+        playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move) + Mathf.Abs(playerInput.rotate));
     }
-    private void FixedUpdate()
-    {
-        if (dir != Vector3.zero)
-        {
-            transform.forward = Vector3.Lerp(transform.forward, dir, rotspeed * Time.deltaTime);
-        }
 
-        playerRigidbody.MovePosition(this.gameObject.transform.position + dir * speed * Time.deltaTime);
+    private void Move()
+    {
+        float hAxis = Input.GetAxisRaw("Horizontal");
+        float vAxis = Input.GetAxisRaw("Vertical");
+
+        Vector3 inputDir = new Vector3(hAxis, 0, vAxis).normalized;
+        Vector3 moveDir = transform.forward * vAxis + transform.right * hAxis;
+        moveDir = moveDir.normalized * moveSpeed * Time.deltaTime;
+
+
+        playerRigidbody.MovePosition(playerRigidbody.position + moveDir);
+    }
+
+    private void Rotate()
+    {
+        float turn = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
+        transform.Rotate(0f, turn, 0f);
     }
 }
