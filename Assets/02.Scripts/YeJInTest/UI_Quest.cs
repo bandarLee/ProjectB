@@ -15,7 +15,7 @@ public class UI_Quest : MonoBehaviour
     private void Start()
     {
         ImageOpen();
-        text = "커맨트 센터로\n 이동하세요";
+        text = "커맨트 센터로\n이동하세요";
         StartCoroutine(Quest(text));
     }
     private IEnumerator Quest(string talk) 
@@ -31,5 +31,9 @@ public class UI_Quest : MonoBehaviour
     public void ImageOpen() 
     {
         QuestImage.gameObject.SetActive(true);
+    }
+    public void ImageClose() 
+    {
+        QuestImage.gameObject.SetActive(false); 
     }
 }
