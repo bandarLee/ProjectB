@@ -17,6 +17,7 @@ public class UI_Quest : MonoBehaviour
         ImageOpen();
         text = "커맨트 센터로\n이동하세요";
         StartCoroutine(Quest(text));
+        
     }
     private IEnumerator Quest(string talk) 
     {
@@ -27,6 +28,8 @@ public class UI_Quest : MonoBehaviour
             QuestTextUI.text += talk[i];
             yield return new WaitForSeconds(0.05f);
         }
+        yield return new WaitForSeconds(1f);
+        ImageClose();
     }
     public void ImageOpen() 
     {
