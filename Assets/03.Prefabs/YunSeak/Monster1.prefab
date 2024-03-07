@@ -341,7 +341,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 321043427970439332, guid: e8aff0e1c1477cb4aad67170f4347707, type: 3}
+  - {fileID: 2100000, guid: 9e84cdf39db1f9c48a179b7b45eb0e42, type: 2}
   - {fileID: 2100000, guid: 9e84cdf39db1f9c48a179b7b45eb0e42, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -517,7 +517,6 @@ GameObject:
   - component: {fileID: 2103269020917541956}
   - component: {fileID: 3050818142131129135}
   - component: {fileID: 4603537757757441786}
-  - component: {fileID: 2775896205702185832}
   - component: {fileID: 7896733783384850967}
   - component: {fileID: 5182920685518013005}
   m_Layer: 0
@@ -536,7 +535,7 @@ Transform:
   m_GameObject: {fileID: 1486430192317390567}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.57, y: 0.01, z: -5.209}
+  m_LocalPosition: {x: 3.57, y: 2.16, z: -5.209}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -637,27 +636,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!95 &2775896205702185832
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486430192317390567}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e838002426db73345aef76e84be04d7f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!54 &7896733783384850967
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -683,7 +661,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 64
   m_CollisionDetection: 0
 --- !u!136 &5182920685518013005
 CapsuleCollider:
@@ -2445,6 +2423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8132043505961357889}
   - component: {fileID: 2754794150529632315}
+  - component: {fileID: 7605819497088403850}
   m_Layer: 0
   m_Name: Ch44_nonPBR
   m_TagString: Untagged
@@ -2485,8 +2464,26 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+    'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+    'mixamorig:LeftHandPinky2'\n\tTransform 'mixamorig:RightHandRing2'\n\tTransform
+    'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
+    'mixamorig:RightArm'\n\tand more ...\n\tFrom animation clip 'mixamo.com'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7605819497088403850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903901061474486523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad504266ec479948a3e669d2ce4baea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

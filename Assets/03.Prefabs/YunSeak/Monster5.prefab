@@ -1675,7 +1675,6 @@ GameObject:
   - component: {fileID: 4388335186055913901}
   - component: {fileID: 825741336749678309}
   - component: {fileID: 7117849468751319837}
-  - component: {fileID: 1876018180213728266}
   - component: {fileID: 7115915945078680837}
   m_Layer: 0
   m_Name: Monster5
@@ -1750,29 +1749,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1876018180213728266
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5361020433456558340}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7115915945078680837
 Rigidbody:
   m_ObjectHideFlags: 0
