@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum NPCType 
 {
@@ -16,6 +17,8 @@ public class NPCTurn : MonoBehaviour
     private float FindDistance = 5f;
 
     public NPCType _NPCType;
+
+    
   
     void Start()
     {
