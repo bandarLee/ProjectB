@@ -31,6 +31,13 @@ public class PlayerMove : MonoBehaviour
         CheckDoublePress(KeyCode.A);
         CheckDoublePress(KeyCode.S);
         CheckDoublePress(KeyCode.D);
+    }
+
+    
+    void FixedUpdate()
+    {
+        Rotate();
+
 
         if (isRunning)
         {
@@ -46,7 +53,6 @@ public class PlayerMove : MonoBehaviour
         }
 
         Move();
-        Rotate();
         playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move));
         playerAnimator.SetFloat("MoveSide", playerInput.moveside);
 
@@ -95,6 +101,7 @@ public class PlayerMove : MonoBehaviour
     isJumping = true;
     playerAnimator.SetTrigger("Jump");
     playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
 
     yield return new WaitForSeconds(0.05f);
 
