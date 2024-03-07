@@ -31,13 +31,19 @@ public class PlayerMove : MonoBehaviour
         CheckDoublePress(KeyCode.A);
         CheckDoublePress(KeyCode.S);
         CheckDoublePress(KeyCode.D);
+        if (!isFlying)
+        {
+            Rotate();
+        }
     }
 
     
     void FixedUpdate()
     {
-        Rotate();
-
+        if (isFlying)
+        {
+            Rotate();
+        }
 
         if (isRunning)
         {
@@ -93,9 +99,12 @@ public class PlayerMove : MonoBehaviour
 
     private void Rotate()
     {
-        float turn = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
-        transform.Rotate(0f, turn, 0f);
+       
+            float turn = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
+            transform.Rotate(0f, turn, 0f);
+     
     }
+ 
     public IEnumerator JumpCoroutine()
 {
     isJumping = true;
