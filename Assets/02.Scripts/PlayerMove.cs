@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Animator playerAnimator; 
-    private PlayerInput playerInput; 
+    private Animator playerAnimator;
+    private PlayerInput playerInput;
     private Rigidbody playerRigidbody;
     private bool isJumping = false;
     private bool isRunning = false;
@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
     public float rotateSpeed = 90f;
     private float lastKeyPressTime = -1f;
     private KeyCode lastKeyCode = KeyCode.None;
+    private bool isFlying = false;
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -32,17 +34,21 @@ public class PlayerMove : MonoBehaviour
 
         if (isRunning)
         {
-            moveSpeed = 10f; 
+            playerAnimator.SetBool("IsRunning", true);
+
+            moveSpeed = 10f;
         }
         else
         {
+            playerAnimator.SetBool("IsRunning", false);
+
             moveSpeed = 5f;
         }
 
         Move();
-        Rotate(); // 마우스 입력에 따른 회전도 Update에서 처리.
+        Rotate();
         playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move));
-        playerAnimator.SetFloat("MoveSide", Mathf.Abs(playerInput.moveside));
+        playerAnimator.SetFloat("MoveSide", playerInput.moveside);
 
         if (Input.GetKey(KeyCode.Space) && !isJumping)
         {
@@ -66,7 +72,7 @@ public class PlayerMove : MonoBehaviour
             lastKeyCode = keyCode;
         }
     }
-        private void Move()
+    private void Move()
     {
         float hAxis = Input.GetAxisRaw("Horizontal");
         float vAxis = Input.GetAxisRaw("Vertical");
@@ -85,15 +91,40 @@ public class PlayerMove : MonoBehaviour
         transform.Rotate(0f, turn, 0f);
     }
     public IEnumerator JumpCoroutine()
+{
+    isJumping = true;
+    playerAnimator.SetTrigger("Jump");
+    playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+    yield return new WaitForSeconds(0.05f);
+
+    float timeInAir = 0f;
+    bool continueFlying = false; 
+
+    while (!isFlying && timeInAir < 1.2f)
     {
-        isJumping = true;
-        playerAnimator.SetTrigger("Jump");
-        playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
-        yield return new WaitForSeconds(1.2f);
-        isJumping = false;
-
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isFlying = true;
+            playerAnimator.SetBool("IsFlying", true);
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce / 2, playerRigidbody.velocity.z);
+            continueFlying = true;
+            break; 
+        }
+        yield return null;
+        timeInAir += Time.deltaTime;
     }
+
+    while (continueFlying && Input.GetKey(KeyCode.Space))
+    {
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce , playerRigidbody.velocity.z);
+            yield return null;
+    }
+
+    isJumping = false;
+    isFlying = false;
+    playerAnimator.SetBool("IsFlying", false);
+}
+
 
 }
