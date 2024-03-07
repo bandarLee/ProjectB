@@ -8,10 +8,14 @@ public class PlayerMove : MonoBehaviour
     private PlayerInput playerInput; 
     private Rigidbody playerRigidbody;
     private bool isJumping = false;
+    private bool isRunning = false;
+
+    public float doublePressTime = 0.3f;
     public float jumpForce = 5f;
     public float moveSpeed = 5f;
     public float rotateSpeed = 90f;
-
+    private float lastKeyPressTime = -1f;
+    private KeyCode lastKeyCode = KeyCode.None;
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -21,16 +25,48 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        CheckDoublePress(KeyCode.W);
+        CheckDoublePress(KeyCode.A);
+        CheckDoublePress(KeyCode.S);
+        CheckDoublePress(KeyCode.D);
+
+        if (isRunning)
+        {
+            moveSpeed = 10f; 
+        }
+        else
+        {
+            moveSpeed = 5f;
+        }
+
         Move();
         Rotate(); // 마우스 입력에 따른 회전도 Update에서 처리.
-        playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move) + Mathf.Abs(playerInput.rotate));
+        playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move));
+        playerAnimator.SetFloat("MoveSide", Mathf.Abs(playerInput.moveside));
+
         if (Input.GetKey(KeyCode.Space) && !isJumping)
         {
             StartCoroutine(JumpCoroutine());
         }
     }
 
-    private void Move()
+    private void CheckDoublePress(KeyCode keyCode)
+    {
+        if (Input.GetKeyDown(keyCode))
+        {
+            if (Time.time - lastKeyPressTime < doublePressTime && lastKeyCode == keyCode)
+            {
+                isRunning = true;
+            }
+            else
+            {
+                isRunning = false;
+            }
+            lastKeyPressTime = Time.time;
+            lastKeyCode = keyCode;
+        }
+    }
+        private void Move()
     {
         float hAxis = Input.GetAxisRaw("Horizontal");
         float vAxis = Input.GetAxisRaw("Vertical");
@@ -54,7 +90,7 @@ public class PlayerMove : MonoBehaviour
         playerAnimator.SetTrigger("Jump");
         playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
-        yield return new WaitForSeconds(1.4f);
+        yield return new WaitForSeconds(1.2f);
         isJumping = false;
 
 
