@@ -7,14 +7,29 @@ using UnityEngine.UI;
 
 public class UI_Quest : MonoBehaviour
 {
+    public Image QuestImage;
     public TextMeshProUGUI QuestTextUI;
+    string text;
+
 
     private void Start()
     {
-        QuestTextUI.text = string.Empty;
+        ImageOpen();
+        text = "커맨트 센터로\n 이동하세요";
+        StartCoroutine(Quest(text));
     }
-    private void Update()
+    private IEnumerator Quest(string talk) 
     {
-        QuestTextUI.text = "안녕";
+        QuestTextUI.text = null;
+
+        for (int i = 0; i < talk.Length; i++) 
+        {
+            QuestTextUI.text += talk[i];
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+    public void ImageOpen() 
+    {
+        QuestImage.gameObject.SetActive(true);
     }
 }
