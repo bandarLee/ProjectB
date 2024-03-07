@@ -20,8 +20,11 @@ public class NPC : MonoBehaviour
     public NPCType _NPCType;
 
     public UI_Mission MissionUI;
+    public UI_Shop ShopUI;
 
     public event Action One;
+
+    private bool isShopOpen = true;
 
     void Start()
     {
@@ -47,6 +50,25 @@ public class NPC : MonoBehaviour
         {
             _animator.SetTrigger("LeftTurn");
             _isTurning = false;
+        }
+
+        if (_NPCType == NPCType.MerchantNPC && Vector3.Distance(_targetPlayer.position, transform.position) < FindDistance) 
+        {
+            _animator.SetTrigger("Talking");
+            if (Input.GetKeyDown(KeyCode.V)) 
+            {
+                if (isShopOpen == true)
+                {
+                    ShopUI.ShopOpen();
+                    isShopOpen = false;
+                }
+                else 
+                {
+                    ShopUI.ShopClose();
+                    isShopOpen = true;
+                }
+                
+            }
         }
     }
     private IEnumerator Quest_Coroutine() 
