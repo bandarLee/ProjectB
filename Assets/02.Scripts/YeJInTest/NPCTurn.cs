@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum NPCType 
+{
+    QuestNPC,
+    MerchantNPC,
+    BlacksmithNPC,
+}
 public class NPCTurn : MonoBehaviour
 {
     private Animator _animator;
 
     private Transform _targetPlayer;
     private float FindDistance = 5f;
+
+    public NPCType _NPCType;
   
     void Start()
     {
@@ -18,10 +26,13 @@ public class NPCTurn : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(_targetPlayer.position, transform.position) <= FindDistance) 
+        if (_NPCType == NPCType.QuestNPC && Vector3.Distance(_targetPlayer.position, transform.position) <= FindDistance)
         {
-            
             _animator.SetTrigger("Turn");
+        }
+        else if (_NPCType == NPCType.MerchantNPC && Input.GetKeyDown(KeyCode.E)) 
+        {
+        
         }
     }
 }

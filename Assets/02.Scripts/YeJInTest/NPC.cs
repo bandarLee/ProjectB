@@ -6,6 +6,8 @@ public class NPC : MonoBehaviour
 {
     private Animator _animator;
 
+    public UI_Inventory InventoryUI;
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -14,9 +16,7 @@ public class NPC : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)) 
         {
-            _animator.SetTrigger("work");
-
+            InventoryUI.Open();
         }
     }
-    
 }
