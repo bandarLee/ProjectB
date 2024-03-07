@@ -31,6 +31,19 @@ public class PlayerMove : MonoBehaviour
         CheckDoublePress(KeyCode.A);
         CheckDoublePress(KeyCode.S);
         CheckDoublePress(KeyCode.D);
+        if (!isFlying)
+        {
+            Rotate();
+        }
+    }
+
+    
+    void FixedUpdate()
+    {
+        if (isFlying)
+        {
+            Rotate();
+        }
 
         if (isRunning)
         {
@@ -46,7 +59,6 @@ public class PlayerMove : MonoBehaviour
         }
 
         Move();
-        Rotate();
         playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move));
         playerAnimator.SetFloat("MoveSide", playerInput.moveside);
 
@@ -87,14 +99,18 @@ public class PlayerMove : MonoBehaviour
 
     private void Rotate()
     {
-        float turn = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
-        transform.Rotate(0f, turn, 0f);
+       
+            float turn = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
+            transform.Rotate(0f, turn, 0f);
+     
     }
+ 
     public IEnumerator JumpCoroutine()
 {
     isJumping = true;
     playerAnimator.SetTrigger("Jump");
     playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
 
     yield return new WaitForSeconds(0.05f);
 

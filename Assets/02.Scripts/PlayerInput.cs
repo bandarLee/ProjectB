@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public string moveAxisName = "Vertical"; // 앞뒤 움직임을 위한 입력축 이름
-    public string moveSideAxisName = "Horizontal"; // 좌우 회전을 위한 입력축 이름
+    public string moveAxisName = "Vertical"; 
+    public string moveSideAxisName = "Horizontal"; 
     // 값 할당은 내부에서만 가능
-    public float move { get; private set; } // 감지된 움직임 입력값
-    public float moveside { get; private set; } // 감지된 회전 입력값
+    public float move { get; private set; } 
+    public float moveside { get; private set; } 
 
 
     // 매프레임 사용자 입력을 감지
