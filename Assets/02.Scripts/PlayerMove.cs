@@ -36,6 +36,10 @@ public class PlayerMove : MonoBehaviour
         {
             Rotate();
         }
+        if (Input.GetMouseButton(0) && !isAttacking)
+        {
+            StartCoroutine(AttackCoroutine());
+        }
     }
 
     
@@ -67,6 +71,8 @@ public class PlayerMove : MonoBehaviour
         {
             StartCoroutine(JumpCoroutine());
         }
+
+
     }
 
     private void CheckDoublePress(KeyCode keyCode)
@@ -105,7 +111,19 @@ public class PlayerMove : MonoBehaviour
             transform.Rotate(0f, turn, 0f);
      
     }
- 
+    public IEnumerator AttackCoroutine()
+    {
+
+        isAttacking = true;
+        playerAnimator.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(1f);
+
+        isAttacking = false;
+
+
+    }
+
     public IEnumerator JumpCoroutine()
 {
     isJumping = true;
