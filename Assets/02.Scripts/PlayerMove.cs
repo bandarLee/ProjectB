@@ -6,8 +6,9 @@ public class PlayerMove : MonoBehaviour
 {
     private Animator playerAnimator; 
     private PlayerInput playerInput; 
-    private Rigidbody playerRigidbody; 
-
+    private Rigidbody playerRigidbody;
+    private bool isJumping = false;
+    public float jumpForce = 5f;
     public float moveSpeed = 5f;
     public float rotateSpeed = 90f;
 
@@ -23,6 +24,10 @@ public class PlayerMove : MonoBehaviour
         Move();
         Rotate(); // 마우스 입력에 따른 회전도 Update에서 처리.
         playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move) + Mathf.Abs(playerInput.rotate));
+        if (Input.GetKey(KeyCode.Space) && !isJumping)
+        {
+            StartCoroutine(JumpCoroutine());
+        }
     }
 
     private void Move()
@@ -43,4 +48,16 @@ public class PlayerMove : MonoBehaviour
         float turn = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
         transform.Rotate(0f, turn, 0f);
     }
+    public IEnumerator JumpCoroutine()
+    {
+        isJumping = true;
+        playerAnimator.SetTrigger("Jump");
+        playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(1.4f);
+        isJumping = false;
+
+
+    }
+
 }
