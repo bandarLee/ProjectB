@@ -4,15 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
-public enum Monster // 몬스터의 종류
-{
-    Follow,
-    Boom,
-    Shoot,
-    Speed,
-    leech
-}
-
 public enum MonsterState // 몬스터의 상태
 {
     Idle,           // 대기
