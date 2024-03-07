@@ -36,7 +36,6 @@ public class PlayerMove : MonoBehaviour
         {
             Rotate();
         }
-        Input.GetKey(KeyCode.Space)
     }
 
     
