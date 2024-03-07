@@ -17,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     private float lastKeyPressTime = -1f;
     private KeyCode lastKeyCode = KeyCode.None;
     private bool isFlying = false;
+    private bool isAttacking = false;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class PlayerMove : MonoBehaviour
         {
             Rotate();
         }
+        Input.GetKey(KeyCode.Space)
     }
 
     
