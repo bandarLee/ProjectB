@@ -1,22 +1,65 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+public enum NPCType 
+{
+    QuestNPC,
+    MerchantNPC,
+    BlacksmithNPC,
+}
 public class NPC : MonoBehaviour
 {
     private Animator _animator;
 
-    public UI_Inventory InventoryUI;
+    private Transform _targetPlayer;
+    private float FindDistance = 5f;
+    private bool _isTurning = false;
+    public NPCType _NPCType;
 
-    private void Start()
+    public UI_Mission MissionUI;
+
+    public event Action One;
+
+    void Start()
     {
         _animator = GetComponent<Animator>();
+
+        _targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+
+        One += OneText_Delegate;
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) 
+        //Debug.Log(Vector3.Distance(_targetPlayer.position, transform.position));
+        if (_NPCType == NPCType.QuestNPC && Vector3.Distance(_targetPlayer.position, transform.position) < FindDistance)
         {
-            InventoryUI.Open();
+            _isTurning = true;
+            _animator.SetTrigger("Turn");
+            if (Input.GetKey(KeyCode.E)) 
+            {
+                StartCoroutine(Quest_Coroutine());
+            }
+        }
+        else if (_NPCType == NPCType.QuestNPC && _isTurning && (Vector3.Distance(_targetPlayer.position, transform.position) > FindDistance))
+        {
+            _animator.SetTrigger("LeftTurn");
+            _isTurning = false;
         }
     }
+    private IEnumerator Quest_Coroutine() 
+    {
+        MissionUI.Open();
+        One?.Invoke();
+        yield return new WaitForSeconds(10f);
+        MissionUI.Close();
+    }
+    private void OneText_Delegate() 
+    {
+        MissionUI.FirstMissionOpenText();
+        One -= OneText_Delegate;
+    }
 }
+
