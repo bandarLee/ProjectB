@@ -17,7 +17,9 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Avatar Rig Configuration mis-match. Bone length in configuration
+      does not match position in animation file:\n\t'thigh_l' : position error =
+      21.410624 mm\n\t'thigh_r' : position error = 2.506760 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -887,7 +889,7 @@ ModelImporter:
     - name: lowerarm_l
       parentName: upperarm_l
       position: {x: -0.30339947, y: 0.000000095367426, z: -0.0000000962615}
-      rotation: {x: -0.06196469, y: 0.029633269, z: 0.027702967, w: 0.9972536}
+      rotation: {x: -0.06196469, y: 0.02963327, z: 0.027702967, w: 0.99725366}
       scale: {x: 0.9999934, y: 1.0000147, z: 0.99999934}
     - name: hand_l
       parentName: lowerarm_l
@@ -927,7 +929,7 @@ ModelImporter:
     - name: middle_03_l
       parentName: middle_02_l
       position: {x: -0.03648852, y: 0.000000034570693, z: 0.000000009536743}
-      rotation: {x: -0.023048816, y: 0.023789037, z: 0.6988663, w: 0.71448493}
+      rotation: {x: -0.023048818, y: 0.023789037, z: 0.69886637, w: 0.71448493}
       scale: {x: 1.0000525, y: 0.9999488, z: 1.0000056}
     - name: middle_03_l_end
       parentName: middle_03_l
@@ -1173,13 +1175,13 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: thigh_l
       parentName: pelvis
-      position: {x: 0.0144882, y: -0.005314225, z: -0.09005809}
+      position: {x: 0.0141, y: 0.018, z: -0.09}
       rotation: {x: 0.07370497, y: 0.062138826, z: 0.008584522, w: 0.99530536}
       scale: {x: 1.0000054, y: 1.0000027, z: 1.1237808}
     - name: calf_l
       parentName: thigh_l
       position: {x: 0.42572033, y: -0.000000041127205, z: -0.000000018775463}
-      rotation: {x: -0.048884403, y: -0.018863807, z: 0.06552234, w: 0.9964745}
+      rotation: {x: -0.04888438, y: -0.018863807, z: 0.06552232, w: 0.9964745}
       scale: {x: 1.000005, y: 1.000005, z: 1.3648049}
     - name: calf_twist_01_l
       parentName: calf_l
@@ -1218,7 +1220,7 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: thigh_r
       parentName: pelvis
-      position: {x: 0.014486383, y: -0.0053142672, z: 0.09005803}
+      position: {x: 0.014, y: -0.008, z: 0.09}
       rotation: {x: -0.06213861, y: 0.07370466, z: 0.99530536, w: -0.0085845515}
       scale: {x: 1.0000014, y: 1.0000011, z: 1.0337821}
     - name: calf_r
