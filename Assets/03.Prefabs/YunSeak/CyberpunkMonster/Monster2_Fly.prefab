@@ -158,7 +158,8 @@ GameObject:
   - component: {fileID: 7092438382591323854}
   - component: {fileID: 7066828171331649907}
   - component: {fileID: 1072047055271977392}
-  - component: {fileID: 4766410155498214020}
+  - component: {fileID: 6791796209094195500}
+  - component: {fileID: 7671156116984423785}
   m_Layer: 0
   m_Name: Monster2_Fly
   m_TagString: Monster
@@ -255,13 +256,13 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!143 &4766410155498214020
-CharacterController:
+--- !u!136 &6791796209094195500
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -278,11 +279,34 @@ CharacterController:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 0.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0.19999999}
+--- !u!114 &7671156116984423785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5692433647182448890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d73e2ed534b0044ae4036ceca28491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 0
+  MaxHealth: 100
+  HealthSliderUI: {fileID: 0}
+  Type: 0
+  FindDistance: 5
+  AttackDistance: 2
+  MoveSpeed: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  MoveDistance: 40
+  KnockbackPower: 1.2
+  PatrolTarget: {fileID: 0}
+  ExplosionRadius: 3
+  Damage: 60
+  BombEffectPrefab: {fileID: 0}

@@ -28,7 +28,7 @@ public class MonsterNormalMove : MonoBehaviour
     //private CharacterController _characterController;
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
-
+    private Rigidbody _rigidbody;
 
     private Transform _target;         // 플레이어
     public float FindDistance = 5f;  // 감지 거리
@@ -101,6 +101,11 @@ public class MonsterNormalMove : MonoBehaviour
             case MonsterState.Trace:
                 Trace();
                 break;
+
+            case MonsterState.Attack:
+                Attack(); 
+                break;
+
             case MonsterState.FireAttack:
                 FireAttack();
                 break;
@@ -188,6 +193,26 @@ public class MonsterNormalMove : MonoBehaviour
             _currentState = MonsterState.Trace;
         }
     }
+    private void Attack()
+    {
+        // 전이 사건: 플레이어와 거리가 공격 범위보다 멀어지면 다시 Trace
+        if (Vector3.Distance(_target.position, transform.position) > AttackDistance)
+        {
+            _attackTimer = 0f;
+            Debug.Log("상태 전환: Attack -> Trace");
+            _animator.SetTrigger("AttackToTrace");
+            _currentState = MonsterState.Trace;
+            return;
+        }
+
+        // 실습 과제 35. Attack 상태일 때 N초에 한 번 때리게 딜레이 주기
+        _attackTimer += Time.deltaTime;
+        if (_attackTimer >= AttackDelay)
+        {
+            _animator.SetTrigger("Attack");
+            _animator.Play("Attack");
+        }
+    }
     private void FireAttack()
     {
 
@@ -224,6 +249,39 @@ public class MonsterNormalMove : MonoBehaviour
             Debug.Log("상태 전환: Comeback -> idle");
             _animator.SetTrigger("ComebackToIdle");
             _currentState = MonsterState.Idle;
+        }
+    }
+
+    private void Damaged()
+    {
+        // 1. Damage 애니메이션 실행(0.5초)
+        // todo: 애니메이션 실행
+        
+        // 2. 넉백 구현
+        // 2-1. 넉백 시작/최종 위치를 구한다.
+        if (_knockbackProgress == 0)
+        {
+            _knockbackStartPosition = transform.position;
+
+            Vector3 dir = transform.position - _target.position;
+            dir.y = 0;
+            dir.Normalize();
+
+            _knockbackEndPosition = transform.position + dir * KnockbackPower;
+        }
+
+        _knockbackProgress += Time.deltaTime / KNOCKBACK_DURATION;
+
+        // 2-2. Lerp를 이용해 넉백하기
+        transform.position = Vector3.Lerp(_knockbackStartPosition, _knockbackEndPosition, _knockbackProgress);
+
+        if (_knockbackProgress > 1)
+        {
+            _knockbackProgress = 0f;
+
+            Debug.Log("상태 전환: Damaged -> Trace");
+            _animator.SetTrigger("DamagedToTrace");
+            _currentState = MonsterState.Trace;
         }
     }
 

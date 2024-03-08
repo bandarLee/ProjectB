@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public enum MonsterType // 몬스터의 종류
 {
@@ -12,9 +13,9 @@ public enum MonsterType // 몬스터의 종류
 
 public class MonsterFly : MonoBehaviour
 {
-    [Range(0, 100)]
+    [Range(0, 50)]
     public int Health;
-    public int MaxHealth = 100;
+    public int MaxHealth = 50;
     public Slider HealthSliderUI;
     public MonsterType Type = MonsterType.Follow;
     /***********************************************************************/
@@ -26,7 +27,7 @@ public class MonsterFly : MonoBehaviour
     private Transform _target;         // 플레이어
     public float FindDistance = 5f;  // 감지 거리
     public float AttackDistance = 2f;  // 공격 범위 
-    public float MoveSpeed = 4f;  // 이동 상태
+    public float MoveSpeed = 5f;  // 이동 상태
     public Vector3 StartPosition;     // 시작 위치
     public float MoveDistance = 40f; // 움직일 수 있는 거리
 
@@ -90,10 +91,6 @@ public class MonsterFly : MonoBehaviour
                     Idle();
                     break;
 
-                case MonsterState.Patrol:
-                    Patrol();
-                    break;
-
                 case MonsterState.Trace:
                     Trace();
                     break;
@@ -109,6 +106,10 @@ public class MonsterFly : MonoBehaviour
             {
                 case MonsterState.Idle:
                     Idle();
+                    break;
+
+                case MonsterState.Patrol:
+                    Patrol();
                     break;
 
                 case MonsterState.Trace:
@@ -152,7 +153,7 @@ public class MonsterFly : MonoBehaviour
         Vector3 dir = _target.transform.position - this.transform.position;
         dir.Normalize();
         // 2. 이동한다.
-        // _characterController.Move(dir * MoveSpeed * Time.deltaTime);
+        //_characterController.Move(dir * MoveSpeed * Time.deltaTime);
 
         // 내비게이션이 접근하는 최소 거리를 공격 가능 거리로 설정
         _navMeshAgent.stoppingDistance = AttackDistance;
@@ -163,17 +164,16 @@ public class MonsterFly : MonoBehaviour
         // 3. 쳐다본다.
         //transform.forward = dir; //(_target);
 
+
         if (Vector3.Distance(transform.position, StartPosition) >= MoveDistance)
         {
             Debug.Log("상태 전환: Trace -> Comeback");
-            _animator.SetTrigger("TraceToComeback");
             _currentState = MonsterState.Comeback;
         }
 
         if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
         {
             Debug.Log("상태 전환: Trace -> Attack");
-            _animator.SetTrigger("TraceToAttack");
             _currentState = MonsterState.Attack;
         }
     }
@@ -188,14 +188,12 @@ public class MonsterFly : MonoBehaviour
             if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance <= TOLERANCE)
             {
                 Debug.Log("상태 전환: Patrol -> Comeback");
-                _animator.SetTrigger("PatrolToComeback");
                 _currentState = MonsterState.Comeback;
             }
 
             if (Vector3.Distance(_target.position, transform.position) <= FindDistance)
             {
                 Debug.Log("상태 전환: Patrol -> Trace");
-                _animator.SetTrigger("PatrolToTrace");
                 _currentState = MonsterState.Trace;
             }
         
@@ -223,37 +221,27 @@ public class MonsterFly : MonoBehaviour
         if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance <= TOLERANCE)
         {
             Debug.Log("상태 전환: Comeback -> idle");
-            _animator.SetTrigger("ComebackToIdle");
             _currentState = MonsterState.Idle;
         }
 
         if (Vector3.Distance(StartPosition, transform.position) <= TOLERANCE)
         {
             Debug.Log("상태 전환: Comeback -> idle");
-            _animator.SetTrigger("ComebackToIdle");
             _currentState = MonsterState.Idle;
         }
     }
     private void GunFire()
     {
-
+        Vector3 dir = _target.transform.position - this.transform.position;
+        transform.forward = dir; 
 
 
     }
     // 1. 터질 때
     private void OnColliderEnter(Collider other)
     {
-        gameObject.SetActive(false); // 창고에 넣는다.
-
-        GameObject effect = Instantiate(BombEffectPrefab);
-        effect.transform.position = this.gameObject.transform.position;
-
-        // 2. 범위안에 있는 모든 콜라이더를 찾는다.
-        // -> 피직스.오버랩 함수는 특정 영역(radius) 안에 있는 특정 레이어들의 게임 오브젝트의
-        //    콜라이더 컴포넌트들을 모두 찾아 배열로 반환하는 함수
-        // 영역의 형태: 스피어, 큐브, 캡슐
-        int layer =/* LayerMask.GetMask("Player") |*/ LayerMask.GetMask("Plaer");
-        int count = Physics.OverlapSphereNonAlloc(transform.position, ExplosionRadius, _colliders, layer);
-        // 3. 찾은 콜라이더 중에서 타격 가능한(IHitable) 오브젝트를 찾아서 Hit()한다.
+        // 폭발 이펙트와 함께
+        // 플레이어에게 데미지를 주고
+        Destroy(this.gameObject);
     }
 }

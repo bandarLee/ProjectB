@@ -6,59 +6,64 @@ public enum BulletType
 {
     Health,  // 체력을 줄인다
     Stamina, // 스피드를 줄인다.
-    Bullet   // 현재 들고있는 총의 총알이 꽉찬다.
+    Smoke   // 연막탄
 }
 
 public class MonsterBullet : MonoBehaviour
 {
     public BulletType BulletType;
-    public int Count;
+    private Animator _animator;
+    private Rigidbody _rigidbody;
+    public float _smoketimeer = 8f;
 
-    /*public Bullet(BulletType BulletType, int count)
+    private void Update()
     {
-        BulletType = BulletType;
-        Count = count;
-    }
-
-
-    public bool TryUse()
-    {
-        if (Count == 0)
+        transform.Translate(Vector3.forward * 1f);
+        if(BulletType == BulletType.Health)
         {
-            return false;
+            Health();
+        }
+        else if(BulletType == BulletType.Stamina)
+        {
+            Stamina();
+        }
+        else
+        {
+            Smoke();
         }
 
-        Count -= 1;
 
-        switch (BulletType)
-        {
-            case BulletType.Health:
-            {
-                // Todo: 플레이어 체력 꽉차기
-                PlayerMoveAbility playerMoveAbility = GameObject.FindWithTag("Player").GetComponent<PlayerMoveAbility>();
-                playerMoveAbility.Health = playerMoveAbility.MaxHealth;
-                break;
-            }
 
-            case BulletType.Stamina:
-            {
-                // Todo: 플레이어 스태미너 꽉차기
-                PlayerMoveAbility playerMoveAbility = GameObject.FindWithTag("Player").GetComponent<PlayerMoveAbility>();
-                playerMoveAbility.Stamina = PlayerMoveAbility.MaxStamina;
-                break;
-            }
-
-            case BulletType.Bullet:
-            {
-                // Todo: 플레이어가 현재 들고있는 총의 총알이 꽉찬다.
-                PlayerGunFireAbility ability = GameObject.FindWithTag("Player").GetComponent<PlayerGunFireAbility>();
-                ability.CurrentGun.BulletRemainCount = ability.CurrentGun.BulletMaxCount;
-                ability.RefreshUI();
-                break;
-            }
-        }
-
-        return true;
+        
     }
-*/
+
+    private void Health()
+    {
+        //플레이어의 체력을 X값 줄이고
+        Debug.Log("체력총알");
+        Destroy(this.gameObject);
+
+    }
+
+    private void Stamina()
+    {
+        //플레이어의 스테미너을를 X값 줄이고
+        Debug.Log("스테미너 총알");
+        Destroy(this.gameObject);
+    }
+
+    private void Smoke() 
+    {
+        _smoketimeer -= Time.deltaTime;
+        if(_smoketimeer <= 0)
+        {
+            Debug.Log("연막탄");
+            Destroy(this.gameObject);
+        }
+    }
+    private void OnColliderEnter(Collider collider)
+    {
+
+    }
 }
+
