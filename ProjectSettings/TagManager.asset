@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Monster
   - enemy
+  - basicweapon
   layers:
   - Default
   - TransparentFX
