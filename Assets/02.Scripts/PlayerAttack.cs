@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     private Rigidbody playerRigidbody;
     private bool isAttacking = false;
     public GameObject swordweapon;
+    public bool doubleAttack = false;
     
     void Start()
     {
@@ -23,6 +24,11 @@ public class PlayerAttack : MonoBehaviour
         {
             StartCoroutine(AttackCoroutine());
         }
+        if (Input.GetMouseButton(1) && !isAttacking)
+        {
+            StartCoroutine(StrongAttackCoroutine());
+
+        }
 
     }
     public IEnumerator AttackCoroutine()
@@ -31,12 +37,36 @@ public class PlayerAttack : MonoBehaviour
 
         isAttacking = true;
         playerAnimator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.15f); // 첫 번째 공격이 진행되는 동안 더블 어택 입력을 기다림
+        if (Input.GetMouseButton(0)) // 더블 어택 입력 감지
+        {
+            doubleAttack = true;
+        }
+        playerAnimator.SetBool("DoubleAttack", doubleAttack); 
 
-        yield return new WaitForSeconds(1.15f);
+        yield return new WaitForSeconds(1f);
+        if (doubleAttack)
+        {
+         
+            doubleAttack = false; 
+        }
         swordweapon.GetComponentInChildren<BoxCollider>().enabled = false;
 
         isAttacking = false;
+        playerAnimator.SetBool("DoubleAttack", doubleAttack);
 
+    }
+    public IEnumerator StrongAttackCoroutine()
+    {
+        swordweapon.GetComponentInChildren<BoxCollider>().enabled = true;
+
+        isAttacking = true;
+        playerAnimator.SetTrigger("StrongAttack");
+        yield return new WaitForSeconds(1.15f); 
+       
+        swordweapon.GetComponentInChildren<BoxCollider>().enabled = false;
+
+        isAttacking = false;
 
     }
 }
