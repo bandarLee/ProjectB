@@ -14,7 +14,7 @@ public class MonsterBullet : MonoBehaviour
     public BulletType BulletType;
     public int Count;
 
-    public Bullet(BulletType BulletType, int count)
+    /*public Bullet(BulletType BulletType, int count)
     {
         BulletType = BulletType;
         Count = count;
@@ -60,4 +60,5 @@ public class MonsterBullet : MonoBehaviour
 
         return true;
     }
+*/
 }

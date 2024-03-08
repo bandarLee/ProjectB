@@ -23,15 +23,15 @@ public class MonsterBulletObjectFactory : MonoBehaviour
 
     //오브젝트 풀링 웅덩이라는 뜻이나 이해를 위해 공장의 창고로 표현 중
     // 공장의 창고
-    private List<BulletObject> _BulletPool;
-    public int PoolCount = 10;
+/*    private List<BulletObject> _BulletPool;
+*/    public int PoolCount = 10;
 
     private void Awake()
     {
         Instance = this;
 
-        _bulletPool = new List<BulletObject>();
-
+/*        _bulletPool = new List<BulletObject>();
+*/
         for (int i = 0; i < PoolCount; ++i)            // 10번
         {
             foreach (GameObject prefab in BulletPrefabs) // 3개
@@ -40,14 +40,14 @@ public class MonsterBulletObjectFactory : MonoBehaviour
                 GameObject Bullet = Instantiate(prefab);
                 // 2. 창고에 넣는다.
                 Bullet.transform.SetParent(this.transform);
-                _BulletPool.Add(Bullet.GetComponent<BulletObject>());
-                // 3. 비활성화
+/*                _BulletPool.Add(Bullet.GetComponent<BulletObject>());
+*/                // 3. 비활성화
                 Bullet.SetActive(false);
             }
         }
     }
 
-    private BulletObject Get(BulletType BulletType) // 창고 뒤지기
+   /* private BulletObject Get(BulletType BulletType) // 창고 뒤지기
     {
         foreach (BulletObject BulletObject in _BulletPool) // 창고를 뒤진다.
         {
@@ -59,10 +59,10 @@ public class MonsterBulletObjectFactory : MonoBehaviour
         }
 
         return null;
-    }
+    }*/
 
     // 확률 생성 (공장아! 랜덤박스 주문할게!)
-    public void MakePercent(Vector3 position)
+  /*  public void MakePercent(Vector3 position)
     {
         int percentage = UnityEngine.Random.Range(0, 100);
         if (percentage <= 20) // 20%
@@ -77,10 +77,10 @@ public class MonsterBulletObjectFactory : MonoBehaviour
         {
             Make(BulletType.Bullet, position);
         }
-    }
+    }*/
 
     // 기본 생성 (공장아! 내가 원하는거 주문할게!)
-    public void Make(BulletType BulletType, Vector3 position)
+/*    public void Make(BulletType BulletType, Vector3 position)
     {
         BulletObject BulletObject = Get(BulletType);
 
@@ -90,5 +90,5 @@ public class MonsterBulletObjectFactory : MonoBehaviour
             BulletObject.Init();
             BulletObject.gameObject.SetActive(true);
         }
-    }
+    }*/
 }
