@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class MonsterAttackEvent : MonoBehaviour
 {
-    private MonsterNormal _owner;
+    private MonsterMove _owner;
 
     private void Start()
     {
-        _owner = GetComponentInParent<MonsterNormal>();
+        _owner = GetComponentInParent<MonsterMove>();
     }
 
     //public void AttackEvent()
