@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8335723244793853652}
   - component: {fileID: 6347297033457536756}
   - component: {fileID: 4832302754330465955}
+  - component: {fileID: -2140136078297847715}
   m_Layer: 0
   m_Name: Bullet_Hp
   m_TagString: Untagged
@@ -107,3 +108,15 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-2140136078297847715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683424089399621076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 232086ed14b694041b91ca1255def856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
