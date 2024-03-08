@@ -21,10 +21,14 @@ public class NPC : MonoBehaviour
 
     public UI_Mission MissionUI;
     public UI_Shop ShopUI;
+    public UI_Enforce EnforceUI;
 
     public event Action One;
 
     private bool isShopOpen = true;
+    private bool isEnforceOpen = true;
+
+   // public GameObject coll;
 
     void Start()
     {
@@ -70,7 +74,36 @@ public class NPC : MonoBehaviour
                 
             }
         }
+
+        if (_NPCType == NPCType.BlacksmithNPC && Vector3.Distance(_targetPlayer.position, transform.position) < FindDistance) 
+        {
+            if (Input.GetKeyDown(KeyCode.V)) 
+            {
+                if (isEnforceOpen == true)
+                {
+                    EnforceUI.EnforceOpen();
+                    isEnforceOpen = false;
+                }
+                else 
+                {
+                    EnforceUI.EnforceClose();
+                    isEnforceOpen = true;
+                }
+               
+            }
+        }
     }
+    
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && _NPCType == NPCType.BlacksmithNPC) 
+        {
+            if (Input.GetKeyDown(KeyCode.E)) 
+            {
+                EnforceUI.EnforceOpen();
+            }
+        }
+    }*/
     private IEnumerator Quest_Coroutine() 
     {
         MissionUI.Open();
