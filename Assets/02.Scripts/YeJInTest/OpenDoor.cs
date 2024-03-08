@@ -7,16 +7,11 @@ public class OpenDoor : MonoBehaviour
     public GameObject Door;
     public float liftingSpeed = 1.0f;
     private bool isLifting = false;
-    private void Start()
-    {
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("충돌");
             StartCoroutine(LiftDoor());
         }
     }

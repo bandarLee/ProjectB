@@ -16,6 +16,7 @@ public class NPC : MonoBehaviour
 
     private Transform _targetPlayer;
     private float FindDistance = 5f;
+    private float ShopFindDistance = 1f;
     private bool _isTurning = false;
     public NPCType _NPCType;
 
@@ -56,54 +57,46 @@ public class NPC : MonoBehaviour
             _isTurning = false;
         }
 
-        if (_NPCType == NPCType.MerchantNPC && Vector3.Distance(_targetPlayer.position, transform.position) < FindDistance) 
+        if (_NPCType == NPCType.MerchantNPC && Vector3.Distance(_targetPlayer.position, transform.position) < ShopFindDistance)
         {
             _animator.SetTrigger("Talking");
-            if (Input.GetKeyDown(KeyCode.V)) 
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 if (isShopOpen == true)
                 {
                     ShopUI.ShopOpen();
                     isShopOpen = false;
                 }
-                else 
+                else
                 {
                     ShopUI.ShopClose();
                     isShopOpen = true;
                 }
-                
+
             }
         }
+        
 
-        if (_NPCType == NPCType.BlacksmithNPC && Vector3.Distance(_targetPlayer.position, transform.position) < FindDistance) 
+        if (_NPCType == NPCType.BlacksmithNPC && Vector3.Distance(_targetPlayer.position, transform.position) < ShopFindDistance)
         {
-            if (Input.GetKeyDown(KeyCode.V)) 
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 if (isEnforceOpen == true)
                 {
                     EnforceUI.EnforceOpen();
                     isEnforceOpen = false;
                 }
-                else 
+                else
                 {
                     EnforceUI.EnforceClose();
                     isEnforceOpen = true;
                 }
-               
+
             }
         }
     }
+
     
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player") && _NPCType == NPCType.BlacksmithNPC) 
-        {
-            if (Input.GetKeyDown(KeyCode.E)) 
-            {
-                EnforceUI.EnforceOpen();
-            }
-        }
-    }*/
     private IEnumerator Quest_Coroutine() 
     {
         MissionUI.Open();
