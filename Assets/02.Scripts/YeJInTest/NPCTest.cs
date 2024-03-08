@@ -22,13 +22,24 @@ public class NPCTest : MonoBehaviour
 
     public event Action One;
 
+    public Collider coll;
+
     void Start()
     {
         _animator = GetComponent<Animator>();
 
         One += OneText_Delegate;
+
+        coll = GetComponent<Collider>();
     }
 
+    private void ToggleIsTrigger() 
+    {
+        if (coll != null) 
+        {
+            coll.isTrigger = true;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("충돌");
@@ -72,6 +83,7 @@ public class NPCTest : MonoBehaviour
         One?.Invoke();
         yield return new WaitForSeconds(10f);
         MissionUI.Close();
+        ToggleIsTrigger();
     }
     private void OneText_Delegate()
     {
