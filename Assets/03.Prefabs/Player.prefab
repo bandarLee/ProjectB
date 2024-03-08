@@ -219,7 +219,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7.8737, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3862425464377267709}
@@ -267,7 +267,7 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 8428596743567016559, guid: 7a2fdba88e6d7d64c88453065a50d033, type: 3}
@@ -802,7 +802,7 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -357759592009796810, guid: 7a2fdba88e6d7d64c88453065a50d033, type: 3}
@@ -1048,7 +1048,7 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 8800491100216562228, guid: 7a2fdba88e6d7d64c88453065a50d033, type: 3}
@@ -2097,7 +2097,7 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -7686169775153216575, guid: 7a2fdba88e6d7d64c88453065a50d033, type: 3}
@@ -2604,6 +2604,7 @@ GameObject:
   - component: {fileID: 7100257093178713679}
   - component: {fileID: 2379849919873497455}
   - component: {fileID: 1089399717701792759}
+  - component: {fileID: 623160720513319703}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2737,6 +2738,19 @@ MonoBehaviour:
   jumpForce: 5
   moveSpeed: 5
   rotateSpeed: 90
+--- !u!114 &623160720513319703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5974898890065957604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed948c9bbb1ce8e4b804aa5d81097693, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordweapon: {fileID: 117611301455284178}
 --- !u!1 &6017087976003837262
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,7 +2921,7 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -2339605835884145058, guid: 7a2fdba88e6d7d64c88453065a50d033, type: 3}
@@ -3154,7 +3168,7 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 7699655042715708803, guid: 7a2fdba88e6d7d64c88453065a50d033, type: 3}
@@ -4069,7 +4083,7 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -5810895218193826546, guid: 7a2fdba88e6d7d64c88453065a50d033, type: 3}
@@ -4335,7 +4349,7 @@ Transform:
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2907511791491449262}
+  - {fileID: 5303108289900100255}
   - {fileID: 9222660414231714738}
   - {fileID: 8462293998894935789}
   - {fileID: 3632727349447212637}
@@ -4374,7 +4388,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7453431754949763787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2903381671522716578
+--- !u!1001 &5299329704401760403
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -4422,6 +4436,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -229.037
       objectReference: {fileID: 0}
+    - target: {fileID: 2193486934720858457, guid: e12aa339685666046a2335bcfc9b9ac7,
+        type: 3}
+      propertyPath: m_TagString
+      value: basicweapon
+      objectReference: {fileID: 0}
     - target: {fileID: 5200204638117869377, guid: e12aa339685666046a2335bcfc9b9ac7,
         type: 3}
       propertyPath: m_Name
@@ -4432,14 +4451,50 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5200204638117869377, guid: e12aa339685666046a2335bcfc9b9ac7,
+        type: 3}
+      propertyPath: m_TagString
+      value: basicweapon
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5200204638117869377, guid: e12aa339685666046a2335bcfc9b9ac7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4839150934510619446}
   m_SourcePrefab: {fileID: 100100000, guid: e12aa339685666046a2335bcfc9b9ac7, type: 3}
---- !u!4 &2907511791491449262 stripped
+--- !u!1 &117611301455284178 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5200204638117869377, guid: e12aa339685666046a2335bcfc9b9ac7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5299329704401760403}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &4839150934510619446
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117611301455284178}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.104275435, y: 0.02225802, z: 1.1907945}
+  m_Center: {x: -0.0046864585, y: -0.009772767, z: -0.4331493}
+--- !u!4 &5303108289900100255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5467521325353484, guid: e12aa339685666046a2335bcfc9b9ac7,
     type: 3}
-  m_PrefabInstance: {fileID: 2903381671522716578}
+  m_PrefabInstance: {fileID: 5299329704401760403}
   m_PrefabAsset: {fileID: 0}
