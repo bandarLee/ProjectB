@@ -22,22 +22,20 @@ public class NPCTest : MonoBehaviour
 
     public event Action One;
 
-    public Collider coll;
+    public GameObject otherObject;
 
     void Start()
     {
         _animator = GetComponent<Animator>();
 
         One += OneText_Delegate;
-
-        coll = GetComponent<Collider>();
     }
-
-    private void ToggleIsTrigger() 
+    private void DoorIsTrigger() 
     {
-        if (coll != null) 
+        Collider otherCollider = otherObject.GetComponent<Collider>();
+        if (otherObject != null) 
         {
-            coll.isTrigger = true;
+            otherCollider.isTrigger = true;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -83,7 +81,7 @@ public class NPCTest : MonoBehaviour
         One?.Invoke();
         yield return new WaitForSeconds(10f);
         MissionUI.Close();
-        ToggleIsTrigger();
+        DoorIsTrigger();
     }
     private void OneText_Delegate()
     {
