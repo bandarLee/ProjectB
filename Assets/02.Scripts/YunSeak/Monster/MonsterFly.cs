@@ -111,10 +111,6 @@ public class MonsterFly : MonoBehaviour
                     Idle();
                     break;
 
-                case MonsterState.Patrol:
-                    Patrol();
-                    break;
-
                 case MonsterState.Trace:
                     GunFire();
                     break;
@@ -154,7 +150,6 @@ public class MonsterFly : MonoBehaviour
         // 플레이어게 다가간다.
         // 1. 방향을 구한다. (target - me)
         Vector3 dir = _target.transform.position - this.transform.position;
-        dir.y = 0;
         dir.Normalize();
         // 2. 이동한다.
         // _characterController.Move(dir * MoveSpeed * Time.deltaTime);
@@ -186,7 +181,7 @@ public class MonsterFly : MonoBehaviour
     private void Patrol()
     {
         
-        {
+        
             _navMeshAgent.stoppingDistance = 0f;
             _navMeshAgent.SetDestination(PatrolTarget.position);
 
@@ -203,7 +198,7 @@ public class MonsterFly : MonoBehaviour
                 _animator.SetTrigger("PatrolToTrace");
                 _currentState = MonsterState.Trace;
             }
-        }
+        
     }
 
 
@@ -213,7 +208,6 @@ public class MonsterFly : MonoBehaviour
         // 시작 지점 쳐다보면서 시작지점으로 이동하기 (이동 완료하면 다시 Idle 상태로 전환)
         // 1. 방향을 구한다. (target - me)
         Vector3 dir = StartPosition - this.transform.position;
-        dir.y = 0;
         dir.Normalize();
         // 2. 이동한다.
         //_characterController.Move(dir * MoveSpeed * Time.deltaTime);
@@ -249,7 +243,6 @@ public class MonsterFly : MonoBehaviour
     // 1. 터질 때
     private void OnColliderEnter(Collider other)
     {
-        
         gameObject.SetActive(false); // 창고에 넣는다.
 
         GameObject effect = Instantiate(BombEffectPrefab);
