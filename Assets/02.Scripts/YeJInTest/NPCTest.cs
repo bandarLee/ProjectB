@@ -24,6 +24,8 @@ public class NPCTest : MonoBehaviour
 
     public GameObject otherObject;
 
+    private bool isOpen = true;
+
     void Start()
     {
         _animator = GetComponent<Animator>();
@@ -53,10 +55,11 @@ public class NPCTest : MonoBehaviour
                     _animator.SetTrigger("Turn");
                     StartCoroutine(Quest_Coroutine());
                 }
-                else if (_NPCType == NPCType.MerchantNPC)
+                else if (_NPCType == NPCType.MerchantNPC && isOpen)
                 {
-                    _animator.SetTrigger("Talking");
-                    ShopUI.ShopOpen();
+
+                    StartCoroutine(ShopCoroutine());
+                    
                 }
                 else if (_NPCType == NPCType.BlacksmithNPC)
                 {
@@ -87,5 +90,24 @@ public class NPCTest : MonoBehaviour
     {
         MissionUI.FirstMissionOpenText();
         One -= OneText_Delegate;
+    }
+    private IEnumerator ShopCoroutine() 
+    {
+        if (isOpen == true)
+        {
+            _animator.SetTrigger("Talking");
+            ShopUI.ShopOpen();
+        }
+        else 
+        {
+            yield return new WaitForSeconds(1.0f);
+
+
+            isOpen = false;
+            ShopUI.ShopClose();
+        }
+
+        
+        
     }
 }

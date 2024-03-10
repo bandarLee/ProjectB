@@ -15,6 +15,7 @@ public class UI_Shop : MonoBehaviour
 
     public Image[] ItemImages;
 
+
     private void Awake()
     {
         ShopClose();
