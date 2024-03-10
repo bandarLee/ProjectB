@@ -27,10 +27,12 @@ public class UI_Shop : MonoBehaviour
     public void ShopOpen() 
     {
         gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
     }
     public void ShopClose() 
     {
         gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void OnItemButtonClicked(int itemIndex) 
     {
