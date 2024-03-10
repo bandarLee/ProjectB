@@ -70,11 +70,9 @@ public class NPCTest : MonoBehaviour
                     {
                         StartCoroutine(ShopCloseCoroutine());
                     }
-
                 }
                 else if (_NPCType == NPCType.BlacksmithNPC)
                 {
-                    _animator.SetTrigger("Device");
                     EnforceUI.EnforceOpen();
                 }
             }
