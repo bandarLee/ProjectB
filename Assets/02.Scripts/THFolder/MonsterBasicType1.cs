@@ -11,18 +11,41 @@ public class MonsterBasicType1 : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float fireRate = 2f;
+    private float attackRange = 30f;
+    private bool isShooting = false;
+    private float attackGracePeriod = 1.0f;
+    private float lastTimePlayerInRange;
+    GameObject player;
+
 
     private void Start()
     {
-        StartCoroutine(ShootAtPlayerCoroutine());
+        player = GameObject.FindGameObjectWithTag("PlayerHead");
+
 
     }
     void Update()
-    {
+
+    {        
+        firePoint.rotation = transform.rotation;
+
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+        if (distance < attackRange)
+        {
+            lastTimePlayerInRange = Time.time;
+        }
+    
+
+
+        if (Time.time - lastTimePlayerInRange < attackGracePeriod && !isShooting)
+        {
+            StartCoroutine(ShootAtPlayerCoroutine());
+        }
         if (health <= 0)
         {
             Destroy(this.gameObject);
         }
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -42,22 +65,21 @@ public class MonsterBasicType1 : MonoBehaviour
     }
     IEnumerator ShootAtPlayerCoroutine()
     {
-        while (true) 
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("PlayerHead");
-            if (player != null)
-            {
-                Vector3 direction = (player.transform.position - firePoint.position).normalized;
+        isShooting = true;
+        Vector3 direction = (player.transform.position - firePoint.position).normalized;
 
-                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-                Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        GameObject monsterbullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        Rigidbody rb = monsterbullet.GetComponent<Rigidbody>();
 
-                rb.velocity = direction * 20f; 
+        rb.velocity = direction * 20f;
 
-                bullet.transform.rotation = Quaternion.LookRotation(direction);
-            }
+        monsterbullet.transform.rotation = Quaternion.LookRotation(direction);
+                
+            
 
-            yield return new WaitForSeconds(fireRate);
-        }
+        yield return new WaitForSeconds(fireRate);
+        isShooting = false;
+
+
     }
 }
