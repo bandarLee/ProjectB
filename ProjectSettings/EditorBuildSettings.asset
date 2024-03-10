@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/OutdoorsScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
-  - enabled: 0
+  - enabled: 1
     path: Assets/01.Scenes/YeJinScene.unity
     guid: d8f5c78d5c3cc9d45a0aeae8e9d119c9
-  - enabled: 0
+  - enabled: 1
     path: Assets/01.Scenes/TestScene.unity
     guid: 84a75e245a2a5854daa63787ee542c68
   - enabled: 1

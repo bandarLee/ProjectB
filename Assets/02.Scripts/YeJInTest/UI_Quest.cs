@@ -34,9 +34,11 @@ public class UI_Quest : MonoBehaviour
     public void ImageOpen() 
     {
         QuestImage.gameObject.SetActive(true);
+        PlayerMove.instance.isPositionFixed = true;
     }
     public void ImageClose() 
     {
-        QuestImage.gameObject.SetActive(false); 
+        QuestImage.gameObject.SetActive(false);
+        PlayerMove.instance.isPositionFixed = false;
     }
 }

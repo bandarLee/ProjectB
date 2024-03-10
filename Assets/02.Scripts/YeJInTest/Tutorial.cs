@@ -29,4 +29,5 @@ public class Tutorial : MonoBehaviour
         Destroy(TutorialImageUI);
         Destroy(TutorialTextUI);
     }
+
 }

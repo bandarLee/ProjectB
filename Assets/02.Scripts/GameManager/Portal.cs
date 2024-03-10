@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Portal : MonoBehaviour
 {
@@ -18,4 +19,5 @@ public class Portal : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("TestScene");
     }
+
 }
