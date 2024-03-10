@@ -26,7 +26,7 @@ public class UI_Quest : MonoBehaviour
         for (int i = 0; i < talk.Length; i++) 
         {
             QuestTextUI.text += talk[i];
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.08f);
         }
         yield return new WaitForSeconds(1f);
         ImageClose();
