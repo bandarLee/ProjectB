@@ -10,6 +10,7 @@ public class Drone : MonoBehaviour
     public Transform player;
 
     public Transform fireDronPoint;
+    public Transform firstDronPoint;
 
 
     void Update()
@@ -37,6 +38,10 @@ public class Drone : MonoBehaviour
         yield return new WaitForSeconds(fireRate);
 
         isCoolingDown = false;
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            this.gameObject.transform.position = firstDronPoint.position;
+        }
     }
 
 }
