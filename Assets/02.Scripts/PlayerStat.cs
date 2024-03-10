@@ -35,9 +35,23 @@ public class PlayerStat : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void OnCollisionEnter(Collision collision)
+    {
 
+        if (collision.gameObject.CompareTag("MonsterBullet"))
+        {
+
+            playerhealth -= 1;
+
+            if (playerhealth <= 0)
+            {
+            }
+
+            Destroy(collision.gameObject);
+        }
+    }
     void Update()
     {
-        
+
     }
 }

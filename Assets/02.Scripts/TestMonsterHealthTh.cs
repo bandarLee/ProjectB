@@ -10,7 +10,6 @@ public class TestMonsterHealthTh : MonoBehaviour
 
     void Update()
     {
-       Debug.Log(health);
         if( health <= 0)
         {
             Destroy(this.gameObject);

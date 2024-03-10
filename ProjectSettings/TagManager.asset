@@ -10,6 +10,8 @@ TagManager:
   - Wall
   - Environment
   - bullet
+  - MonsterBullet
+  - PlayerHead
   layers:
   - Default
   - TransparentFX
