@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 public class PlayerStat : MonoBehaviour
 {
     private static PlayerStat m_instance;
-    public int playerhealth;
-    public int str;
-    public int dex;
-    public int speed;
+    public float playermaxhealth;
+    public float playerhealth;
+    public float str;
+    public float dronestr;
+    public float speed;
 
     public static PlayerStat instance
     {
@@ -36,7 +37,7 @@ public class PlayerStat : MonoBehaviour
         }
       
             DontDestroyOnLoad(gameObject);
-        
+       
 
     }
     void OnCollisionEnter(Collision collision)
@@ -49,6 +50,7 @@ public class PlayerStat : MonoBehaviour
 
             if (playerhealth <= 0)
             {
+                Debug.LogWarning("플레이어사망");
             }
 
             Destroy(collision.gameObject);
