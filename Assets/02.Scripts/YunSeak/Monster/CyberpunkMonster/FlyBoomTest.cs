@@ -39,12 +39,13 @@ public class FlyBoomTest : MonoBehaviour
     // 충돌 처리
     void OnTriggerEnter(Collider other)
     {
+        Debug.LogWarning(other);
         if (other == playerCollider)
         {
             // 플레이어와 충돌했을 때 처리
 
             // 1. 폭발 이펙트 생성
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            //Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
             //// 2. 플레이어의 체력 감소
             //PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
@@ -54,6 +55,7 @@ public class FlyBoomTest : MonoBehaviour
             //}
 
             // 3. Boom 게임 오브젝트 파괴
+
             Destroy(gameObject);
         }
     }

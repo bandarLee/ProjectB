@@ -24,7 +24,9 @@ public class PlayerMove : MonoBehaviour
     private bool isAttacking = false;
     private bool sideMove = false;
     public  bool isPositionFixed = false;
-    
+    public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
+    public bool IsFlying { get { return isFlying; } set { isFlying = value; } }
+
     public static PlayerMove instance
     {
         get

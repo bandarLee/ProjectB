@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BulletType
+public enum CyberpunkMonsterBulletType
 {
     Health,  // 체력을 줄인다
-    Stamina, // 스피드를 줄인다.
+    GuidedMissile, // 스피드를 줄인다.
     Smoke,   // 연막탄
     Boom,    // 작렬탄
     Frozen     // 얼음
 }
 
-public class MonsterBullet : MonoBehaviour
+public class CyberpunkMonsterBullet : MonoBehaviour
 {
-    public BulletType BulletType;
+    public CyberpunkMonsterBulletType cyberpunkMonsterBulletType;
     private Animator _animator;
     private Rigidbody _rigidbody;
     public float _smoketimeer = 8f;
@@ -29,26 +29,26 @@ public class MonsterBullet : MonoBehaviour
     {
         transform.Translate(Vector3.forward * 1f);
 
-        if(BulletType == BulletType.Health)
+        if(cyberpunkMonsterBulletType == CyberpunkMonsterBulletType.Health)
         {
             Health();
         }
-        else if (BulletType == BulletType.Stamina)
+        else if (cyberpunkMonsterBulletType == CyberpunkMonsterBulletType.GuidedMissile)
         {
-            Stamina();
+            GuidedMissile();
         }
 
-        else if (BulletType == BulletType.Frozen)
+        else if (cyberpunkMonsterBulletType == CyberpunkMonsterBulletType.Frozen)
         {
             Stop();
         }
 
-        else if (BulletType == BulletType.Smoke)
+        else if (cyberpunkMonsterBulletType == CyberpunkMonsterBulletType.Smoke)
         {
             Smoke();
         }
 
-        else if (BulletType == BulletType.Boom)
+        else if (cyberpunkMonsterBulletType == CyberpunkMonsterBulletType.Boom)
         {
             Boom(); 
         }       
@@ -62,10 +62,10 @@ public class MonsterBullet : MonoBehaviour
 
     }
 
-    private void Stamina()
+    private void GuidedMissile()
     {
         //플레이어의 스테미너을를 X값 줄이고
-        Debug.Log("스테미너 총알");
+        Debug.Log("유도탄");
         Destroy(this.gameObject);
     }
 
@@ -93,7 +93,7 @@ public class MonsterBullet : MonoBehaviour
     private void Stop()
     {
         _smoketimeer -= Time.deltaTime;
-        // 플레이어 스피드를 0으로 초기화 했다가
+
         Destroy(this.gameObject);
         if (_smoketimeer <= 0)
         {
