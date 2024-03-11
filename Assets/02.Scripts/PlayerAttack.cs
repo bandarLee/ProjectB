@@ -10,7 +10,10 @@ public class PlayerAttack : MonoBehaviour
     private bool isAttacking = false;
     public GameObject swordweapon;
     public bool doubleAttack = false;
-    
+    public GameObject swordauraprefab;
+    public Transform strongAttackpoint;
+
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -62,8 +65,14 @@ public class PlayerAttack : MonoBehaviour
 
         isAttacking = true;
         playerAnimator.SetTrigger("StrongAttack");
-        yield return new WaitForSeconds(1.15f); 
-       
+        yield return new WaitForSeconds(1.15f);
+        GameObject swordaura = Instantiate(swordauraprefab, strongAttackpoint.position, strongAttackpoint.rotation);
+        Rigidbody rb = swordaura.GetComponent<Rigidbody>();
+        rb.velocity = strongAttackpoint.rotation * Vector3.forward * 20f;
+
+
+        yield return new WaitForSeconds(0.55f);
+
         swordweapon.GetComponentInChildren<BoxCollider>().enabled = false;
 
         isAttacking = false;
