@@ -10,7 +10,6 @@ public class TestMonsterHealthTh : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(health);
         if( health <= 0)
         {
             Destroy(this.gameObject);
@@ -23,6 +22,11 @@ public class TestMonsterHealthTh : MonoBehaviour
             {
                 health--;
                 lastAttackTime = Time.time;
+
+            }
+            if (other.gameObject.tag == "bullet")
+            {
+                health--;
 
             }
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,11 +25,16 @@ public class NPCTest : MonoBehaviour
 
     public GameObject otherObject;
 
+    private bool isOpen = false;
+
+    public GameObject EKeyObject;
     void Start()
     {
         _animator = GetComponent<Animator>();
 
         One += OneText_Delegate;
+
+        EKeyObject.SetActive(false);
     }
     private void DoorIsTrigger() 
     {
@@ -41,6 +47,7 @@ public class NPCTest : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("충돌");
+        EKeyObject.SetActive(true);
     }
     private void OnTriggerStay(Collider other)
     {
@@ -55,12 +62,17 @@ public class NPCTest : MonoBehaviour
                 }
                 else if (_NPCType == NPCType.MerchantNPC)
                 {
-                    _animator.SetTrigger("Talking");
-                    ShopUI.ShopOpen();
+                    if (isOpen == true) 
+                    {
+                        StartCoroutine(ShopCoroutine());
+                    }
+                    else
+                    {
+                        StartCoroutine(ShopCloseCoroutine());
+                    }
                 }
                 else if (_NPCType == NPCType.BlacksmithNPC)
                 {
-                    _animator.SetTrigger("Device");
                     EnforceUI.EnforceOpen();
                 }
             }
@@ -73,6 +85,7 @@ public class NPCTest : MonoBehaviour
             ShopUI.ShopClose();
             EnforceUI.EnforceClose();
         }
+        EKeyObject.SetActive(false);
     }
 
     private IEnumerator Quest_Coroutine()
@@ -88,4 +101,19 @@ public class NPCTest : MonoBehaviour
         MissionUI.FirstMissionOpenText();
         One -= OneText_Delegate;
     }
+
+    private IEnumerator ShopCoroutine() 
+    {
+        _animator.SetTrigger("Talking");
+        ShopUI.ShopOpen();
+        yield return new WaitForSeconds(0.2f);
+        isOpen = false;
+    }
+    private IEnumerator ShopCloseCoroutine() 
+    {
+        ShopUI.ShopClose();
+        yield return new WaitForSeconds(0.2f);
+        isOpen = true;
+    }
 }
+

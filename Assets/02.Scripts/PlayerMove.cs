@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody playerRigidbody;
     private bool isJumping = false;
     private bool isRunning = false;
+    private static PlayerMove m_instance;
 
     public float doublePressTime = 0.3f;
     public float jumpForce = 5f;
@@ -19,6 +22,30 @@ public class PlayerMove : MonoBehaviour
     private bool isFlying = false;
     private bool isAttacking = false;
     private bool sideMove = false;
+    public  bool isPositionFixed = false;
+    
+    public static PlayerMove instance
+    {
+        get
+        {
+            if (m_instance == null)
+            {
+                m_instance = FindObjectOfType<PlayerMove>();
+            }
+
+            return m_instance;
+        }
+    }
+    private void Awake()
+    {
+        if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -28,48 +55,53 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        CheckDoublePress(KeyCode.W);
-        CheckDoublePress(KeyCode.A);
-        CheckDoublePress(KeyCode.S);
-        CheckDoublePress(KeyCode.D);
-        if (!isFlying)
+        if (!isPositionFixed)
         {
-            Rotate();
+            CheckDoublePress(KeyCode.W);
+            CheckDoublePress(KeyCode.A);
+            CheckDoublePress(KeyCode.S);
+            CheckDoublePress(KeyCode.D);
+            if (!isFlying)
+            {
+                Rotate();
+            }
+
+            //SideMove();
         }
-        
-        //SideMove();
     }
 
     
     void FixedUpdate()
     {
-        if (isFlying)
+        if (!isPositionFixed)
         {
-            Rotate();
+            if (isFlying)
+            {
+                Rotate();
+            }
+
+            if (isRunning)
+            {
+                playerAnimator.SetBool("IsRunning", true);
+
+                moveSpeed = 10f;
+            }
+            else
+            {
+                playerAnimator.SetBool("IsRunning", false);
+
+                moveSpeed = 5f;
+            }
+
+            Move();
+            playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move));
+            playerAnimator.SetFloat("MoveSide", playerInput.moveside);
+
+            if (Input.GetKey(KeyCode.Space) && !isJumping)
+            {
+                StartCoroutine(JumpCoroutine());
+            }
         }
-
-        if (isRunning)
-        {
-            playerAnimator.SetBool("IsRunning", true);
-
-            moveSpeed = 10f;
-        }
-        else
-        {
-            playerAnimator.SetBool("IsRunning", false);
-
-            moveSpeed = 5f;
-        }
-
-        Move();
-        playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move));
-        playerAnimator.SetFloat("MoveSide", playerInput.moveside);
-
-        if (Input.GetKey(KeyCode.Space) && !isJumping)
-        {
-            StartCoroutine(JumpCoroutine());
-        }
-
 
     }
 

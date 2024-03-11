@@ -26,7 +26,7 @@ public class UI_Quest : MonoBehaviour
         for (int i = 0; i < talk.Length; i++) 
         {
             QuestTextUI.text += talk[i];
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.08f);
         }
         yield return new WaitForSeconds(1f);
         ImageClose();
@@ -34,9 +34,11 @@ public class UI_Quest : MonoBehaviour
     public void ImageOpen() 
     {
         QuestImage.gameObject.SetActive(true);
+        PlayerMove.instance.isPositionFixed = true;
     }
     public void ImageClose() 
     {
-        QuestImage.gameObject.SetActive(false); 
+        QuestImage.gameObject.SetActive(false);
+        PlayerMove.instance.isPositionFixed = false;
     }
 }

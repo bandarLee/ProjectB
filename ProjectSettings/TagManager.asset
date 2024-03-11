@@ -8,6 +8,10 @@ TagManager:
   - enemy
   - basicweapon
   - Wall
+  - Environment
+  - bullet
+  - MonsterBullet
+  - PlayerHead
   layers:
   - Default
   - TransparentFX
@@ -16,9 +20,9 @@ TagManager:
   - Water
   - UI
   - Text
-  - 
-  - 
-  - 
+  - Minimap
+  - Player
+  - NPC
   - 
   - 
   - 
