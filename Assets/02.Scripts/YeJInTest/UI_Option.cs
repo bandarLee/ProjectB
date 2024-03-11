@@ -23,6 +23,8 @@ public class UI_Option : MonoBehaviour
     }
     public void OnExitButtonClicked() 
     {
-        
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
