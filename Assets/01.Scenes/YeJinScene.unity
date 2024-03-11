@@ -6066,12 +6066,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 62566fb9ff122bd459b182269df50a95, type: 3}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: f71c38788b6e88847ad870fd620bfb16, type: 3}
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 40
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
