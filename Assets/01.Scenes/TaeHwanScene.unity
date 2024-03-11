@@ -452,7 +452,7 @@ Transform:
   m_GameObject: {fileID: 1110996613}
   serializedVersion: 2
   m_LocalRotation: {x: 0.088928856, y: 0, z: 0, w: 0.996038}
-  m_LocalPosition: {x: 14.71, y: 16.744253, z: 77.59}
+  m_LocalPosition: {x: 25.6, y: 16.744253, z: 76.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -746,7 +746,7 @@ Transform:
   m_GameObject: {fileID: 1442375440}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.71, y: 16.744253, z: 77.59}
+  m_LocalPosition: {x: 25.6, y: 16.744253, z: 76.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1114,6 +1114,7 @@ MonoBehaviour:
   str: 1
   dronestr: 0.5
   speed: 1
+  Timer: 5
 --- !u!137 &1969272562
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -5507,10 +5508,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46fb2ebdfd8b3d14ba86f974d370e00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isJumping: 0
   doublePressTime: 0.3
   jumpForce: 5
   moveSpeed: 5
   rotateSpeed: 90
+  isFlying: 0
   isPositionFixed: 0
 --- !u!1 &273848430725485146
 GameObject:
@@ -9892,7 +9895,7 @@ Transform:
   m_GameObject: {fileID: 6802349026819231713}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.21, y: 14.997253, z: 81.59}
+  m_LocalPosition: {x: 25.1, y: 14.997253, z: 80.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

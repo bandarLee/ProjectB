@@ -5,6 +5,12 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     public float speed = 20f;
+    public enum PlayerBulletType
+    {
+        DroneBullet,
+        StrongBullet
+    }
+    public PlayerBulletType playerbullettype = PlayerBulletType.DroneBullet;
 
     void Start()
     {
