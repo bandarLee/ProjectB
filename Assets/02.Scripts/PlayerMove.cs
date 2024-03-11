@@ -6,6 +6,7 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerMove : MonoBehaviour
 {
+
     private Animator playerAnimator;
     private PlayerInput playerInput;
     private Rigidbody playerRigidbody;

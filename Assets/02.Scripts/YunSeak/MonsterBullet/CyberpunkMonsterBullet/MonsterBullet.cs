@@ -8,7 +8,7 @@ public enum BulletType
     Stamina, // 스피드를 줄인다.
     Smoke,   // 연막탄
     Boom,    // 작렬탄
-    Stop     // 얼음
+    Frozen     // 얼음
 }
 
 public class MonsterBullet : MonoBehaviour
@@ -17,6 +17,13 @@ public class MonsterBullet : MonoBehaviour
     private Animator _animator;
     private Rigidbody _rigidbody;
     public float _smoketimeer = 8f;
+    public int Damage = 1;
+
+    public GameObject HealthEffectPrefab;
+    public GameObject StaminaEffectPrefab;
+    public GameObject SmokeEffectPrefab;
+    public GameObject BoomEffectPrefab;
+    public GameObject FrozenEffectPrefab;
 
     private void Update()
     {
@@ -31,7 +38,7 @@ public class MonsterBullet : MonoBehaviour
             Stamina();
         }
 
-        else if (BulletType == BulletType.Stop)
+        else if (BulletType == BulletType.Frozen)
         {
             Stop();
         }
