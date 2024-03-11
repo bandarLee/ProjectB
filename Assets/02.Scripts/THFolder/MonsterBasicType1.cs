@@ -11,9 +11,9 @@ public class MonsterBasicType1 : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float fireRate = 2f;
-    private float attackRange = 30f;
+    private float attackRange = 20f;
     private bool isShooting = false;
-    private float attackGracePeriod = 1.0f;
+    private float attackGracePeriod = 2f;
     private float lastTimePlayerInRange;
     GameObject player;
 
@@ -71,7 +71,7 @@ public class MonsterBasicType1 : MonoBehaviour
         GameObject monsterbullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Rigidbody rb = monsterbullet.GetComponent<Rigidbody>();
 
-        rb.velocity = direction * 20f;
+        rb.velocity = direction * 15f;
 
         monsterbullet.transform.rotation = Quaternion.LookRotation(direction);
                 

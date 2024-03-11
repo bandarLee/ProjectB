@@ -34,6 +34,10 @@ public class PlayerStat : MonoBehaviour
             // 자신을 파괴
             Destroy(gameObject);
         }
+      
+            DontDestroyOnLoad(gameObject);
+        
+
     }
     void OnCollisionEnter(Collision collision)
     {
