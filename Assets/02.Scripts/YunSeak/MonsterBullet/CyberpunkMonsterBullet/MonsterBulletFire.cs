@@ -2,22 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Monster
-{
-    Ground,
-    Fly
-}
-
 public class MonsterBulletFire : MonoBehaviour
 {
-    public GameObject Bullet;
-    public Transform Muzzle;
+    public GameObject[] prefabsToSpawn; // 프리팹 배열
+    public Transform spawnPoint; // 생성 위치
+    public float spawnInterval = 3f; // 생성 간격
 
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        Instantiate(Bullet, Muzzle.transform.position, Muzzle.transform.rotation);
-        //if()
+        StartCoroutine(SpawnObjects());
+    }
+
+    IEnumerator SpawnObjects()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(spawnInterval);
+
+            // 랜덤한 프리팹 선택
+            int randomIndex = Random.Range(0, prefabsToSpawn.Length);
+            GameObject prefabToSpawn = prefabsToSpawn[randomIndex];
+
+            // 프리팹 생성
+            Instantiate(prefabToSpawn, spawnPoint.position, Quaternion.identity);
+        }
     }
 }

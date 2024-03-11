@@ -56,7 +56,7 @@ public class CyberpunkMonsterBullet : MonoBehaviour
 
     private void Health()
     {
-        //플레이어의 체력을 X값 줄이고
+
         Debug.Log("체력총알");
         Destroy(this.gameObject);
 
@@ -101,17 +101,18 @@ public class CyberpunkMonsterBullet : MonoBehaviour
             // 플레이어의 스피드를 기존 값으로 복원
         }
     }
-    private void OnColliderEnter(Collider collider)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(collider.gameObject.tag == "Player" && collider.gameObject.tag == "Monster")
+        if(collision.gameObject.tag == "Player" && collision.gameObject.tag == "Monster")
         {
              // 체력을 줄인다
         }
-        else if(collider.gameObject.tag == "Wall" && collider.gameObject.tag == "Ground")
+        else if(collision.gameObject.tag == "Wall" && collision.gameObject.tag == "Ground")
         {
             Debug.Log("총알 삭제");
             Destroy(this.gameObject);
         }
     }
+
 }
 

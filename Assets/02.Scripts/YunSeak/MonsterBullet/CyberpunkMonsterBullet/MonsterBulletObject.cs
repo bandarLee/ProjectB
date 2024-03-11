@@ -10,7 +10,7 @@ public class MonsterBulletObject : MonoBehaviour
         // ▼ (if 충분히 가까워 지면..)
         Trace, // 날라오는 상태  (N초에 걸쳐서 Slerp로 플레이어에게 날라온다.)
     }
-    public BulletType BulletType;
+    public CyberpunkMonsterBulletType BulletType;
     private BulletState _BulletState = BulletState.Idle;
 
     private Transform _player;
