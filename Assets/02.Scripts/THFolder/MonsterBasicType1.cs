@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterBasicType1 : MonoBehaviour
 {
-    public int health = 3;
+    public float health = 2;
     public float attackDelay = 1.15f;
     private float lastAttackTime = 0f;
 
@@ -52,13 +52,13 @@ public class MonsterBasicType1 : MonoBehaviour
         {
             if (other.gameObject.tag == "basicweapon" && Time.time >= lastAttackTime + attackDelay)
             {
-                health = health - 2;
+                health = health - PlayerStat.instance.str;
                 lastAttackTime = Time.time;
 
             }
             if (other.gameObject.tag == "bullet")
             {
-                health--;
+                health = health - PlayerStat.instance.dronestr;
 
             }
         }

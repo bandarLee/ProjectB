@@ -20,7 +20,6 @@ public class PlayerBullet : MonoBehaviour
         if (other.CompareTag("Environment") || other.CompareTag("enemy"))
         {
             Destroy(gameObject);
-            Debug.Log("총알파괴");
         }
     }
 }

@@ -84,7 +84,7 @@ public class PlayerMove : MonoBehaviour
             {
                 playerAnimator.SetBool("IsRunning", true);
 
-                moveSpeed = 10f;
+                moveSpeed = 8f;
             }
             else
             {
@@ -128,7 +128,7 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 inputDir = new Vector3(hAxis, 0, vAxis).normalized;
         Vector3 moveDir = transform.forward * vAxis + transform.right * hAxis;
-        moveDir = moveDir.normalized * moveSpeed * Time.deltaTime;
+        moveDir = moveDir.normalized * moveSpeed * Time.deltaTime * PlayerStat.instance.speed;
 
 
         playerRigidbody.MovePosition(playerRigidbody.position + moveDir);
