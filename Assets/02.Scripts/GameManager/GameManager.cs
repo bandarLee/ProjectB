@@ -29,7 +29,14 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
-
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            OnOptionButtonClicked();
+        }
+        
+    }
     public void OnOptionButtonClicked() 
     {
         Pause();

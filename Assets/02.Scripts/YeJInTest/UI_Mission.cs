@@ -19,10 +19,12 @@ public class UI_Mission : MonoBehaviour
     public void Open() 
     {
         gameObject.SetActive(true);
+        
     }
     public void Close()
     {
         gameObject.SetActive(false);
+        PlayerMove.instance.isPositionFixed = false;
     }
 
     public void FirstMissionOpenText() 

@@ -7,10 +7,12 @@ public class UI_Option : MonoBehaviour
     public void Open() 
     {
         gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
     }
     public void Close() 
     {
         gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
     }
     private void Awake()
     {
