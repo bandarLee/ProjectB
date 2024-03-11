@@ -232,7 +232,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1244282413015864, guid: 68de85264348ec44eb76a73865f41a0d, type: 3}
       propertyPath: m_Name
-      value: Rrefab
+      value: TampleMonster1
       objectReference: {fileID: 0}
     - target: {fileID: 4772820246286104, guid: 68de85264348ec44eb76a73865f41a0d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -278,7 +278,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 22f604aca555deb498a1e0dd3b4e60ec, type: 2}
+      objectReference: {fileID: 2100000, guid: 9336160f2d84ed546a61ab0d6d1004f5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -677,6 +677,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Monster2_Fly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692433647182448890, guid: 7738100d5f9e98f42a6103403647ec3c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7671156116984423785, guid: 7738100d5f9e98f42a6103403647ec3c,
         type: 3}
@@ -1182,6 +1187,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Monster3_Fly
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610114150046602474, guid: f727684470883814ebc4e18ffe7e3da5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8815046359014895488, guid: f727684470883814ebc4e18ffe7e3da5,
         type: 3}
@@ -4791,6 +4801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordweapon: {fileID: 6912800130122253440}
+  doubleAttack: 0
 --- !u!4 &6274397108221215373
 Transform:
   m_ObjectHideFlags: 0
@@ -4906,6 +4917,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Monster4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8938889673321972551, guid: c6c790cef638890469941c2c3dfc4b98,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
