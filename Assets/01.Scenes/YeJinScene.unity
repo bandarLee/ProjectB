@@ -1941,7 +1941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &187539034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2047,6 +2047,7 @@ MonoBehaviour:
   MissionUI: {fileID: 1367425070}
   ShopUI: {fileID: 1925469071}
   EnforceUI: {fileID: 44852143}
+  QuestUI: {fileID: 0}
   otherObject: {fileID: 494418193}
   EKeyObject: {fileID: 1977588368}
 --- !u!65 &209213542
@@ -2898,7 +2899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292d3001de742874abd3fbbd51f0eddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OptionUI: {fileID: 646407551}
+  MinimapNPC: {fileID: 0}
+  MinimapPortal: {fileID: 0}
 --- !u!4 &446607563
 Transform:
   m_ObjectHideFlags: 0
@@ -4836,6 +4838,7 @@ MonoBehaviour:
   MissionUI: {fileID: 1367425070}
   ShopUI: {fileID: 1925469071}
   EnforceUI: {fileID: 44852143}
+  QuestUI: {fileID: 0}
   otherObject: {fileID: 494418193}
   EKeyObject: {fileID: 2143472378}
 --- !u!65 &1083455355
@@ -6455,6 +6458,7 @@ MonoBehaviour:
   MissionUI: {fileID: 1367425070}
   ShopUI: {fileID: 1925469071}
   EnforceUI: {fileID: 44852143}
+  QuestUI: {fileID: 0}
   otherObject: {fileID: 494418193}
   EKeyObject: {fileID: 1567938647}
 --- !u!65 &1406674456
@@ -9366,6 +9370,8 @@ MonoBehaviour:
   rotateSpeed: 90
   isFlying: 0
   isPositionFixed: 0
+  wsmoke: {fileID: 0}
+  fsmoke: {fileID: 0}
 --- !u!137 &1158598555486595099
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -13788,6 +13794,8 @@ MonoBehaviour:
   dronestr: 5
   speed: 1
   Timer: 5
+  forceAmount: -500
+  volume: {fileID: 0}
 --- !u!1 &7314327558173212349
 GameObject:
   m_ObjectHideFlags: 0

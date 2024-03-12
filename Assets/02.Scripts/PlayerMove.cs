@@ -77,6 +77,7 @@ public class PlayerMove : MonoBehaviour
 
             //SideMove();
         }
+
     }
 
     

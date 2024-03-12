@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.UI;
 
-using UnityEngine.SceneManagement;
 
 public class PlayerStat : MonoBehaviour
 {
@@ -14,22 +16,21 @@ public class PlayerStat : MonoBehaviour
     public float speed;
     public float Timer = 5f;
     private float frozenTimerBox;
-
-
-
+    public float forceAmount = -500f;
+    private Rigidbody playerRigidbody;
+    public Volume volume;
+    private ColorAdjustments colorAdjustments;
+    public Slider healthBarSlider;
 
     public static PlayerStat instance
     {
         get
         {
-            // 만약 싱글톤 변수에 아직 오브젝트가 할당되지 않았다면
             if (m_instance == null)
             {
-                // 씬에서 GameManager 오브젝트를 찾아 할당
                 m_instance = FindObjectOfType<PlayerStat>();
             }
 
-            // 싱글톤 오브젝트를 반환
             return m_instance;
         }
     }
@@ -37,14 +38,24 @@ public class PlayerStat : MonoBehaviour
     {
         if (instance != this)
         {
-            // 자신을 파괴
             Destroy(gameObject);
         }
-      
             DontDestroyOnLoad(gameObject);
+
+            playerRigidbody = GetComponent<Rigidbody>();
        
 
     }
+    private void Start()
+    {
+        if (volume.profile.TryGet<ColorAdjustments>(out colorAdjustments))
+        {
+            colorAdjustments.saturation.Override(0);
+        }
+        InitializeHealthBar();
+
+    }
+
     void OnTriggerEnter(Collider other)
     {
 
@@ -52,7 +63,16 @@ public class PlayerStat : MonoBehaviour
         {
 
             playerhealth -= 1;
+            UpdateHealthBar();
 
+            TakeDamage();
+
+            Vector3 forceDirection = transform.position - other.transform.position;
+            forceDirection.y = 0; 
+            forceDirection.Normalize();
+
+            playerRigidbody.AddForce(forceDirection * forceAmount);
+            StartCoroutine(ChangeTimeScale(1));
             if (playerhealth <= 0)
             {
                 Debug.LogWarning("플레이어사망");
@@ -72,6 +92,8 @@ public class PlayerStat : MonoBehaviour
                 {
                     // 체력 -1 
                     playerhealth -= 1;
+                    UpdateHealthBar();
+
                 }
                 break;
 
@@ -80,7 +102,9 @@ public class PlayerStat : MonoBehaviour
                     
                         Timer -= Time.deltaTime;
                         playerhealth -= 2;
-                        PlayerMove.instance.isJumping = true;
+                    UpdateHealthBar();
+
+                    PlayerMove.instance.isJumping = true;
                     PlayerMove.instance.isFlying = true;
                      
                     // 5초간 점프, 비행 불가
@@ -90,6 +114,8 @@ public class PlayerStat : MonoBehaviour
                 case CyberpunkMonsterBulletType.Smoke:
                 {
                     playerhealth -= 1;
+                    UpdateHealthBar();
+
                 }
                 break;
 
@@ -98,7 +124,9 @@ public class PlayerStat : MonoBehaviour
                    
                         Timer -= Time.deltaTime;
                         playerhealth -= 3;
-                        PlayerMove.instance.isJumping = true;
+                    UpdateHealthBar();
+
+                    PlayerMove.instance.isJumping = true;
                         PlayerMove.instance.isFlying = true;
                         if (Timer <= 0)
                         {
@@ -115,6 +143,8 @@ public class PlayerStat : MonoBehaviour
                     Timer = 3f;
                     Timer -= Time.deltaTime;
                     playerhealth -= 1;
+                    UpdateHealthBar();
+
                     frozenTimerBox = speed;
                     speed = 0;
                     if (Timer <= 0)
@@ -147,6 +177,8 @@ public class PlayerStat : MonoBehaviour
                 {
                     // 체력 -1 
                     playerhealth -= 1;
+                    UpdateHealthBar();
+
                 }
                 break;
                 //작성중
@@ -160,6 +192,40 @@ public class PlayerStat : MonoBehaviour
 
             Destroy(other.gameObject);
         }
+        IEnumerator ChangeTimeScale(float delay)
+        {
+            Time.timeScale = 0.2f;
+
+            yield return new WaitForSecondsRealtime(delay);
+
+            Time.timeScale = 1f;
+        }
+    }
+    public void TakeDamage()
+    {
+        if (colorAdjustments != null)
+        {
+            colorAdjustments.saturation.Override(-100);
+        }
+
+        Invoke("ResetColorAdjustments", 1f);
+    }
+
+    void ResetColorAdjustments()
+    {
+        if (colorAdjustments != null)
+        {
+            colorAdjustments.saturation.Override(0);
+        }
+    }
+    private void InitializeHealthBar()
+    {
+        healthBarSlider.maxValue = playermaxhealth;
+        healthBarSlider.value = playerhealth;
+    }
+    public void UpdateHealthBar()
+    {
+        healthBarSlider.value = playerhealth;
     }
     void Update()
     {

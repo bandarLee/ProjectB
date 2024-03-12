@@ -53,6 +53,7 @@ public class MonsterBasicType1 : MonoBehaviour
         {
             if (other.gameObject.CompareTag("basicweapon") && Time.time >= lastAttackTime + attackDelay)
             {
+                Debug.Log("기본무기맞음");
                 health = health - PlayerStat.instance.str;
                 lastAttackTime = Time.time;
 

@@ -27,7 +27,7 @@ public class Drone : MonoBehaviour
     {
         this.gameObject.transform.position = fireDronPoint.position;
 
-        Quaternion additionalRotation = Quaternion.Euler(0, -10, 0);
+        Quaternion additionalRotation = Quaternion.Euler(0, 0, 0);
         Quaternion finalRotation = firePoint.rotation * additionalRotation;
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, finalRotation);
