@@ -10,6 +10,7 @@ public class Tutorial : MonoBehaviour
 
     public Image TutorialImageUI;
 
+
     private void Start()
     {
         TutorialImageUI.gameObject.SetActive(false);
@@ -20,7 +21,6 @@ public class Tutorial : MonoBehaviour
         TutorialImageUI.gameObject.SetActive(true);
         TutorialTextUI.gameObject.SetActive(true);
         StartCoroutine(TutorialTextCoroutine());
-        
     }
 
     private IEnumerator TutorialTextCoroutine() 

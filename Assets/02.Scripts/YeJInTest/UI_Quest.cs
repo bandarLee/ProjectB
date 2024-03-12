@@ -11,11 +11,10 @@ public class UI_Quest : MonoBehaviour
     public TextMeshProUGUI QuestTextUI;
     string text;
 
-
     private void Start()
     {
         ImageOpen();
-        text = "커맨트 센터로\n이동하세요";
+        text = "커맨트 센터로\n이동하세요.";
         StartCoroutine(Quest(text));
         
     }
