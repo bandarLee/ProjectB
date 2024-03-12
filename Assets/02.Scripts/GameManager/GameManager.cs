@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
 
-    private UI_Option OptionUI;
+    public UI_Option OptionUI;
 
     public GameObject MinimapNPC;
     private Coroutine blinkingCoroutine;

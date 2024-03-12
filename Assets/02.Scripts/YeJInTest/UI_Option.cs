@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class UI_Option : MonoBehaviour
 {
+    public GameObject[] UIs;
     public void Open() 
     {
+        Time.timeScale = 0f;
         gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
     }
     public void Close() 
     {
+        Time.timeScale = 1f;
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
     }
