@@ -12,6 +12,7 @@ public class OpenDoor : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            GameManager.instance.MinimapPortalStop();
             StartCoroutine(LiftDoor());
         }
     }

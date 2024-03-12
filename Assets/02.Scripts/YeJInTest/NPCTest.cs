@@ -20,6 +20,7 @@ public class NPCTest : MonoBehaviour
     public UI_Mission MissionUI;
     public UI_Shop ShopUI;
     public UI_Enforce EnforceUI;
+    public UI_Quest QuestUI;
 
     public event Action One;
 
@@ -28,6 +29,10 @@ public class NPCTest : MonoBehaviour
     private bool isOpen = false;
 
     public GameObject EKeyObject;
+
+    private bool isMinimapPoral = false;
+
+   
     void Start()
     {
         _animator = GetComponent<Animator>();
@@ -59,6 +64,13 @@ public class NPCTest : MonoBehaviour
                 {
                     _animator.SetTrigger("Turn");
                     StartCoroutine(Quest_Coroutine());
+                    GameManager.instance.StopBlinking();
+                    
+                    if (!isMinimapPoral) 
+                    {
+                        GameManager.instance.MinimapPortalStart();
+                        isMinimapPoral = true;
+                    }
                 }
                 else if (_NPCType == NPCType.MerchantNPC)
                 {
@@ -100,6 +112,7 @@ public class NPCTest : MonoBehaviour
     {
         MissionUI.FirstMissionOpenText();
         One -= OneText_Delegate;
+
     }
 
     private IEnumerator ShopCoroutine() 
