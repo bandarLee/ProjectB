@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: DefaultHDMaterial Variant 1
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
-  m_Parent: {fileID: 2100000, guid: 82ee69d63a2e0f54d87938f4b4cf3752, type: 2}
+  m_Parent: {fileID: 2100000, guid: f9ad0fe1c8160e74b98fcc6f5947c2c2, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _DISABLE_SSR_TRANSPARENT
