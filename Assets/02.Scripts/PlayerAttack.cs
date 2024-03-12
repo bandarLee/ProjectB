@@ -19,6 +19,8 @@ public class PlayerAttack : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
+        swordweapon.GetComponentInChildren<BoxCollider>().enabled = false;
+
     }
 
     void Update()
@@ -40,8 +42,8 @@ public class PlayerAttack : MonoBehaviour
 
         isAttacking = true;
         playerAnimator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.15f); // 첫 번째 공격이 진행되는 동안 더블 어택 입력을 기다림
-        if (Input.GetMouseButton(0)) // 더블 어택 입력 감지
+        yield return new WaitForSeconds(0.15f); 
+        if (Input.GetMouseButton(0))
         {
             doubleAttack = true;
         }

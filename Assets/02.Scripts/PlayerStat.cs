@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
-using UnityEngine.SceneManagement;
+
 
 public class PlayerStat : MonoBehaviour
 {
@@ -14,22 +16,21 @@ public class PlayerStat : MonoBehaviour
     public float speed;
     public float Timer = 5f;
     private float frozenTimerBox;
-
-
+    public float forceAmount = -500f;
+    private Rigidbody playerRigidbody;
+    public Volume volume;
+    private ColorAdjustments colorAdjustments;
 
 
     public static PlayerStat instance
     {
         get
         {
-            // 만약 싱글톤 변수에 아직 오브젝트가 할당되지 않았다면
             if (m_instance == null)
             {
-                // 씬에서 GameManager 오브젝트를 찾아 할당
                 m_instance = FindObjectOfType<PlayerStat>();
             }
 
-            // 싱글톤 오브젝트를 반환
             return m_instance;
         }
     }
@@ -37,14 +38,22 @@ public class PlayerStat : MonoBehaviour
     {
         if (instance != this)
         {
-            // 자신을 파괴
             Destroy(gameObject);
         }
-      
             DontDestroyOnLoad(gameObject);
+
+            playerRigidbody = GetComponent<Rigidbody>();
        
 
     }
+    private void Start()
+    {
+        if (volume.profile.TryGet<ColorAdjustments>(out colorAdjustments))
+        {
+            colorAdjustments.saturation.Override(0); // 초기값 설정
+        }
+    }
+  
     void OnTriggerEnter(Collider other)
     {
 
@@ -52,7 +61,14 @@ public class PlayerStat : MonoBehaviour
         {
 
             playerhealth -= 1;
+            TakeDamage();
 
+            Vector3 forceDirection = transform.position - other.transform.position;
+            forceDirection.y = 0; 
+            forceDirection.Normalize();
+
+            playerRigidbody.AddForce(forceDirection * forceAmount);
+            StartCoroutine(ChangeTimeScale(1));
             if (playerhealth <= 0)
             {
                 Debug.LogWarning("플레이어사망");
@@ -159,6 +175,34 @@ public class PlayerStat : MonoBehaviour
             }
 
             Destroy(other.gameObject);
+        }
+        IEnumerator ChangeTimeScale(float delay)
+        {
+            Time.timeScale = 0.2f;
+
+            yield return new WaitForSecondsRealtime(delay);
+
+            Time.timeScale = 1f;
+        }
+    }
+    public void TakeDamage()
+    {
+        // 흑백 효과 적용
+        if (colorAdjustments != null)
+        {
+            colorAdjustments.saturation.Override(-100);
+        }
+
+        // 1초 후 원래 상태로 복원
+        Invoke("ResetColorAdjustments", 1f);
+    }
+
+    void ResetColorAdjustments()
+    {
+        // 흑백 효과 해제
+        if (colorAdjustments != null)
+        {
+            colorAdjustments.saturation.Override(0);
         }
     }
     void Update()
