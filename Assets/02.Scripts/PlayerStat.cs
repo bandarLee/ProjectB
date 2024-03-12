@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
-
+using UnityEngine.UI;
 
 
 public class PlayerStat : MonoBehaviour
@@ -20,7 +20,7 @@ public class PlayerStat : MonoBehaviour
     private Rigidbody playerRigidbody;
     public Volume volume;
     private ColorAdjustments colorAdjustments;
-
+    public Slider healthBarSlider;
 
     public static PlayerStat instance
     {
@@ -50,10 +50,12 @@ public class PlayerStat : MonoBehaviour
     {
         if (volume.profile.TryGet<ColorAdjustments>(out colorAdjustments))
         {
-            colorAdjustments.saturation.Override(0); // 초기값 설정
+            colorAdjustments.saturation.Override(0);
         }
+        InitializeHealthBar();
+
     }
-  
+
     void OnTriggerEnter(Collider other)
     {
 
@@ -61,6 +63,8 @@ public class PlayerStat : MonoBehaviour
         {
 
             playerhealth -= 1;
+            UpdateHealthBar();
+
             TakeDamage();
 
             Vector3 forceDirection = transform.position - other.transform.position;
@@ -88,6 +92,8 @@ public class PlayerStat : MonoBehaviour
                 {
                     // 체력 -1 
                     playerhealth -= 1;
+                    UpdateHealthBar();
+
                 }
                 break;
 
@@ -96,7 +102,9 @@ public class PlayerStat : MonoBehaviour
                     
                         Timer -= Time.deltaTime;
                         playerhealth -= 2;
-                        PlayerMove.instance.isJumping = true;
+                    UpdateHealthBar();
+
+                    PlayerMove.instance.isJumping = true;
                     PlayerMove.instance.isFlying = true;
                      
                     // 5초간 점프, 비행 불가
@@ -106,6 +114,8 @@ public class PlayerStat : MonoBehaviour
                 case CyberpunkMonsterBulletType.Smoke:
                 {
                     playerhealth -= 1;
+                    UpdateHealthBar();
+
                 }
                 break;
 
@@ -114,7 +124,9 @@ public class PlayerStat : MonoBehaviour
                    
                         Timer -= Time.deltaTime;
                         playerhealth -= 3;
-                        PlayerMove.instance.isJumping = true;
+                    UpdateHealthBar();
+
+                    PlayerMove.instance.isJumping = true;
                         PlayerMove.instance.isFlying = true;
                         if (Timer <= 0)
                         {
@@ -131,6 +143,8 @@ public class PlayerStat : MonoBehaviour
                     Timer = 3f;
                     Timer -= Time.deltaTime;
                     playerhealth -= 1;
+                    UpdateHealthBar();
+
                     frozenTimerBox = speed;
                     speed = 0;
                     if (Timer <= 0)
@@ -163,6 +177,8 @@ public class PlayerStat : MonoBehaviour
                 {
                     // 체력 -1 
                     playerhealth -= 1;
+                    UpdateHealthBar();
+
                 }
                 break;
                 //작성중
@@ -187,23 +203,29 @@ public class PlayerStat : MonoBehaviour
     }
     public void TakeDamage()
     {
-        // 흑백 효과 적용
         if (colorAdjustments != null)
         {
             colorAdjustments.saturation.Override(-100);
         }
 
-        // 1초 후 원래 상태로 복원
         Invoke("ResetColorAdjustments", 1f);
     }
 
     void ResetColorAdjustments()
     {
-        // 흑백 효과 해제
         if (colorAdjustments != null)
         {
             colorAdjustments.saturation.Override(0);
         }
+    }
+    private void InitializeHealthBar()
+    {
+        healthBarSlider.maxValue = playermaxhealth;
+        healthBarSlider.value = playerhealth;
+    }
+    public void UpdateHealthBar()
+    {
+        healthBarSlider.value = playerhealth;
     }
     void Update()
     {
