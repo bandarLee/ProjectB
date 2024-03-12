@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MinimapPortalBlinkingEffect()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(10f);
 
         MinimapPortal.SetActive(true);
         while (true)
