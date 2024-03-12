@@ -11,12 +11,12 @@ public class UI_Quest : MonoBehaviour
     public TextMeshProUGUI QuestTextUI;
     string text;
 
+
     private void Start()
     {
         ImageOpen();
         text = "커맨트 센터로\n이동하세요.";
         StartCoroutine(Quest(text));
-        
     }
     private IEnumerator Quest(string talk) 
     {
@@ -29,6 +29,8 @@ public class UI_Quest : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         ImageClose();
+        GameManager.instance.StartBlinking();
+         
     }
     public void ImageOpen() 
     {
@@ -40,4 +42,5 @@ public class UI_Quest : MonoBehaviour
         QuestImage.gameObject.SetActive(false);
         PlayerMove.instance.isPositionFixed = false;
     }
+
 }
