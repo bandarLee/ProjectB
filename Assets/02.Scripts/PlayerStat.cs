@@ -45,10 +45,10 @@ public class PlayerStat : MonoBehaviour
        
 
     }
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
 
-        if (collision.gameObject.CompareTag("MonsterBullet"))
+        if (other.gameObject.CompareTag("MonsterBullet"))
         {
 
             playerhealth -= 1;
@@ -58,11 +58,11 @@ public class PlayerStat : MonoBehaviour
                 Debug.LogWarning("플레이어사망");
             }
 
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
-        else if (collision.gameObject.CompareTag("MonsterElementBullet"))
+        else if (other.gameObject.CompareTag("MonsterElementBullet"))
         {
-            CyberpunkMonsterBullet cyberpunkmonsterBulletScript = collision.gameObject.GetComponent<CyberpunkMonsterBullet>();
+            CyberpunkMonsterBullet cyberpunkmonsterBulletScript = other.gameObject.GetComponent<CyberpunkMonsterBullet>();
             CyberpunkMonsterBulletType cyberpunkMonsterBulletType = cyberpunkmonsterBulletScript.cyberpunkMonsterBulletType;
 
 
@@ -132,12 +132,12 @@ public class PlayerStat : MonoBehaviour
                 Debug.LogWarning("플레이어사망");
             }
 
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
 
-        else if (collision.gameObject.CompareTag("MonsterElementBullet"))
+        else if (other.gameObject.CompareTag("MonsterElementBullet"))
         {
-            TempleMonsterBullet templeMonsterBulletScript = collision.gameObject.GetComponent<TempleMonsterBullet>();
+            TempleMonsterBullet templeMonsterBulletScript = other.gameObject.GetComponent<TempleMonsterBullet>();
             TempleBulletType templeBulletType = templeMonsterBulletScript.templeBulletType;
 
 
@@ -158,7 +158,7 @@ public class PlayerStat : MonoBehaviour
                 Debug.LogWarning("플레이어사망");
             }
 
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
     }
     void Update()

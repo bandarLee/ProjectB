@@ -25,6 +25,10 @@ public class PlayerMove : MonoBehaviour
     private bool sideMove = false;
     public  bool isPositionFixed = false;
 
+    public GameObject wsmoke;
+    public GameObject fsmoke;
+
+
     public static PlayerMove instance
     {
         get
@@ -52,6 +56,10 @@ public class PlayerMove : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
+       
+       
+            fsmoke.SetActive(false);
+        
     }
 
     void Update()
@@ -78,6 +86,10 @@ public class PlayerMove : MonoBehaviour
         {
             if (isFlying)
             {
+                
+                wsmoke.SetActive(false);
+                fsmoke.SetActive(true);
+                
                 Rotate();
             }
 
@@ -192,8 +204,14 @@ public class PlayerMove : MonoBehaviour
 
     isJumping = false;
     isFlying = false;
+
     playerAnimator.SetBool("IsFlying", false);
-}
+    yield return new WaitForSeconds(2f);
+
+    fsmoke.SetActive(false);
+    wsmoke.SetActive(true);
+       
+    }
 
 
 }
