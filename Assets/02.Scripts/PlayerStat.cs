@@ -65,7 +65,6 @@ public class PlayerStat : MonoBehaviour
             CyberpunkMonsterBullet cyberpunkmonsterBulletScript = collision.gameObject.GetComponent<CyberpunkMonsterBullet>();
             CyberpunkMonsterBulletType cyberpunkMonsterBulletType = cyberpunkmonsterBulletScript.cyberpunkMonsterBulletType;
 
-            PlayerMove playerMove = collision.gameObject.GetComponent<PlayerMove>();
 
             switch (cyberpunkMonsterBulletType)
             {
@@ -78,20 +77,13 @@ public class PlayerStat : MonoBehaviour
 
                 case CyberpunkMonsterBulletType.GuidedMissile:
                 {
-                    if(playerMove != null)
-                    {
+                    
                         Timer -= Time.deltaTime;
                         playerhealth -= 2;
-                        playerMove.IsJumping = true;
-                        playerMove.IsFlying = true;
-                        if (Timer <= 0)
-                        {
-                            playerMove.IsJumping = false;
-                            playerMove.IsFlying = false;
-                        }
-                    }
+                        PlayerMove.instance.isJumping = true;
+                    PlayerMove.instance.isFlying = true;
+                     
                     // 5초간 점프, 비행 불가
-                    Timer = 5f;
                 }
                 break;
 
@@ -103,18 +95,17 @@ public class PlayerStat : MonoBehaviour
 
                 case CyberpunkMonsterBulletType.Boom:
                 {
-                    if (playerMove != null)
-                    {
+                   
                         Timer -= Time.deltaTime;
                         playerhealth -= 3;
-                        playerMove.IsJumping = true;
-                        playerMove.IsFlying = true;
+                        PlayerMove.instance.isJumping = true;
+                        PlayerMove.instance.isFlying = true;
                         if (Timer <= 0)
                         {
-                            playerMove.IsJumping = false;
-                            playerMove.IsFlying = false;
-                        }
+                        PlayerMove.instance.isJumping = false;
+                        PlayerMove.instance.isFlying = false;
                     }
+                    
                     Timer = 5f;
                 }
                 break;
@@ -149,7 +140,6 @@ public class PlayerStat : MonoBehaviour
             TempleMonsterBullet templeMonsterBulletScript = collision.gameObject.GetComponent<TempleMonsterBullet>();
             TempleBulletType templeBulletType = templeMonsterBulletScript.templeBulletType;
 
-            PlayerMove playerMove = collision.gameObject.GetComponent<PlayerMove>();
 
             switch(templeBulletType)
             {

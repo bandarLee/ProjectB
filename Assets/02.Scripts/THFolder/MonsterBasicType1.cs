@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlayerBullet;
 
 public class MonsterBasicType1 : MonoBehaviour
 {
@@ -50,15 +51,25 @@ public class MonsterBasicType1 : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         {
-            if (other.gameObject.tag == "basicweapon" && Time.time >= lastAttackTime + attackDelay)
+            if (other.gameObject.CompareTag("basicweapon") && Time.time >= lastAttackTime + attackDelay)
             {
                 health = health - PlayerStat.instance.str;
                 lastAttackTime = Time.time;
 
             }
-            if (other.gameObject.tag == "bullet")
+            if (other.gameObject.CompareTag("bullet")) 
             {
-                health = health - PlayerStat.instance.dronestr;
+                PlayerBullet playerbullet = other.gameObject.GetComponent<PlayerBullet>();
+                if(playerbullet.playerbullettype == PlayerBulletType.DroneBullet)
+                {
+                    health = health - PlayerStat.instance.dronestr;
+
+                }
+                else if (playerbullet.playerbullettype == PlayerBulletType.StrongBullet)
+                {
+                    health = health - (PlayerStat.instance.dronestr*3);
+
+                }
 
             }
         }

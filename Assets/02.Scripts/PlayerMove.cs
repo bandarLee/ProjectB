@@ -10,7 +10,7 @@ public class PlayerMove : MonoBehaviour
     private Animator playerAnimator;
     private PlayerInput playerInput;
     private Rigidbody playerRigidbody;
-    private bool isJumping = false;
+    public bool isJumping = false;
     private bool isRunning = false;
     private static PlayerMove m_instance;
 
@@ -20,12 +20,10 @@ public class PlayerMove : MonoBehaviour
     public float rotateSpeed = 90f;
     private float lastKeyPressTime = -1f;
     private KeyCode lastKeyCode = KeyCode.None;
-    private bool isFlying = false;
+    public bool isFlying = false;
     private bool isAttacking = false;
     private bool sideMove = false;
     public  bool isPositionFixed = false;
-    public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
-    public bool IsFlying { get { return isFlying; } set { isFlying = value; } }
 
     public static PlayerMove instance
     {

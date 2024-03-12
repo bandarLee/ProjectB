@@ -5,9 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum NPCType_e
+public enum NPCType
 {
-    QuestNPC,
+    MissionNPC,
     MerchantNPC,
     BlacksmithNPC,
 }
@@ -55,7 +55,7 @@ public class NPCTest : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E))
             {
-                if (_NPCType == NPCType.QuestNPC)
+                if (_NPCType == NPCType.MissionNPC)
                 {
                     _animator.SetTrigger("Turn");
                     StartCoroutine(Quest_Coroutine());

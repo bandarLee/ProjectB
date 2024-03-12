@@ -19,10 +19,12 @@ public class UI_Mission : MonoBehaviour
     public void Open() 
     {
         gameObject.SetActive(true);
+        PlayerMove.instance.isPositionFixed = true;
     }
     public void Close()
     {
         gameObject.SetActive(false);
+        PlayerMove.instance.isPositionFixed = false;
     }
 
     public void FirstMissionOpenText() 
@@ -37,6 +39,7 @@ public class UI_Mission : MonoBehaviour
         for (int i = 0; i < talk.Length; i++) 
         {
             MissionTextUI.text += talk[i];
+            PlayerMove.instance.isPositionFixed = true;
             yield return new WaitForSeconds(0.1f);
         }
     }

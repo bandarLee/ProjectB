@@ -12,6 +12,8 @@ TagManager:
   - bullet
   - MonsterBullet
   - PlayerHead
+  - MonsterElementBullet
+  - Test
   layers:
   - Default
   - TransparentFX
