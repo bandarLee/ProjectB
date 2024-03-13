@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static PlayerBullet;
+using UnityEngine.UI;
+using TMPro;
 
 public class MonsterBasicType1 : MonoBehaviour
 {
@@ -17,11 +19,15 @@ public class MonsterBasicType1 : MonoBehaviour
     private float attackGracePeriod = 2f;
     private float lastTimePlayerInRange;
     GameObject player;
-
+    public Slider healthBarSlider;
+    public GameObject healthBarUI;
+    public TextMeshProUGUI damage;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("PlayerHead");
+        healthBarUI.SetActive(false);
+        InitializeHealthBar();
 
 
     }
@@ -46,29 +52,43 @@ public class MonsterBasicType1 : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
+        UpdateHealthBar();
     }
     private void OnTriggerEnter(Collider other)
     {
         {
+            float damageAmount = 0;
+
             if (other.gameObject.CompareTag("basicweapon") && Time.time >= lastAttackTime + attackDelay)
             {
+                healthBarUI.SetActive(true);
                 Debug.Log("기본무기맞음");
-                health = health - PlayerStat.instance.str;
-                lastAttackTime = Time.time;
+                damageAmount = PlayerStat.instance.str;
 
+                health -= damageAmount;
+                StartCoroutine(ShowDamageCoroutine(damageAmount));
+
+                lastAttackTime = Time.time;
             }
             if (other.gameObject.CompareTag("bullet")) 
             {
+                healthBarUI.SetActive(true);
                 PlayerBullet playerbullet = other.gameObject.GetComponent<PlayerBullet>();
                 if(playerbullet.playerbullettype == PlayerBulletType.DroneBullet)
                 {
-                    health = health - PlayerStat.instance.dronestr;
+                    damageAmount = PlayerStat.instance.dronestr;
+                    health -= damageAmount;
+                    StartCoroutine(ShowDamageCoroutine(damageAmount));
+
 
                 }
                 else if (playerbullet.playerbullettype == PlayerBulletType.StrongBullet)
                 {
-                    health = health - (PlayerStat.instance.dronestr*3);
+                    damageAmount = PlayerStat.instance.dronestr * 3;
+                    health -= damageAmount;
+                    StartCoroutine(ShowDamageCoroutine(damageAmount));
+
+                    damage.text = $"{PlayerStat.instance.dronestr*3}";
 
                 }
 
@@ -93,5 +113,45 @@ public class MonsterBasicType1 : MonoBehaviour
         isShooting = false;
 
 
+    }
+    void InitializeHealthBar()
+    {
+        healthBarSlider.maxValue = health;
+        healthBarSlider.value = health;
+    }
+    void UpdateHealthBar()
+    {
+        healthBarSlider.value = health;
+    }
+    IEnumerator ShowDamageCoroutine(float damageAmount)
+    {
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+        if (distance < 30)
+        {
+            damage.fontSize = 36; // 기본 크기
+        }
+        
+        else if (distance < 40)
+        {
+            damage.fontSize = 45; 
+        }
+        else if (distance < 50)
+        {
+            damage.fontSize = 54; 
+        }
+        else if (distance < 60)
+        {
+            damage.fontSize = 63;
+        }
+        else
+        {
+            damage.fontSize = 72; 
+        }
+        damage.text = $"{damageAmount}";
+        damage.gameObject.SetActive(true); 
+
+        yield return new WaitForSeconds(1);
+
+        damage.gameObject.SetActive(false);
     }
 }
