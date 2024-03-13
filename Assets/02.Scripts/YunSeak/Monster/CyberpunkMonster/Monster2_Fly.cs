@@ -38,6 +38,7 @@ public class Monster2_Fly : MonoBehaviour
     private const float IDLE_DURATION = 3f;
     private float _idleTimer;
     public Transform PatrolTarget;
+    [SerializeField] ParticleSystem BoomEffect = null;
 
 
     private Monster2_FlyState _monster2_FlyState = Monster2_FlyState.Idle;
@@ -197,7 +198,7 @@ public class Monster2_Fly : MonoBehaviour
         HealthSliderUI.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(2f);
-
+        BoomEffect.Play();
         // 폭발 이펙트 추가 
         Destroy(gameObject);
 
