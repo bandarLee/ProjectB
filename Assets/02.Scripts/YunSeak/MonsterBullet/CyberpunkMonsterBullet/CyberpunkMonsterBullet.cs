@@ -13,142 +13,112 @@ public enum CyberpunkMonsterBulletType
 public class CyberpunkMonsterBullet : MonoBehaviour
 {
     public CyberpunkMonsterBulletType cyberpunkMonsterBulletType;
-    private Rigidbody _rigidbody;
     public float _smoketimeer = 8f;
     public int Damage = 1;
     public float rotationSpeed = 50f;
-    public GameObject explosionPrefab;  // 폭발 이펙트 프리팹
-    [SerializeField] ParticleSystem BoomEffect = null;
+    public float MainFrozenTimer = 3f;
+    public float FrozenTimer = 3f;
+
+    [SerializeField] ParticleSystem HealthEffect;
+    [SerializeField] ParticleSystem SmokeEffect;
+    [SerializeField] ParticleSystem BoomEffect;
+    [SerializeField] ParticleSystem FrozenEffect;
 
     public GameObject HealthEffectPrefab;
-    public GameObject GuidedMissileEffectPrefab;
     public GameObject SmokeEffectPrefab;
     public GameObject BoomEffectPrefab;
     public GameObject FrozenEffectPrefab;
+
+    public float healthDamageToPlayer = 1f;
+    public float smokeDamageToPlayer = 1f;
+    public float boomDamageToPlayer = 3f;
+    public float frozenDamageToPlayer = 1f;
+
+    private float PlayerSpeedBox;
 
     private void OnTriggerEnter(Collider other)
     {
         PlayerStat playerStat = other.GetComponent<PlayerStat>();
 
-
-        // Player 또는 Monster에 충돌했을 때
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Monster"))
+        if (other.CompareTag("Player"))
         {
-            if (playerStat.playerhealth >= 0)
+            // Player에 충돌했을 때
+            switch (cyberpunkMonsterBulletType)
             {
-                Destroy();
-                Debug.Log($"플레이어 피격");
-                //playerStat.playerhealth -= ;
+                case CyberpunkMonsterBulletType.Health:
+
+                    HealthDestroy();
+                    Debug.Log($"플레이어{healthDamageToPlayer}피격");
+                    playerStat.playerhealth -= healthDamageToPlayer;
+                    break;
+
+                case CyberpunkMonsterBulletType.Smoke:
+
+                    SmokeDestroy();
+                    Debug.Log($"플레이어{smokeDamageToPlayer}피격");
+                    playerStat.playerhealth -= smokeDamageToPlayer;
+                    break;
+
+                case CyberpunkMonsterBulletType.Boom:
+
+                    BoomDestroy();
+                    Debug.Log($"플레이어{boomDamageToPlayer}피격");
+                    playerStat.playerhealth -= boomDamageToPlayer;
+                    break;
+
+                case CyberpunkMonsterBulletType.Frozen:
+                    FrozenDestroy();
+                    FrozenTimer -= Time.deltaTime;
+                    Debug.Log($"플레이어{frozenDamageToPlayer}피격");
+                    playerStat.playerhealth -= frozenDamageToPlayer;
+                    PlayerSpeedBox = playerStat.speed ;
+                    playerStat.speed = 0f;
+                    if(FrozenTimer <= 0f)
+                    {
+                        playerStat.speed = PlayerSpeedBox;
+                        FrozenTimer = MainFrozenTimer;
+                    }                                       
+                    break;
+                   
             }
         }
-        // Wall 또는 Ground에 충돌했을 때
-        else if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Ground"))
+        // Player 또는 Monster에 충돌했을 때
+        else if (other.gameObject.CompareTag("Monster") || other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Ground"))
         {
-            Destroy();
+                Debug.Log($"빗나감");           
+                Destroy();
         }
     }
 
-
-    void CreateExplosionEffect()
-    {
-        // 타입에 따른 폭발 이펙트 생성
-        GameObject explosionEffectPrefab = GetExplosionEffectPrefab();
-        if (explosionEffectPrefab != null)
-        {
-            Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
-        }
-    }
-
-    public GameObject GetExplosionEffectPrefab()
-    {
-        switch (cyberpunkMonsterBulletType)
-        {
-            case CyberpunkMonsterBulletType.Health:
-                return HealthEffectPrefab;
-
-            case CyberpunkMonsterBulletType.Smoke:
-                return SmokeEffectPrefab;
-
-            case CyberpunkMonsterBulletType.Boom:
-                return BoomEffectPrefab;
-
-            case CyberpunkMonsterBulletType.Frozen:
-                return FrozenEffectPrefab;
-
-            default:
-                return null;
-        }
-    }
-
-    private void Update()
-    {
-        transform.Translate(Vector3.forward * 1f);
-
-        if (cyberpunkMonsterBulletType == CyberpunkMonsterBulletType.Health)
-        {
-            Health();
-        }
-
-        else if (cyberpunkMonsterBulletType == CyberpunkMonsterBulletType.Frozen)
-        {
-            Frozen();
-        }
-
-        else if (cyberpunkMonsterBulletType == CyberpunkMonsterBulletType.Smoke)
-        {
-            Smoke();
-        }
-
-        else if (cyberpunkMonsterBulletType == CyberpunkMonsterBulletType.Boom)
-        {
-            Boom();
-        }
-    }
-
-    private void Health()
-    {
-        Debug.Log("체력총알");
-
-    }
-
-    private void Smoke()
-    {
-        _smoketimeer -= Time.deltaTime;
-        if (_smoketimeer <= 0)
-        {
-            Debug.Log("연막탄");
-
-        }
-    }
-    private void Boom()
-    {
-        _smoketimeer -= Time.deltaTime;
-        if (_smoketimeer <= 0)
-        {
-            Debug.Log("작렬탄");
-            Destroy();
-        }
-    }
-
-    private void Frozen()
-    {
-        _smoketimeer -= Time.deltaTime;
-
-        Destroy(this.gameObject);
-        if (_smoketimeer <= 0)
-        {
-            Debug.Log("얼음");
-            Destroy();
-        }
-    }
-
-    public void Destroy()
+    private void Destroy()
     {
         // 1. 폭발 이펙트 생성
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        // 2. BoomEffect 재생
+        Instantiate(HealthEffectPrefab, transform.position, Quaternion.identity);
+        
+        Destroy(this.gameObject);
+    }
+    private void HealthDestroy()
+    {
+        Instantiate(HealthEffectPrefab, transform.position, Quaternion.identity);
+        HealthEffect.Play();
+        Destroy(this.gameObject);
+    }
+    private void SmokeDestroy()
+    {
+        Instantiate(SmokeEffectPrefab, transform.position, Quaternion.identity);
+        SmokeEffect.Play();
+        Destroy(this.gameObject);
+    }
+    private void BoomDestroy()
+    {
+        Instantiate(BoomEffectPrefab, transform.position, Quaternion.identity);
         BoomEffect.Play();
-
+        Destroy(this.gameObject);
+    }
+    private void FrozenDestroy()
+    {
+        Instantiate(FrozenEffectPrefab, transform.position, Quaternion.identity);
+        FrozenEffect.Play();
         Destroy(this.gameObject);
     }
 }

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4220891686842234569}
   - component: {fileID: 279468813551341203}
   - component: {fileID: 2001816076977363858}
-  - component: {fileID: 3682031688436470668}
   m_Layer: 0
   m_Name: BulletBoom
   m_TagString: MonsterBullet
@@ -61,31 +60,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 10
---- !u!114 &3682031688436470668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1636224261483468816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 979b0be467b0877468def437f6bfa925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackDistance: 2
-  cyberpunkMonsterBulletType: 3
-  _navMeshAgent: {fileID: 0}
-  _smoketimeer: 8
-  Damage: 1
-  rotationSpeed: 50
-  explosionPrefab: {fileID: 0}
-  BoomEffect: {fileID: 0}
-  HealthEffectPrefab: {fileID: 0}
-  GuidedMissileEffectPrefab: {fileID: 0}
-  SmokeEffectPrefab: {fileID: 0}
-  BoomEffectPrefab: {fileID: 0}
-  FrozenEffectPrefab: {fileID: 0}
 --- !u!1 &2916136484531491492
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +73,7 @@ GameObject:
   - component: {fileID: 129718690503610490}
   - component: {fileID: 5614080398896904313}
   - component: {fileID: 3117569505288839264}
+  - component: {fileID: 8599761751274274054}
   m_Layer: 0
   m_Name: Bullet_Boom
   m_TagString: Untagged
@@ -221,3 +196,33 @@ CapsuleCollider:
   m_Height: 2.0000005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8599761751274274054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916136484531491492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 979b0be467b0877468def437f6bfa925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cyberpunkMonsterBulletType: 2
+  _smoketimeer: 8
+  Damage: 1
+  rotationSpeed: 50
+  MainFrozenTimer: 3
+  FrozenTimer: 3
+  HealthEffect: {fileID: 0}
+  SmokeEffect: {fileID: 0}
+  BoomEffect: {fileID: 19800002, guid: 3364c97de68d3a147af572d1c71c6455, type: 3}
+  FrozenEffect: {fileID: 0}
+  HealthEffectPrefab: {fileID: 0}
+  SmokeEffectPrefab: {fileID: 0}
+  BoomEffectPrefab: {fileID: 100008, guid: 06736895ea0a4ff408d25e6684dce797, type: 3}
+  FrozenEffectPrefab: {fileID: 0}
+  healthDamageToPlayer: 1
+  smokeDamageToPlayer: 1
+  boomDamageToPlayer: 3
+  frozenDamageToPlayer: 1

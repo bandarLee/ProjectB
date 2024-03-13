@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1499888143859070703
+--- !u!1 &5568219542001375852
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5120709232813376402}
-  - component: {fileID: 3622021765860516978}
-  - component: {fileID: 6251560309868651171}
-  - component: {fileID: 6592261419811434300}
+  - component: {fileID: 8534072020650024604}
+  - component: {fileID: 8185796360844954638}
+  - component: {fileID: 959984055562479201}
+  - component: {fileID: 3648600842012126276}
   m_Layer: 0
   m_Name: Monster3_Fly
   m_TagString: enemy
@@ -19,37 +19,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5120709232813376402
+--- !u!4 &8534072020650024604
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499888143859070703}
+  m_GameObject: {fileID: 5568219542001375852}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.17, y: 2.239, z: -4.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 145193649991085353}
+  - {fileID: 8597510276969696361}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3622021765860516978
+--- !u!33 &8185796360844954638
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499888143859070703}
+  m_GameObject: {fileID: 5568219542001375852}
   m_Mesh: {fileID: 0}
---- !u!23 &6251560309868651171
+--- !u!23 &959984055562479201
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499888143859070703}
+  m_GameObject: {fileID: 5568219542001375852}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -85,13 +85,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!195 &6592261419811434300
+--- !u!195 &3648600842012126276
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499888143859070703}
+  m_GameObject: {fileID: 5568219542001375852}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
@@ -107,7 +107,7 @@ NavMeshAgent:
   m_BaseOffset: 2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!1 &4961957838102543263
+--- !u!1 &7096008916226199683
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,12 +115,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 145193649991085353}
-  - component: {fileID: 6698399235421498207}
-  - component: {fileID: 8300775544784374026}
-  - component: {fileID: 2047382334177055395}
-  - component: {fileID: 5575677365690212026}
-  - component: {fileID: 1046564163883840118}
+  - component: {fileID: 8597510276969696361}
+  - component: {fileID: 3022020444222831840}
+  - component: {fileID: 6740270118688395242}
+  - component: {fileID: 665953144749450400}
+  - component: {fileID: 6422577692959716851}
+  - component: {fileID: 5614761022612058911}
   m_Layer: 0
   m_Name: Spikeball_Big
   m_TagString: Monster
@@ -128,36 +128,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &145193649991085353
+--- !u!4 &8597510276969696361
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4961957838102543263}
+  m_GameObject: {fileID: 7096008916226199683}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5120709232813376402}
+  m_Father: {fileID: 8534072020650024604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6698399235421498207
+--- !u!33 &3022020444222831840
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4961957838102543263}
+  m_GameObject: {fileID: 7096008916226199683}
   m_Mesh: {fileID: 4300000, guid: c44363b453ebf2c4080d46d933cb73eb, type: 3}
---- !u!23 &8300775544784374026
+--- !u!23 &6740270118688395242
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4961957838102543263}
+  m_GameObject: {fileID: 7096008916226199683}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -194,33 +194,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2047382334177055395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4961957838102543263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a575a38142a49544491c59cf279cb8c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monster3_FlyMaxHealth: 0
-  monster3_FlyHealth: 1
-  rotationSpeed: 500
-  speed: 10
-  AttackDistance: 3
-  explosionPrefab: {fileID: 100002, guid: 3b1513bcb86426b4795879be6a128ed7, type: 3}
-  damageToPlayer: 2
-  BoomEffect: {fileID: 19800002, guid: d39ab699aa314a147969fd483aa55205, type: 3}
---- !u!54 &5575677365690212026
+--- !u!54 &665953144749450400
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4961957838102543263}
+  m_GameObject: {fileID: 7096008916226199683}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -241,13 +221,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &1046564163883840118
+--- !u!136 &6422577692959716851
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4961957838102543263}
+  m_GameObject: {fileID: 7096008916226199683}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -264,3 +244,23 @@ CapsuleCollider:
   m_Height: 4.0934668
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5614761022612058911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7096008916226199683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a575a38142a49544491c59cf279cb8c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster3_FlyMaxHealth: 1
+  monster3_FlyHealth: 1
+  rotationSpeed: 500
+  speed: 5
+  AttackDistance: 1
+  explosionPrefab: {fileID: 100002, guid: cfcd690db7ce26548af4f6d7bb536b02, type: 3}
+  damageToPlayer: 2
+  BoomEffect: {fileID: 19800000, guid: 053ffbc5e89111349bb060a39ffa0f37, type: 3}
