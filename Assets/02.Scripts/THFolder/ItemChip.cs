@@ -31,6 +31,8 @@ public class ItemChip : MonoBehaviour
                     PlayerStat.instance.playerhealth = PlayerStat.instance.playermaxhealth;
 
                 }
+                PlayerStat.instance.UpdateHealthBar();
+
                 Destroy(this.gameObject);
 
             }

@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static PlayerBullet;
 using UnityEngine.UI;
 using TMPro;
 
 public class MonsterBasicType1 : MonoBehaviour
 {
     public float health = 2;
-    public float attackDelay = 1.15f;
+    public float attackDelay = 0.6f;
     private float lastAttackTime = 0f;
 
     public GameObject bulletPrefab;
@@ -74,7 +73,7 @@ public class MonsterBasicType1 : MonoBehaviour
             {
                 healthBarUI.SetActive(true);
                 PlayerBullet playerbullet = other.gameObject.GetComponent<PlayerBullet>();
-                if(playerbullet.playerbullettype == PlayerBulletType.DroneBullet)
+                if(playerbullet.playerbullettype == PlayerBullet.PlayerBulletType.DroneBullet)
                 {
                     damageAmount = PlayerStat.instance.dronestr;
                     health -= damageAmount;
@@ -82,13 +81,12 @@ public class MonsterBasicType1 : MonoBehaviour
 
 
                 }
-                else if (playerbullet.playerbullettype == PlayerBulletType.StrongBullet)
+                else if (playerbullet.playerbullettype == PlayerBullet.PlayerBulletType.StrongBullet)
                 {
                     damageAmount = PlayerStat.instance.dronestr * 3;
                     health -= damageAmount;
                     StartCoroutine(ShowDamageCoroutine(damageAmount));
 
-                    damage.text = $"{PlayerStat.instance.dronestr*3}";
 
                 }
 
