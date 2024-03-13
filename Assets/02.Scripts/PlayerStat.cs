@@ -97,7 +97,7 @@ public class PlayerStat : MonoBehaviour
                 }
                 break;
 
-                case CyberpunkMonsterBulletType.GuidedMissile:
+              /*  case CyberpunkMonsterBulletType.GuidedMissile:
                 {
                     
                         Timer -= Time.deltaTime;
@@ -109,7 +109,7 @@ public class PlayerStat : MonoBehaviour
                      
                     // 5초간 점프, 비행 불가
                 }
-                break;
+                break;*/
 
                 case CyberpunkMonsterBulletType.Smoke:
                 {

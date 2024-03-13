@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletGuidedMissileMove : MonoBehaviour
+public class TeampleMonster4 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
