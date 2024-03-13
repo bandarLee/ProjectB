@@ -5,21 +5,21 @@ using UnityEngine.AI;
 
 public class Monster3_Fly : MonoBehaviour
 {
+    public float monster3_FlyMaxHealth;
+    public float monster3_FlyHealth = 1;
     public float rotationSpeed = 500f;
     public float speed = 5f;
-    private Transform _target;
     private Transform player;
     private NavMeshAgent _navMeshAgent;
-    public float AttackDistance = 2f;  // 공격 범위 
+    public float AttackDistance;  // 공격 범위 
     public GameObject explosionPrefab;  // 폭발 이펙트 프리팹
     public int damageToPlayer = 2;      // 플레이어에게 입힐 데미지
-    private Collider playerCollider;     // 플레이어 콜라이더
+    [SerializeField] ParticleSystem BoomEffect = null;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        playerCollider = player.GetComponent<Collider>();
     }
 
     void Update()
@@ -33,30 +33,38 @@ public class Monster3_Fly : MonoBehaviour
 
         // 내비게이션 설정
         _navMeshAgent.stoppingDistance = AttackDistance;
-        _navMeshAgent.destination = _target.position;
+        _navMeshAgent.destination = player.position;
     }
 
     // 충돌 처리
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.LogWarning(other);
-        if (other == playerCollider)
+        if (other.CompareTag("Player"))
         {
-            // 플레이어와 충돌했을 때 처리
-
-            // 1. 폭발 이펙트 생성
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-
-            //// 2. 플레이어의 체력 감소
-            //PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            //if (playerHealth != null)
-            //{
-            //    playerHealth.TakeDamage(damageToPlayer);
-            //}
-
-            // 3. Boom 게임 오브젝트 파괴
-
-            Destroy(this.gameObject);
+            Debug.Log("충돌");
+            PlayerStat playerStat = other.GetComponent<PlayerStat>();
+            // playerStat의 playerhealth 값을 가져와서 비교합니다.
+            if (playerStat.playerhealth >= 0)
+            {
+                DestroyMonster();
+                Debug.Log($"플레이어{damageToPlayer}피격");
+                playerStat.playerhealth -= damageToPlayer;
+            }
+            else if (monster3_FlyHealth <= 0)
+            {
+                Debug.Log("Monster3_Fly 피격");
+                DestroyMonster();
+            }
         }
+    }
+
+    private void DestroyMonster()
+    {
+        // 1. 폭발 이펙트 생성
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        // 2. BoomEffect 재생
+        BoomEffect.Play();
+        // 3. Monster3_Fly 게임 오브젝트 파괴
+        Destroy(gameObject);
     }
 }

@@ -11,7 +11,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 2585152169068619628}
-    m_Position: {x: 380, y: 150, z: 0}
+    m_Position: {x: 380, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3474193919175469399}
     m_Position: {x: 380, y: -190, z: 0}
@@ -26,14 +26,15 @@ AnimatorStateMachine:
     m_StateMachine: {fileID: 4706411350059206798}
     m_Position: {x: 380, y: 0, z: 0}
   m_AnyStateTransitions: []
-  m_EntryTransitions: []
+  m_EntryTransitions:
+  - {fileID: 6713198213144029638}
   m_StateMachineTransitions:
   - first: {fileID: 4706411350059206798}
     second:
     - {fileID: 7881207785697080554}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_EntryPosition: {x: 60, y: 140, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 2585152169068619628}
@@ -267,7 +268,13 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: TeampleMonster1_Bow
   serializedVersion: 5
-  m_AnimatorParameters: []
+  m_AnimatorParameters:
+  - m_Name: Blend
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -532,6 +539,20 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1109 &6713198213144029638
+AnimatorTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -3474193919175469399}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 1
 --- !u!1109 &7881207785697080554
 AnimatorTransition:
   m_ObjectHideFlags: 1

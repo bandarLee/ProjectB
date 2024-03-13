@@ -15,9 +15,9 @@ public enum Monster2_FlyState
 }
 public class Monster2_Fly : MonoBehaviour
 {
-    [Range(0, 100)]
+    [Range(0, 3)]
     public int Health;
-    public int MaxHealth = 100;
+    public int MaxHealth = 3;
     public Slider HealthSliderUI;
 
     private NavMeshAgent _navMeshAgent;
@@ -39,6 +39,8 @@ public class Monster2_Fly : MonoBehaviour
     private float _idleTimer;
     public Transform PatrolTarget;
     [SerializeField] ParticleSystem BoomEffect = null;
+
+
 
 
     private Monster2_FlyState _monster2_FlyState = Monster2_FlyState.Idle;
@@ -201,9 +203,6 @@ public class Monster2_Fly : MonoBehaviour
         BoomEffect.Play();
         // 폭발 이펙트 추가 
         Destroy(gameObject);
-
-
-        // 죽을때 아이템 생성
     }
 
 }
