@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class LimitedWall : MonoBehaviour
 {
-    public GameObject wall;
+    public GameObject Wall;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player")) 
         {
-            Destroy(wall);
+            Destroy(Wall);
         }
     }
 }

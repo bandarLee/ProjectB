@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainManager : MonoBehaviour
 {
-    private static MainManager m_instance;
+    private static MainManager _instance;
     public GameObject PlayerPrefab;
     public static MainManager instance
     {
         get
         {
-            if (m_instance == null)
+            if (_instance == null)
             {
-                m_instance = FindObjectOfType<MainManager>();
+                _instance = FindObjectOfType<MainManager>();
             }
 
-            return m_instance;
+            return _instance;
         }
     }
     private void Awake()
