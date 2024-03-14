@@ -115,7 +115,7 @@ public class SecondAttackMonster : MonoBehaviour
     private void Update()
     {
         //HealthSliderUI.value = (float)Health / (float)MaxHealth;  // 0 ~ 1
-        Debug.Log(Health);
+        //Debug.Log(Health);
         if (Health <= 0)
         {
             Destroy(this.gameObject);
