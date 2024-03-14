@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 6350244743470816001}
   - component: {fileID: 5785701687998855085}
   - component: {fileID: 6719178673271230290}
+  - component: {fileID: 5441601046904854589}
   m_Layer: 0
   m_Name: Bullet_Frozen
   m_TagString: Untagged
@@ -195,3 +196,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5441601046904854589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5861983291279713791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 979b0be467b0877468def437f6bfa925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cyberpunkMonsterBulletType: 3
+  _smoketimeer: 8
+  Damage: 1
+  rotationSpeed: 50
+  MainFrozenTimer: 3
+  FrozenTimer: 3
+  HealthEffect: {fileID: 0}
+  SmokeEffect: {fileID: 0}
+  BoomEffect: {fileID: 0}
+  FrozenEffect: {fileID: 0}
+  HealthEffectPrefab: {fileID: 0}
+  SmokeEffectPrefab: {fileID: 0}
+  BoomEffectPrefab: {fileID: 0}
+  FrozenEffectPrefab: {fileID: 0}
+  healthDamageToPlayer: 1
+  smokeDamageToPlayer: 1
+  boomDamageToPlayer: 3
+  frozenDamageToPlayer: 1

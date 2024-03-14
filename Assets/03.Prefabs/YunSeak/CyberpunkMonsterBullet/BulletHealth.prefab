@@ -154,11 +154,11 @@ MonoBehaviour:
   rotationSpeed: 50
   MainFrozenTimer: 3
   FrozenTimer: 3
-  HealthEffect: {fileID: 0}
+  HealthEffect: {fileID: 19800002, guid: 6890a03af913b874092fbb1e8337747d, type: 3}
   SmokeEffect: {fileID: 0}
   BoomEffect: {fileID: 0}
   FrozenEffect: {fileID: 0}
-  HealthEffectPrefab: {fileID: 0}
+  HealthEffectPrefab: {fileID: 100014, guid: 5332791ebce075d4a9e56f4581e7fb47, type: 3}
   SmokeEffectPrefab: {fileID: 0}
   BoomEffectPrefab: {fileID: 0}
   FrozenEffectPrefab: {fileID: 0}
