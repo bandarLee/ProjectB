@@ -8,14 +8,24 @@ public class Scene1Boss : MonoBehaviour
 {
     public float health = 200;
     public Transform Cubepoint;
-    public float attackDelay = 0.6f;
+    public float attackDelay = 0f;
     private float lastAttackTime = 0f;
     public Slider healthBarSlider;
     public GameObject healthBarUI;
     public TextMeshProUGUI damage;
     GameObject player;
 
-
+    public enum Boss1Pattern
+    {
+        Walk,
+        Attack1,
+        Attack2,
+        Attack3,
+        Attack4,
+        Attack5,
+        Attack6
+    }
+    public Boss1Pattern pattern = Boss1Pattern.Walk;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("PlayerHead");
@@ -30,7 +40,44 @@ public class Scene1Boss : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        switch (pattern)
+        {
+            case Boss1Pattern.Walk:
+                StartCoroutine(Waitforsecond());
+                break;
+
+            case Boss1Pattern.Attack1:
+                StartCoroutine(Waitforsecond());
+
+                break;
+
+            case Boss1Pattern.Attack2:
+                StartCoroutine(Waitforsecond());
+
+                break;
+
+            case Boss1Pattern.Attack3:
+                StartCoroutine(Waitforsecond());
+
+                break;
+
+            case Boss1Pattern.Attack4:
+                StartCoroutine(Waitforsecond());
+
+                break;
+
+            case Boss1Pattern.Attack5:
+                StartCoroutine(Waitforsecond());
+
+                break;
+            case Boss1Pattern.Attack6:
+                StartCoroutine(Waitforsecond());
+
+                break;
+        }
     }
+
+
     private void OnTriggerEnter(Collider other)
     {
         {
@@ -107,5 +154,9 @@ public class Scene1Boss : MonoBehaviour
     {
         healthBarSlider.maxValue = health;
         healthBarSlider.value = health;
+    }
+    IEnumerator Waitforsecond()
+    {
+            yield return new WaitForSeconds(3f);
     }
 }
