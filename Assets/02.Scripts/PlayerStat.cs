@@ -60,15 +60,14 @@ public class PlayerStat : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(isInvulnerable)
-        {
-            return;
-        }
+       
 
 
         if (!isInvulnerable)
         {
             isInvulnerable = true;
+            StartCoroutine(Waitfor1second());
+
             if (other.gameObject.CompareTag("MonsterBullet"))
             {
 
@@ -83,6 +82,7 @@ public class PlayerStat : MonoBehaviour
 
                 playerRigidbody.AddForce(forceDirection * forceAmount);
                 StartCoroutine(ChangeTimeScale(1));
+
 
                 if (playerhealth <= 0)
                 {
@@ -105,6 +105,7 @@ public class PlayerStat : MonoBehaviour
 
                 playerRigidbody.AddForce(forceDirection * forceAmount);
                 StartCoroutine(ChangeTimeScale(1));
+
                 if (playerhealth <= 0)
                 {
                     Debug.LogWarning("플레이어사망");
@@ -247,6 +248,13 @@ public class PlayerStat : MonoBehaviour
         }
 
         Invoke("ResetColorAdjustments", 1f);
+    }
+    IEnumerator Waitfor1second()
+    {
+
+        yield return new WaitForSeconds(1);
+        isInvulnerable = false;
+
     }
 
     void ResetColorAdjustments()
