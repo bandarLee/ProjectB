@@ -96,7 +96,7 @@ public class GuidedMissile : MonoBehaviour
                 DestroyMonster();
             }
         }
-        else if (other.CompareTag("Wall") /*|| other.CompareTag("Monster")*/ || other.CompareTag("Grund"))
+        else if (other.CompareTag("Wall") || other.CompareTag("Monster") || other.CompareTag("Grund") || other.CompareTag("MonsterBullet"))
         {
             DestroyMonster();
         }
@@ -108,12 +108,17 @@ public class GuidedMissile : MonoBehaviour
 
     private void DestroyMonster()
     {
-        // 1. 폭발 이펙트 생성
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        // 2. BoomEffect 재생
-        BoomEffect.Play();
-        // 3. Monster3_Fly 게임 오브젝트 파괴
-        Destroy(gameObject);
+        if(gravityTimer <= 0f)
+        {
+            Debug.Log("미사일 폭발작동");
+            // 1. 폭발 이펙트 생성
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            // 2. BoomEffect 재생
+            BoomEffect.Play();
+            // 3. Monster3_Fly 게임 오브젝트 파괴
+            Destroy(gameObject);
+        }
+         
     }
 
     // 그래비티를 일정 시간동안 비활성화하는 함수

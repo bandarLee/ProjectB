@@ -8,10 +8,8 @@ using UnityEngine.UI;
 public enum TeampleMonster2_LState // 몬스터의 상태
 {
     Idle,           // 대기
-    Patrol,         // 순찰
     Trace,          // 추적
     Attack,         // 공격
-    Comeback,       // 복귀
     Damaged,        // 공격 당함
     Die             // 사망
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1213244454929511159}
   m_Layer: 0
   m_Name: GuidedMissile
-  m_TagString: Untagged
+  m_TagString: MonsterBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,6 +106,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 100006, guid: 2e7e92bc7175b744ea40878dedfa79e4, type: 3}
   rotationSpeed: 500
   missilespeed: 20
+  gravityTimer: 0.3
 --- !u!1 &8133974685966029731
 GameObject:
   m_ObjectHideFlags: 0

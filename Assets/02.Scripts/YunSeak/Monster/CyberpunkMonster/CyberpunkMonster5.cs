@@ -8,8 +8,8 @@ public enum CyberpunkMonster5State // 몬스터의 상태
 {
     Idle,           // 대기
     Patrol,         // 순찰
-    Trace,          // 추적
-    Attack,         // 공격
+    Attack,         // 근접공격
+    GunAttack,      // 원거리공격
     Comeback,       // 복귀
     Damaged,        // 공격 당함
     Die             // 사망
@@ -92,10 +92,6 @@ public class CyberpunkMonster5 : MonoBehaviour
                 Patrol();
                 break;
 
-            case CyberpunkMonster5State.Trace:
-                Trace();
-                break;
-
             case CyberpunkMonster5State.Comeback:
                 Comeback();
                 break;
@@ -129,9 +125,7 @@ public class CyberpunkMonster5 : MonoBehaviour
         // todo: 몬스터의 Idle 애니메이션 재생
         if (Vector3.Distance(_target.position, transform.position) <= FindDistance)
         {
-            Debug.Log("상태 전환: Idle -> Trace");
-            _animator.SetTrigger("IdleToTrace");
-            _cyberpunkMonster5 = CyberpunkMonster5State.Trace;
+
         }
     }
 
@@ -178,9 +172,7 @@ public class CyberpunkMonster5 : MonoBehaviour
 
         if (Vector3.Distance(_target.position, transform.position) <= FindDistance)
         {
-            Debug.Log("상태 전환: Patrol -> Trace");
-            _animator.SetTrigger("PatrolToTrace");
-            _cyberpunkMonster5 = CyberpunkMonster5State.Trace;
+
         }
 
 
@@ -237,9 +229,7 @@ public class CyberpunkMonster5 : MonoBehaviour
         if (Vector3.Distance(_target.position, transform.position) > AttackDistance)
         {
             _attackTimer = 0f;
-            Debug.Log("상태 전환: Attack -> Trace");
-            _animator.SetTrigger("AttackToTrace");
-            _cyberpunkMonster5 = CyberpunkMonster5State.Trace;
+
             return;
         }
 
@@ -292,9 +282,7 @@ public class CyberpunkMonster5 : MonoBehaviour
         {
             _knockbackProgress = 0f;
 
-            Debug.Log("상태 전환: Damaged -> Trace");
-            _animator.SetTrigger("DamagedToTrace");
-            _cyberpunkMonster5 = CyberpunkMonster5State.Trace;
+
         }
     }
 
