@@ -27,7 +27,6 @@ public class TestMonsterHealthTh : MonoBehaviour
             if (other.gameObject.tag == "bullet")
             {
                 health--;
-
             }
         }
     }

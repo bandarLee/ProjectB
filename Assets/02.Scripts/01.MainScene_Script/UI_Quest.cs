@@ -29,6 +29,7 @@ public class UI_Quest : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         ImageClose();
+        yield return new WaitForSeconds(1f);
         GameManager.instance.StartBlinking();
          
     }
