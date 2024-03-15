@@ -34,6 +34,7 @@ public class DoorTurn : MonoBehaviour
         else 
         {
             // 원하는 상황에..
+            
         }
     }
     
