@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class UI_Mission : MonoBehaviour
 {
-    
+    public static UI_Mission instance { get; private set; }
+
     public Image ImageUI;
     public TextMeshProUGUI MissionTextUI;
     string text;
@@ -16,6 +17,7 @@ public class UI_Mission : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         Close();
     }
     public void Open() 

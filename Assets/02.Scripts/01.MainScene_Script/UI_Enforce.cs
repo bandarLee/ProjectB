@@ -18,9 +18,11 @@ public class UI_Enforce : MonoBehaviour
     public void EnforceOpen()
     {
         gameObject.SetActive(true);
+        PlayerMove.instance.isPositionFixed = true;
     }
     public void EnforceClose()
     {
         gameObject.SetActive(false);
+        PlayerMove.instance.isPositionFixed = false;
     }
 }

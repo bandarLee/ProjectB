@@ -22,21 +22,25 @@ public class NPCTest : MonoBehaviour
     public UI_Enforce EnforceUI;
     public UI_Quest QuestUI;
 
+    // 이벤트
     public event Action One;
 
     public GameObject otherObject;
-
-    private bool isOpen = false;
-
     public GameObject EKeyObject;
 
+    private bool isOpen = false;
     private bool isMinimapPoral = false;
+
+    
+
+    
 
    
     void Start()
     {
         _animator = GetComponent<Animator>();
 
+        // 이벤트에 OneText_Delegate 메서드를 추가
         One += OneText_Delegate;
 
         EKeyObject.SetActive(false);
@@ -100,18 +104,21 @@ public class NPCTest : MonoBehaviour
         EKeyObject.SetActive(false);
     }
 
+    // 미션 진행을 나타내는 코루틴
     private IEnumerator Quest_Coroutine()
     {
-        MissionUI.Open();
-        One?.Invoke();
-        yield return new WaitForSeconds(10f);
-        MissionUI.Close();
-        DoorIsTrigger();
+        MissionUI.Open();                            // 미션 UI 열기 
+        One?.Invoke();                               // One 이벤트를 호출
+        yield return new WaitForSeconds(10f);        // 10초간 대기
+        MissionUI.Close();                           // 미션 UI 닫기
+        DoorIsTrigger();                             // 문이 트리거 되었음을 처리
     }
+
+    // One 이벤트 핸들러 - 미션의 첫 번째 메세지를 표시
     private void OneText_Delegate()
     {
-        MissionUI.FirstMissionOpenText();
-        One -= OneText_Delegate;
+        MissionUI.FirstMissionOpenText();             // 미션의 첫 번째 메시지를 표시
+        One -= OneText_Delegate;                      // 이벤트 핸들러를 One 이벤트에서 제거
 
     }
 
