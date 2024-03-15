@@ -15,6 +15,7 @@ TagManager:
   - MonsterElementBullet
   - Test
   - FxTemporaire
+  - Boss1Bullet
   layers:
   - Default
   - TransparentFX

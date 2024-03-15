@@ -14,7 +14,7 @@ public class MonsterBasicType1 : MonoBehaviour
     public Transform firePoint;
     public float fireRate = 2f;
     private float attackRange = 20f;
-    private bool isShooting = false;
+    private bool isShooting = true;
     private float attackGracePeriod = 2f;
     private float lastTimePlayerInRange;
     GameObject player;
@@ -27,6 +27,7 @@ public class MonsterBasicType1 : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("PlayerHead");
         healthBarUI.SetActive(false);
         InitializeHealthBar();
+        StartCoroutine(ShootAtPlayerAfterDelay(2));
 
 
     }
@@ -93,6 +94,12 @@ public class MonsterBasicType1 : MonoBehaviour
             }
         }
     }
+    private IEnumerator ShootAtPlayerAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isShooting = false;
+
+    }
     IEnumerator ShootAtPlayerCoroutine()
     {
         isShooting = true;
@@ -101,7 +108,7 @@ public class MonsterBasicType1 : MonoBehaviour
         GameObject monsterbullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Rigidbody rb = monsterbullet.GetComponent<Rigidbody>();
 
-        rb.velocity = direction * 15f;
+        rb.velocity = direction * 10f;
 
         monsterbullet.transform.rotation = Quaternion.LookRotation(direction);
                 

@@ -22,6 +22,8 @@ public class PlayerStat : MonoBehaviour
     private ColorAdjustments colorAdjustments;
     public Slider healthBarSlider;
 
+    public bool isInvulnerable = false;
+    public float invulnerabilityDuration = 1f;
     public static PlayerStat instance
     {
         get
@@ -58,147 +60,183 @@ public class PlayerStat : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.CompareTag("MonsterBullet"))
+        if(isInvulnerable)
         {
-
-            playerhealth -= 1;
-            UpdateHealthBar();
-
-            TakeDamage();
-
-            Vector3 forceDirection = transform.position - other.transform.position;
-            forceDirection.y = 0; 
-            forceDirection.Normalize();
-
-            playerRigidbody.AddForce(forceDirection * forceAmount);
-            StartCoroutine(ChangeTimeScale(1));
-            if (playerhealth <= 0)
-            {
-                Debug.LogWarning("플레이어사망");
-            }
-
-            Destroy(other.gameObject);
+            return;
         }
-        else if (other.gameObject.CompareTag("MonsterElementBullet"))
+
+
+        if (!isInvulnerable)
         {
-            CyberpunkMonsterBullet cyberpunkmonsterBulletScript = other.gameObject.GetComponent<CyberpunkMonsterBullet>();
-            CyberpunkMonsterBulletType cyberpunkMonsterBulletType = cyberpunkmonsterBulletScript.cyberpunkMonsterBulletType;
-
-
-            switch (cyberpunkMonsterBulletType)
+            isInvulnerable = true;
+            if (other.gameObject.CompareTag("MonsterBullet"))
             {
-                case CyberpunkMonsterBulletType.Health:
-                {
-                    // 체력 -1 
-                    playerhealth -= 1;
-                    UpdateHealthBar();
 
+                playerhealth -= 1;
+                UpdateHealthBar();
+
+                TakeDamage();
+
+                Vector3 forceDirection = transform.position - other.transform.position;
+                forceDirection.y = 0;
+                forceDirection.Normalize();
+
+                playerRigidbody.AddForce(forceDirection * forceAmount);
+                StartCoroutine(ChangeTimeScale(1));
+
+                if (playerhealth <= 0)
+                {
+                    Debug.LogWarning("플레이어사망");
                 }
-                break;
 
-              /*  case CyberpunkMonsterBulletType.GuidedMissile:
+                Destroy(other.gameObject);
+            }
+            if (other.gameObject.CompareTag("Boss1Bullet"))
+            {
+
+                playerhealth -= 1;
+                UpdateHealthBar();
+
+                TakeDamage();
+
+                Vector3 forceDirection = transform.position - other.transform.position;
+                forceDirection.y = 0;
+                forceDirection.Normalize();
+
+                playerRigidbody.AddForce(forceDirection * forceAmount);
+                StartCoroutine(ChangeTimeScale(1));
+                if (playerhealth <= 0)
                 {
-                    
-                        Timer -= Time.deltaTime;
-                        playerhealth -= 2;
-                    UpdateHealthBar();
-
-                    PlayerMove.instance.isJumping = true;
-                    PlayerMove.instance.isFlying = true;
-                     
-                    // 5초간 점프, 비행 불가
+                    Debug.LogWarning("플레이어사망");
                 }
-                break;*/
 
-                case CyberpunkMonsterBulletType.Smoke:
+            }
+            else if (other.gameObject.CompareTag("MonsterElementBullet"))
+            {
+                CyberpunkMonsterBullet cyberpunkmonsterBulletScript = other.gameObject.GetComponent<CyberpunkMonsterBullet>();
+                CyberpunkMonsterBulletType cyberpunkMonsterBulletType = cyberpunkmonsterBulletScript.cyberpunkMonsterBulletType;
+
+
+                switch (cyberpunkMonsterBulletType)
                 {
-                    playerhealth -= 1;
-                    UpdateHealthBar();
+                    case CyberpunkMonsterBulletType.Health:
+                    {
+                        // 체력 -1 
+                        playerhealth -= 1;
+                        UpdateHealthBar();
 
-                }
-                break;
+                    }
+                    break;
 
-                case CyberpunkMonsterBulletType.Boom:
-                {
-                   
+                    /*  case CyberpunkMonsterBulletType.GuidedMissile:
+                      {
+
+                              Timer -= Time.deltaTime;
+                              playerhealth -= 2;
+                          UpdateHealthBar();
+
+                          PlayerMove.instance.isJumping = true;
+                          PlayerMove.instance.isFlying = true;
+
+                          // 5초간 점프, 비행 불가
+                      }
+                      break;*/
+
+                    case CyberpunkMonsterBulletType.Smoke:
+                    {
+                        playerhealth -= 1;
+                        UpdateHealthBar();
+
+                    }
+                    break;
+
+                    case CyberpunkMonsterBulletType.Boom:
+                    {
+
                         Timer -= Time.deltaTime;
                         playerhealth -= 3;
-                    UpdateHealthBar();
+                        UpdateHealthBar();
 
-                    PlayerMove.instance.isJumping = true;
+                        PlayerMove.instance.isJumping = true;
                         PlayerMove.instance.isFlying = true;
                         if (Timer <= 0)
                         {
-                        PlayerMove.instance.isJumping = false;
-                        PlayerMove.instance.isFlying = false;
+                            PlayerMove.instance.isJumping = false;
+                            PlayerMove.instance.isFlying = false;
+                        }
+
+                        Timer = 5f;
                     }
-                    
-                    Timer = 5f;
-                }
-                break;
+                    break;
 
-                case CyberpunkMonsterBulletType.Frozen:
-                {
-                    Timer = 3f;
-                    Timer -= Time.deltaTime;
-                    playerhealth -= 1;
-                    UpdateHealthBar();
-
-                    frozenTimerBox = speed;
-                    speed = 0;
-                    if (Timer <= 0)
+                    case CyberpunkMonsterBulletType.Frozen:
                     {
-                        speed = frozenTimerBox;
+                        Timer = 3f;
+                        Timer -= Time.deltaTime;
+                        playerhealth -= 1;
+                        UpdateHealthBar();
+
+                        frozenTimerBox = speed;
+                        speed = 0;
+                        if (Timer <= 0)
+                        {
+                            speed = frozenTimerBox;
+                        }
+                        Timer = 5;
                     }
-                    Timer = 5;
+                    break;
+
                 }
-                break;
-                
-            }
 
-            if (playerhealth <= 0)
-            {
-                Debug.LogWarning("플레이어사망");
-            }
-
-            Destroy(other.gameObject);
-        }
-
-        else if (other.gameObject.CompareTag("MonsterElementBullet"))
-        {
-            TempleMonsterBullet templeMonsterBulletScript = other.gameObject.GetComponent<TempleMonsterBullet>();
-            TempleBulletType templeBulletType = templeMonsterBulletScript.templeBulletType;
-
-
-            switch(templeBulletType)
-            {
-                case TempleBulletType.Health:
+                if (playerhealth <= 0)
                 {
-                    // 체력 -1 
-                    playerhealth -= 1;
-                    UpdateHealthBar();
-
+                    Debug.LogWarning("플레이어사망");
                 }
-                break;
-                //작성중
+
+                Destroy(other.gameObject);
             }
 
-
-            if (playerhealth <= 0)
+            else if (other.gameObject.CompareTag("MonsterElementBullet"))
             {
-                Debug.LogWarning("플레이어사망");
+                TempleMonsterBullet templeMonsterBulletScript = other.gameObject.GetComponent<TempleMonsterBullet>();
+                TempleBulletType templeBulletType = templeMonsterBulletScript.templeBulletType;
+
+
+                switch (templeBulletType)
+                {
+                    case TempleBulletType.Health:
+                    {
+                        // 체력 -1 
+                        playerhealth -= 1;
+                        UpdateHealthBar();
+
+                    }
+                    break;
+                    //작성중
+                }
+
+
+                if (playerhealth <= 0)
+                {
+                    Debug.LogWarning("플레이어사망");
+                }
+
+                Destroy(other.gameObject);
             }
+            IEnumerator ChangeTimeScale(float delay)
+            {
+                Time.timeScale = 0.2f;
 
-            Destroy(other.gameObject);
-        }
-        IEnumerator ChangeTimeScale(float delay)
-        {
-            Time.timeScale = 0.2f;
+                yield return new WaitForSecondsRealtime(delay);
 
-            yield return new WaitForSecondsRealtime(delay);
+                Time.timeScale = 1f;
+                yield return new WaitForSeconds(1);
 
-            Time.timeScale = 1f;
+                isInvulnerable = false;
+
+
+
+            }
         }
     }
     public void TakeDamage()
