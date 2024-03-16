@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
@@ -9,11 +10,23 @@ using UnityEngine.UI;
 public class PlayerStat : MonoBehaviour
 {
     private static PlayerStat m_instance;
-    public float playermaxhealth;
-    public float playerhealth;
-    public float str;
-    public float dronestr;
+
+    public float level = 1;
+    public float playermaxhealth = 10;
+    public float playerhealth = 10;
+
+    public float exp = 0;
+    public float maxexp = 100;
+
+    public float gold = 0;
+
+
+    public float str = 1;
+    public float dronestr = 0.5f;
+    public float dronedex = 0.5f;
     public float speed;
+
+
     public float Timer = 5f;
     private float frozenTimerBox;
     public float forceAmount = -500f;
@@ -26,6 +39,8 @@ public class PlayerStat : MonoBehaviour
 
     public bool isInvulnerable = false;
     public float invulnerabilityDuration = 1f;
+
+    public TextMeshProUGUI[] StatusText;
     public static PlayerStat instance
     {
         get
@@ -57,6 +72,7 @@ public class PlayerStat : MonoBehaviour
             colorAdjustments.saturation.Override(0);
         }
         InitializeHealthBar();
+        InitializeOptionUpdate();
 
     }
 
@@ -278,6 +294,21 @@ public class PlayerStat : MonoBehaviour
     {
         healthBarSlider.value = playerhealth;
         healthBarSlider_Option.value = playerhealth;
+
+    }
+    public void InitializeOptionUpdate()
+    {
+        StatusText[0].text = $"LV : {level}";
+        StatusText[1].text = $"{playerhealth}/{playermaxhealth}";
+        StatusText[2].text = $"{exp}/{maxexp}";
+        StatusText[3].text = $"{gold}G";
+
+        StatusText[4].text = $"{str}";
+        StatusText[5].text = $"{str*1.5}";
+        StatusText[6].text = $"{dronestr}";
+        StatusText[7].text = $"{dronedex}";
+        StatusText[8].text = $"{speed}";
+
 
     }
     void Update()

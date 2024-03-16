@@ -5,7 +5,7 @@ public class Drone : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float fireRate = 0.5f;
+    public float fireRate; 
     private bool isCoolingDown = false;
     public Transform player;
 
@@ -22,7 +22,10 @@ public class Drone : MonoBehaviour
             StartCoroutine(ShootWithCooldown());
         }
     }
-
+    private void Start()
+    {
+        fireRate = PlayerStat.instance.dronedex;
+    }
     IEnumerator ShootWithCooldown()
     {
         this.gameObject.transform.position = fireDronPoint.position;

@@ -51,7 +51,7 @@ public class PlayerInput : MonoBehaviour
     private void UIManage()
     {
 
-        if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.I)) && !IsOptionOpen)
+        if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.M))||(Input.GetKeyDown(KeyCode.I)) && !IsOptionOpen)
         {
             IsOptionOpen = !IsOptionOpen;
             if (IsOptionOpen)

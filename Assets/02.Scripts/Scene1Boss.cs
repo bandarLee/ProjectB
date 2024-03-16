@@ -251,11 +251,11 @@ public class Scene1Boss : MonoBehaviour
                 }
                 else if (playerbullet.playerbullettype == PlayerBullet.PlayerBulletType.StrongBullet)
                 {
-                    damageAmount = PlayerStat.instance.dronestr * 3;
+                    damageAmount = PlayerStat.instance.str * 1.5f;
                     health -= damageAmount;
                     StartCoroutine(ShowDamageCoroutine(damageAmount));
 
-                    damage.text = $"{PlayerStat.instance.dronestr * 3}";
+                    damage.text = $"{PlayerStat.instance.str * 1.5}";
 
                 }
 
