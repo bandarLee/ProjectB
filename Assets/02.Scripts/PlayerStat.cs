@@ -41,7 +41,7 @@ public class PlayerStat : MonoBehaviour
     public float invulnerabilityDuration = 1f;
 
     public TextMeshProUGUI[] StatusText;
-    public static PlayerStat instance
+    public static PlayerStat Instance
     {
         get
         {
@@ -55,7 +55,7 @@ public class PlayerStat : MonoBehaviour
     }
     void Awake()
     {
-        if (instance != this)
+        if (Instance != this)
         {
             Destroy(gameObject);
         }

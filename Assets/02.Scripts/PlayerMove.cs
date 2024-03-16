@@ -142,7 +142,7 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 inputDir = new Vector3(hAxis, 0, vAxis).normalized;
         Vector3 moveDir = transform.forward * vAxis + transform.right * hAxis;
-        moveDir = moveDir.normalized * moveSpeed * Time.deltaTime * PlayerStat.instance.speed;
+        moveDir = moveDir.normalized * moveSpeed * Time.deltaTime * PlayerStat.Instance.speed;
 
 
         playerRigidbody.MovePosition(playerRigidbody.position + moveDir);

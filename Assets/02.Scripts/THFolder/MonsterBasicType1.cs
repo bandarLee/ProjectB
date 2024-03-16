@@ -63,7 +63,7 @@ public class MonsterBasicType1 : MonoBehaviour
             {
                 healthBarUI.SetActive(true);
                 Debug.Log("기본무기맞음");
-                damageAmount = PlayerStat.instance.str;
+                damageAmount = PlayerStat.Instance.str;
 
                 health -= damageAmount;
                 StartCoroutine(ShowDamageCoroutine(damageAmount));
@@ -76,7 +76,7 @@ public class MonsterBasicType1 : MonoBehaviour
                 PlayerBullet playerbullet = other.gameObject.GetComponent<PlayerBullet>();
                 if(playerbullet.playerbullettype == PlayerBullet.PlayerBulletType.DroneBullet)
                 {
-                    damageAmount = PlayerStat.instance.dronestr;
+                    damageAmount = PlayerStat.Instance.dronestr;
                     health -= damageAmount;
                     StartCoroutine(ShowDamageCoroutine(damageAmount));
 
@@ -84,7 +84,7 @@ public class MonsterBasicType1 : MonoBehaviour
                 }
                 else if (playerbullet.playerbullettype == PlayerBullet.PlayerBulletType.StrongBullet)
                 {
-                    damageAmount = PlayerStat.instance.dronestr * 3;
+                    damageAmount = PlayerStat.Instance.dronestr * 3;
                     health -= damageAmount;
                     StartCoroutine(ShowDamageCoroutine(damageAmount));
 

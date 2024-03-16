@@ -24,7 +24,7 @@ public class Drone : MonoBehaviour
     }
     private void Start()
     {
-        fireRate = PlayerStat.instance.dronedex;
+        fireRate = PlayerStat.Instance.dronedex;
     }
     IEnumerator ShootWithCooldown()
     {

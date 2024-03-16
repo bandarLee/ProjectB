@@ -230,7 +230,7 @@ public class Scene1Boss : MonoBehaviour
             {
                 healthBarUI.SetActive(true);
                 Debug.Log("기본무기맞음");
-                damageAmount = PlayerStat.instance.str;
+                damageAmount = PlayerStat.Instance.str;
 
                 health -= damageAmount;
                 StartCoroutine(ShowDamageCoroutine(damageAmount));
@@ -243,7 +243,7 @@ public class Scene1Boss : MonoBehaviour
                 PlayerBullet playerbullet = other.gameObject.GetComponent<PlayerBullet>();
                 if (playerbullet.playerbullettype == PlayerBullet.PlayerBulletType.DroneBullet)
                 {
-                    damageAmount = PlayerStat.instance.dronestr;
+                    damageAmount = PlayerStat.Instance.dronestr;
                     health -= damageAmount;
                     StartCoroutine(ShowDamageCoroutine(damageAmount));
 
@@ -251,11 +251,11 @@ public class Scene1Boss : MonoBehaviour
                 }
                 else if (playerbullet.playerbullettype == PlayerBullet.PlayerBulletType.StrongBullet)
                 {
-                    damageAmount = PlayerStat.instance.str * 1.5f;
+                    damageAmount = PlayerStat.Instance.str * 1.5f;
                     health -= damageAmount;
                     StartCoroutine(ShowDamageCoroutine(damageAmount));
 
-                    damage.text = $"{PlayerStat.instance.str * 1.5}";
+                    damage.text = $"{PlayerStat.Instance.str * 1.5}";
 
                 }
 
