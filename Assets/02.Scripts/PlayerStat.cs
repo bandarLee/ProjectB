@@ -21,6 +21,8 @@ public class PlayerStat : MonoBehaviour
     public Volume volume;
     private ColorAdjustments colorAdjustments;
     public Slider healthBarSlider;
+    public Slider healthBarSlider_Option;
+
 
     public bool isInvulnerable = false;
     public float invulnerabilityDuration = 1f;
@@ -268,10 +270,15 @@ public class PlayerStat : MonoBehaviour
     {
         healthBarSlider.maxValue = playermaxhealth;
         healthBarSlider.value = playerhealth;
+        healthBarSlider_Option.maxValue = playermaxhealth;
+        healthBarSlider_Option.value = playerhealth;
+
     }
     public void UpdateHealthBar()
     {
         healthBarSlider.value = playerhealth;
+        healthBarSlider_Option.value = playerhealth;
+
     }
     void Update()
     {
