@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 2584146896604972411}
   - component: {fileID: 2849553356058134206}
   - component: {fileID: 4799700511556159898}
+  - component: {fileID: 4539544819098513920}
   m_Layer: 0
   m_Name: StatChip
   m_TagString: Untagged
@@ -110,14 +111,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2394785573080375110}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.003028133, y: -0.49835947, z: 0.0013802099, w: -0.86696416}
+  m_LocalRotation: {x: 0.0030315437, y: 0.49836296, z: -0.0013803352, w: 0.86696213}
   m_LocalPosition: {x: 23.75145, y: 15.643731, z: 90.781425}
-  m_LocalScale: {x: 0.98615, y: 0.98615, z: 0.98615}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6945839156753685094}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.38, y: 59.784, z: 0.036}
 --- !u!33 &2584146896604972411
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -183,9 +184,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6, y: 0.65, z: 0.06}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.60000044, y: 0.9856605, z: 0.72453547}
+  m_Center: {x: 0.00000006150221, y: -0.16782989, z: 0.055717546}
+--- !u!114 &4539544819098513920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394785573080375110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c7140188a34394e97441dd9c46b5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: 0
+  itemName: 
+  itemID: 0

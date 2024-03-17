@@ -6,11 +6,13 @@ public class ItemData
 
     public ItemChip.Item itemType;
 
-    public ItemData(string name, int id)
+    public ItemData(string name, int id, ItemChip.Item type)
     {
         itemName = name;
         itemID = id;
+        itemType = type;
 
-        
+
+
     }
 }
