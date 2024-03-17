@@ -38,20 +38,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnOptionButtonClicked();
-        }
-
-    }
-    public void OnOptionButtonClicked()
-    {
-        Pause();
-        OptionUI.Open();
-    }
-
+   
     // 미니맵에서 NPC 위치를 깜빡깜빡 거리며 나타냄
     private IEnumerator BlinkingEffect()
     {
