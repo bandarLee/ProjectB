@@ -228,7 +228,6 @@ public class Scene1Boss : MonoBehaviour
             if (other.gameObject.CompareTag("basicweapon") && Time.time >= lastAttackTime + attackDelay)
             {
                 healthBarUI.SetActive(true);
-                Debug.Log("기본무기맞음");
                 damageAmount = PlayerStat.Instance.str;
 
                 health -= damageAmount;
