@@ -16,7 +16,6 @@ public class Scene1Boss : MonoBehaviour
     public Slider healthBarSlider;
     public GameObject healthBarUI;
     public TextMeshProUGUI damage;
-    private Vector3 lastPosition;
     GameObject player;
     private Animator animator;
     public GameObject mechPrefab;
