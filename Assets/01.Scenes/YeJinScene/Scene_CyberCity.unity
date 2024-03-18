@@ -282,7 +282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &19586618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -76240,15 +76240,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b7d5054586d0f4cbed63ae767b5c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
   playermaxhealth: 5
   playerhealth: 5
+  exp: 0
+  maxexp: 100
+  gold: 0
   str: 1
   dronestr: 0.5
+  dronedex: 0.5
   speed: 1
   Timer: 5
   forceAmount: -400
   volume: {fileID: 56286497}
   healthBarSlider: {fileID: 107200564}
+  healthBarSlider_Option: {fileID: 0}
+  isInvulnerable: 0
+  invulnerabilityDuration: 1
+  StatusText: []
 --- !u!114 &1182586150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76301,6 +76310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAxisName: Vertical
   moveSideAxisName: Horizontal
+  IsOptionOpen: 0
 --- !u!54 &1182586153
 Rigidbody:
   m_ObjectHideFlags: 0
