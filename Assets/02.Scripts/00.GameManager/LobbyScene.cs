@@ -11,13 +11,16 @@ public class LobbyScene : MonoBehaviour
     public TextMeshProUGUI TextUI;
     string text;
 
+    public GameObject StartButton;
+    public GameObject EndButton;
     
 
     private void Start()
     {
-        
         text = "PROJECT_B";
         StartCoroutine(LobbyText(text));
+        StartButton.SetActive(false);
+        EndButton.SetActive(false);
     }
     private void Update()
     {
@@ -33,6 +36,9 @@ public class LobbyScene : MonoBehaviour
             TextUI.text += talk[i];
             yield return new WaitForSeconds(0.1f);
         }
+
+        StartButton.SetActive(true);
+        EndButton.SetActive(true);
     }
 
     public void OnClickStartButton() 

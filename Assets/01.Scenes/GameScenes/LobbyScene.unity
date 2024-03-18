@@ -643,6 +643,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TextUI: {fileID: 1847089622}
+  StartButton: {fileID: 615542624}
+  EndButton: {fileID: 1037685587}
 --- !u!1 &815705564
 GameObject:
   m_ObjectHideFlags: 0
