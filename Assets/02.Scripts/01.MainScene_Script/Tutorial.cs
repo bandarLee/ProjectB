@@ -6,28 +6,22 @@ using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
-    public TextMeshProUGUI TutorialTextUI;
-
-    public Image TutorialImageUI;
-
+    public GameObject Tutorial_Key;
 
     private void Start()
     {
-        TutorialImageUI.gameObject.SetActive(false);
-        TutorialTextUI.gameObject.SetActive(false);
+        Tutorial_Key.gameObject.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
     {
-        TutorialImageUI.gameObject.SetActive(true);
-        TutorialTextUI.gameObject.SetActive(true);
+        Tutorial_Key.gameObject.SetActive(true);
         StartCoroutine(TutorialTextCoroutine());
     }
 
     private IEnumerator TutorialTextCoroutine() 
     {
         yield return new WaitForSeconds(2f);
-        Destroy(TutorialImageUI);
-        Destroy(TutorialTextUI);
+        Destroy(Tutorial_Key);
     }
 
 }
