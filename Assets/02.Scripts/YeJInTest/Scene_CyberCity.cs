@@ -24,5 +24,8 @@ public class Scene_CyberCity : MonoBehaviour
             textMeshProUGUI.text += talk[i];
             yield return new WaitForSeconds(0.1f);
         }
+        yield return new WaitForSeconds(2f);
+        textMeshProUGUI.gameObject.SetActive(false);
+        Image.gameObject.SetActive(false);
     }
 }

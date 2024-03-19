@@ -11,11 +11,16 @@ using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.UI;
 public class Inventory:MonoBehaviour
 {
+    // 인벤토리 인스턴스 변수
     private static Inventory m_instance;
+
+    // 인벤토리에 포함된 아이템들을 담는 리스트
     public List<ItemData> items = new List<ItemData>();
 
+    // 아이템을 종류별로 분류하기 위한 딕셔너리
     private Dictionary<ItemChip.Item, List<ItemData>> sortedItems = new Dictionary<ItemChip.Item, List<ItemData>>();
 
+    // 인벤토리 인스턴스 접근을 위한 프로퍼티
     public static Inventory Instance
     {
         get
@@ -28,16 +33,20 @@ public class Inventory:MonoBehaviour
             return m_instance;
         }
     }
+
+    // 아이템을 인벤토리에 추가하는 메서드
     public void AddItem(ItemData item)
     {
         items.Add(item);
     }
 
+    // 아이템을 인벤토리에서 제거하는 메서드
     public void RemoveItem(ItemData item)
     {
         items.Remove(item);
     }
 
+    // 인벤토리에 있는 모든 아이템을 콘솔에 출력하는 메서드
     public void ListItems()
     {
         foreach (ItemData item in items)
@@ -45,6 +54,8 @@ public class Inventory:MonoBehaviour
             Debug.Log("Item Name: " + item.itemName + item.itemID);
         }
     }
+
+    // 키 입력을 감지하여 아이템 리스트 출력 또는 아이템 종류별로 분류하는 메서드 호출
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.L)) {
@@ -58,6 +69,7 @@ public class Inventory:MonoBehaviour
         }
     }
 
+    // 아이템을 종류별로 분류하는 메서드
     public void SortItemsByType()
     {
         sortedItems.Clear();
@@ -75,12 +87,14 @@ public class Inventory:MonoBehaviour
         ReassignSortedItemsToItemsList();
 
     }//아이템 타입별로 묶어준다!
+    // 아이템 ID를 통해 아이템의 종류를 반환하는 메서드
     private ItemChip.Item GetItemTypeFromID(int id)
     {
         int judgeitemtype = id / 1000;
 
         switch (judgeitemtype)
         {
+            // 아이템 종류에 따라 반환하는 값이 다름
             case 10:
                 return ItemChip.Item.HealthSmall;
             case 11:
@@ -141,7 +155,9 @@ public class Inventory:MonoBehaviour
                 return 0;
         }
 
-     }
+    }
+
+    // 분류된 아이템을 다시 정렬하여 리스트에 할당하는 메서드
     private void ReassignSortedItemsToItemsList()
     {
         items.Clear();

@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class UI_Option : MonoBehaviour
 {
     public GameObject[] UIs;
     private static UI_Option m_instance;
+    public TextMeshProUGUI MinimapSceneName;
 
     public static UI_Option Instance
     {
@@ -25,6 +28,7 @@ public class UI_Option : MonoBehaviour
         Time.timeScale = 0f;
         gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
+        PrintCurrentSceneName();
     }
     public void Close() 
     {
@@ -38,6 +42,16 @@ public class UI_Option : MonoBehaviour
     private void Start()
     {
 
+    }
+    string GetCurrentSceneName()
+    {
+        return SceneManager.GetActiveScene().name;
+    }
+    public void PrintCurrentSceneName()
+    {
+        string currentSceneName = GetCurrentSceneName();
+        Debug.Log(currentSceneName);
+        MinimapSceneName.text = "현재 행성 : "+currentSceneName;
     }
     public void OnContinueButtonClicked() 
     {

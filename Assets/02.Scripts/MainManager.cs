@@ -7,6 +7,7 @@ public class MainManager : MonoBehaviour
 {
     private static MainManager _instance;
     public GameObject PlayerPrefab;
+
     public static MainManager instance
     {
         get
@@ -30,6 +31,5 @@ public class MainManager : MonoBehaviour
 
         PlayerMove.instance.gameObject.transform.position = Playerposition;
         PlayerMove.instance.gameObject.transform.rotation = rotation;
-
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemChip : MonoBehaviour
 {
-    public enum Item
+    public enum Item // 아이템 종류
     {
         HealthSmall,
         HealthMedium,
@@ -40,6 +40,8 @@ public class ItemChip : MonoBehaviour
         WeaponC3
 
     }
+
+    // 아이템 종류, 이름, ID
     public Item item;
     public string itemName;
     public int itemID;
@@ -50,13 +52,19 @@ public class ItemChip : MonoBehaviour
         AssignItemID();
         SetItemName();
     }
+
+    // 아이템 ID를 할당하는 메서드
     void AssignItemID()
     {
+        // 아이템 ID를 ItemIDManager를 통해 가져옴
         itemID = ItemIDManager.Instance.GetNextID(item);
 
     }
+
+    // 아이템 이름을 설정하는 메서드
     void SetItemName()
     {
+        // 아이템 종류에 따라 이름 설정
         switch (item)
         {
             case Item.HealthSmall:
@@ -155,11 +163,19 @@ public class ItemChip : MonoBehaviour
     {
         if (Player.CompareTag("Player"))
         {
-            
+            // 아이템 데이터 생성
             ItemData newItem = new ItemData(itemName, itemID, item);
 
+            // 인벤토리에 아이템 추가
             Inventory.Instance.AddItem(newItem);
+            
+            // 아이템 게임 오브젝트 제거
             Destroy(gameObject);
+
+
+
+
+
             /*if (item == Item.Health)
             {
                 itemName = "체력 회복 칩(중)";

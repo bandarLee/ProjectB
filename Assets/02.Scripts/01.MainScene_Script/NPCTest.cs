@@ -31,8 +31,8 @@ public class NPCTest : MonoBehaviour
     private bool isOpen = false;
     private bool isMinimapPoral = false;
 
-    
 
+    public TextMeshProUGUI NameTextUI;
     
 
    
@@ -44,6 +44,7 @@ public class NPCTest : MonoBehaviour
         One += OneText_Delegate;
 
         EKeyObject.SetActive(false);
+        NameTextUI.gameObject.SetActive(false);
     }
     private void DoorIsTrigger() 
     {
@@ -64,8 +65,10 @@ public class NPCTest : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E))
             {
+                NameTextUI.gameObject.SetActive(true);
                 if (_NPCType == NPCType.MissionNPC)
                 {
+                    NameTextUI.text = "MissionNPC";
                     _animator.SetTrigger("Turn");
                     StartCoroutine(Quest_Coroutine());
                     GameManager.instance.StopBlinking();
@@ -102,6 +105,8 @@ public class NPCTest : MonoBehaviour
             EnforceUI.EnforceClose();
         }
         EKeyObject.SetActive(false);
+
+        
     }
 
     // 미션 진행을 나타내는 코루틴
