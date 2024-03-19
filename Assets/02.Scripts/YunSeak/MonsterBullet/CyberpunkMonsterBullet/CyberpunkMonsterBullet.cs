@@ -83,9 +83,8 @@ public class CyberpunkMonsterBullet : MonoBehaviour
             }
         }
         // Player 또는 Monster에 충돌했을 때
-        else if (other.gameObject.CompareTag("Monster") || other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Ground"))
-        {
-                Debug.Log($"빗나감");           
+        else if (other.gameObject.CompareTag("Monster") || other.gameObject.CompareTag("Environment"))
+        {      
                 Destroy();
         }
     }

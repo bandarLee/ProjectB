@@ -11,7 +11,7 @@ public class CyberpunkMonster3_Fly : MonoBehaviour
     public float speed = 5f;
     private Transform player;
     private NavMeshAgent _navMeshAgent;
-    public float AttackDistance;  // 공격 범위 
+    public float AttackDistance = 2f;  // 공격 범위 
     public GameObject explosionPrefab;  // 폭발 이펙트 프리팹
     public int damageToPlayer = 2;      // 플레이어에게 입힐 데미지
     [SerializeField] ParticleSystem BoomEffect = null;

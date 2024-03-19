@@ -11,6 +11,7 @@ public class CyberpunkMonster2_Fly : MonoBehaviour
     public int MaxHealth = 1;
     public Slider HealthSliderUI;
     public string playerTag = "Player"; // 플레이어 태그
+    public float detectionRange = 2f; // 감지범위
     private GameObject player; // 플레이어 오브젝트
     [SerializeField] ParticleSystem BoomEffect = null;
     public GameObject explosionPrefab;  // 폭발 이펙트 프리팹
@@ -25,8 +26,15 @@ public class CyberpunkMonster2_Fly : MonoBehaviour
         // 플레이어가 존재하면
         if (player != null)
         {
-            // 몬스터가 플레이어를 향해 바라보도록 합니다.
-            transform.LookAt(player.transform);
+            // 플레이어와 몬스터의 거리를 계산합니다.
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+            // 플레이어와의 거리가 작동 거리보다 짧으면
+            if (distanceToPlayer <= detectionRange)
+            {
+                // 몬스터가 플레이어를 향해 바라보도록 합니다.
+                transform.LookAt(player.transform);
+            }
         }
 
         if (Health <= 0)

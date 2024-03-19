@@ -27,6 +27,7 @@ public class PlayerMove : MonoBehaviour
 
     public GameObject wsmoke;
     public GameObject fsmoke;
+    
 
 
     public static PlayerMove instance
@@ -87,7 +88,6 @@ public class PlayerMove : MonoBehaviour
         {
             if (isFlying)
             {
-                
                 wsmoke.SetActive(false);
                 fsmoke.SetActive(true);
                 
@@ -115,6 +115,7 @@ public class PlayerMove : MonoBehaviour
             {
                 StartCoroutine(JumpCoroutine());
             }
+
         }
 
     }
@@ -146,6 +147,8 @@ public class PlayerMove : MonoBehaviour
 
 
         playerRigidbody.MovePosition(playerRigidbody.position + moveDir);
+
+
     }
     private void SideMove()
     {
@@ -199,6 +202,10 @@ public class PlayerMove : MonoBehaviour
 
     while (continueFlying && Input.GetKey(KeyCode.Space))
     {
+            Debug.Log("사운드 체크");
+
+            PlayerAudioManager.instance.PlayAudio(0);// 비행발사음
+            PlayerAudioManager.instance.PlayAudio(1);// 비행발사음
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce , playerRigidbody.velocity.z);
             yield return null;
     }
@@ -213,6 +220,8 @@ public class PlayerMove : MonoBehaviour
     wsmoke.SetActive(true);
        
     }
+
+
 
 
 }
