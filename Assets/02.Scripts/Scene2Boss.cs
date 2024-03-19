@@ -16,6 +16,7 @@ public class Scene2Boss : MonoBehaviour
     public GameObject healthBarUI;
     public TextMeshProUGUI damage;
     GameObject player;
+    public Quaternion additionalRotation = Quaternion.Euler(0, 0, 0);
 
     private Animator animator;
     public enum Boss2Pattern
@@ -46,8 +47,10 @@ public class Scene2Boss : MonoBehaviour
             Destroy(this.gameObject);
         }
         UpdateHealthBar();
-        RotateTowardsPlayer();
-
+      
+            RotateTowardsPlayer();
+     
+   
 
     }
     IEnumerator PatternCoroutine()
@@ -60,14 +63,14 @@ public class Scene2Boss : MonoBehaviour
                 case Boss2Pattern.Walk:
                     animator.SetInteger("PatternIndex", (int)pattern);
 
-                    yield return new WaitForSeconds(5.05f);
+                    yield return new WaitForSeconds(3f);
 
                     pattern = DetermineNextAttackPattern();
                     break;
 
                 case Boss2Pattern.Attack1:
                     animator.SetInteger("PatternIndex", (int)pattern);
-                    yield return new WaitForSeconds(5.05f);
+                    yield return new WaitForSeconds(4.025f);
 
                     pattern = Boss2Pattern.Walk;
                     break;
@@ -83,23 +86,29 @@ public class Scene2Boss : MonoBehaviour
                 case Boss2Pattern.Attack3:
                     animator.SetInteger("PatternIndex", (int)pattern);
 
-                    yield return new WaitForSeconds(5.05f);
+                    yield return new WaitForSeconds(4.367f);
 
                     pattern = Boss2Pattern.Walk;
                     break;
 
                 case Boss2Pattern.Attack4:
                     animator.SetInteger("PatternIndex", (int)pattern);
-
-                    yield return new WaitForSeconds(5.05f);
+                    additionalRotation = Quaternion.Euler(0, 70, 0);
+                    yield return new WaitForSeconds(4.0925f);
                     pattern = Boss2Pattern.Walk;
+                    additionalRotation = Quaternion.Euler(0, 0, 0);
+
                     break;
 
                 case Boss2Pattern.Attack5:
                     animator.SetInteger("PatternIndex", (int)pattern);
-                    yield return new WaitForSeconds(5.05f);
+                    additionalRotation = Quaternion.Euler(0, 55, 0);
+
+                    yield return new WaitForSeconds(4.0925f);
 
                     pattern = Boss2Pattern.Walk;
+                    additionalRotation = Quaternion.Euler(0, 0, 0);
+
                     break;
             }
         }
@@ -200,7 +209,11 @@ public class Scene2Boss : MonoBehaviour
         Vector3 direction = targetPosition - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
 
+        Quaternion finalRotation = lookRotation * additionalRotation;
+
         float rotationSpeed = 2f; 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, finalRotation, rotationSpeed * Time.deltaTime);
     }
+
+
 }
