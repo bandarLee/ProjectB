@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.UI;
-public class Inventory:MonoBehaviour
+public class Inventory : MonoBehaviour
 {
     // 인벤토리 인스턴스 변수
     private static Inventory m_instance;
@@ -20,6 +20,15 @@ public class Inventory:MonoBehaviour
     // 아이템을 종류별로 분류하기 위한 딕셔너리
     private Dictionary<ItemChip.Item, List<ItemData>> sortedItems = new Dictionary<ItemChip.Item, List<ItemData>>();
 
+    //public InventorySlot[] inventorySlots;
+    public List<InventorySlot> slots = new List<InventorySlot>();
+
+    public GameObject RemoveSelect;
+
+    private void Start()
+    {
+        RemoveSelect.SetActive(false);
+    }
     // 인벤토리 인스턴스 접근을 위한 프로퍼티
     public static Inventory Instance
     {
@@ -46,47 +55,89 @@ public class Inventory:MonoBehaviour
         items.Remove(item);
     }
 
+
     // 인벤토리에 있는 모든 아이템을 콘솔에 출력하는 메서드
     public void ListItems()
     {
-        foreach (ItemData item in items)
+        foreach (InventorySlot inventorySlot in slots) 
+        {
+            inventorySlot.gameObject.SetActive(false);
+        }
+        foreach (InventorySlot inventorySlot in slots) 
+        {
+            if (!inventorySlot.gameObject.activeSelf) 
+            {
+                for (int i = 0; i < items.Count; i++)
+                {
+                    slots[i].gameObject.SetActive(true);
+                    slots[i].ItemNameText.text = items[i].itemName;
+                }
+            }
+        }
+        /*foreach (ItemData item in items)
         {
             Debug.Log("Item Name: " + item.itemName + item.itemID);
-        }
+        }*/
     }
+    public void OnClickRemoveSelectButton() 
+    {
+        RemoveSelect.SetActive(true);
+    }
+    public void OnClickYesButton() 
+    {
+        
 
+    }
+    public void OnClickNoButton() 
+    {
+        RemoveSelect.SetActive(false);
+    }
+    public void OnClickSortButton() 
+    {
+        SortItemsByType();
+    }
     // 키 입력을 감지하여 아이템 리스트 출력 또는 아이템 종류별로 분류하는 메서드 호출
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L)) {
+        if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.M)) || (Input.GetKeyDown(KeyCode.I)))
+        {
             ListItems();
-
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
             SortItemsByType();
-
         }
     }
 
     // 아이템을 종류별로 분류하는 메서드
     public void SortItemsByType()
     {
+        // sortedItems 컬렉션을 초기화
         sortedItems.Clear();
 
+        // items 컬렉션의 각 아이템에 대하여 반복 처리함
         foreach (var item in items)
         {
+            // 아이템의 ID를 통해 아이템 타입을 가져옴
             var itemType = GetItemTypeFromID(item.itemID);
+            // sortedItems에 해당 아이템 타입의 키가 없으면, 새로운 리스트를 만들어서 추가함
             if (!sortedItems.ContainsKey(itemType))
             {
                 sortedItems[itemType] = new List<ItemData>();
             }
+            // 해당 아이템 타입의 리스트에 현재 아이템을 추가
             sortedItems[itemType].Add(item);
         }
 
+        // sortedItems에 정렬된 아이템들을 다시 items 리스트에 재배치하는 함수를 호출
         ReassignSortedItemsToItemsList();
+        ListItems();
+
+
 
     }//아이템 타입별로 묶어준다!
+
+
     // 아이템 ID를 통해 아이템의 종류를 반환하는 메서드
     private ItemChip.Item GetItemTypeFromID(int id)
     {
@@ -160,12 +211,17 @@ public class Inventory:MonoBehaviour
     // 분류된 아이템을 다시 정렬하여 리스트에 할당하는 메서드
     private void ReassignSortedItemsToItemsList()
     {
+        // items 리스트를 초기화, 기존에 있던 모든 아이템들을 제거
         items.Clear();
 
+        // sortedItems 딕셔너리를 키(key) 기준으로 오름차순 정렬
+        // 각 키와 값을 keyValuePair 변수에 저장하며 반복
         foreach (var keyValuePair in sortedItems.OrderBy(kvp => kvp.Key))
         {
+            // 현재 keyValuePair의 Value(아이템 리스트)를 순회
             foreach (var item in keyValuePair.Value)
             {
+                // 순회하는 아이템을 items 리스트에 추가
                 items.Add(item);
             }
         }
