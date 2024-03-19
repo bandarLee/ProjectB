@@ -25,7 +25,7 @@ public class PlayerAudioManager : MonoBehaviour
 
     }
 
-    public void PlayAudio(int clipIndex)
+    public void PlayAudio(int clipIndex, bool loop = false)
     {
         if (clipIndex < audioClips.Length)
         {
@@ -43,6 +43,8 @@ public class PlayerAudioManager : MonoBehaviour
                 if (!audioSource.isPlaying)
                 {
                     audioSource.clip = audioClips[clipIndex];
+                    audioSource.loop = loop; 
+
                     audioSource.Play();
                     return;
                 }
