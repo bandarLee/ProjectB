@@ -6,9 +6,9 @@ public class PlayerAudioManager : MonoBehaviour
 {
     public AudioSource[] audioSources;
     public AudioClip[] audioClips;
-
+    // 오디오 사운드 Loop 이동시활성화 이동불가시 비활성화 필요
     private bool isPlaying = false; // 사운드 재생 중인지 여부를 추적하는 변수
-
+    // private bool isLoop = false;// 사운드 루프 재생 여부 추적하는 변수
     public static PlayerAudioManager instance;
 
     private void Awake()

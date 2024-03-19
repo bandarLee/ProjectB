@@ -77,11 +77,14 @@ public class PlayerMove : MonoBehaviour
             if (isJumping && Input.GetKeyDown(KeyCode.Space) )
             {
                 Debug.Log("비행 소리 재생");
-                PlayerAudioManager.instance.PlayAudio(0); 
+                PlayerAudioManager.instance.PlayAudio(0);
+             
+
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                PlayerAudioManager.instance.StopSpecificAudio(0); 
+                PlayerAudioManager.instance.StopSpecificAudio(1);
+
             }
         }
 
@@ -108,6 +111,7 @@ public class PlayerMove : MonoBehaviour
             }
             else
             {
+
                 playerAnimator.SetBool("IsRunning", false);
 
                 moveSpeed = 5f;
@@ -119,11 +123,12 @@ public class PlayerMove : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space) && !isJumping)
             {
+                Debug.Log("점프사운드 체크");
+                PlayerAudioManager.instance.PlayAudio(4);
                 StartCoroutine(JumpCoroutine());
             }
             if (isFlying && Input.GetKeyDown(KeyCode.Space) && !isJumping)
             {
-                Debug.Log("qlgod");
                 PlayerAudioManager.instance.PlayAudio(1);
             }
 
@@ -137,18 +142,27 @@ public class PlayerMove : MonoBehaviour
         {
             if (Time.time - lastKeyPressTime < doublePressTime && lastKeyCode == keyCode)
             {
+                Debug.Log("더블이동사운드 체크");
+                PlayerAudioManager.instance.PlayAudio(3);
+                // 오디오 사운드 Loop 이동시활성화 이동불가시 비활성화 필요
                 isRunning = true;
             }
             else
             {
+                Debug.Log("이동사운드 체크");
+                PlayerAudioManager.instance.PlayAudio(2);
+                // 오디오 사운드 Loop 이동시활성화 이동불가시 비활성화 필요
                 isRunning = false;
             }
             lastKeyPressTime = Time.time;
             lastKeyCode = keyCode;
         }
     }
+
+
     private void Move()
     {
+
         float hAxis = Input.GetAxisRaw("Horizontal");
         float vAxis = Input.GetAxisRaw("Vertical");
 
@@ -216,9 +230,6 @@ public class PlayerMove : MonoBehaviour
 
         while (continueFlying && Input.GetKey(KeyCode.Space))
         {
-           
-
-
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce, playerRigidbody.velocity.z);
             yield return null;
         }
@@ -231,5 +242,9 @@ public class PlayerMove : MonoBehaviour
 
         fsmoke.SetActive(false);
         wsmoke.SetActive(true);
+    }
+    public IEnumerator Timewaitcouroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
     }
 }
