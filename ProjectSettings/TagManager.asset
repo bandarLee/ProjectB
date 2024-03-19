@@ -16,6 +16,7 @@ TagManager:
   - Test
   - FxTemporaire
   - Boss1Bullet
+  - Boss2Bullet
   layers:
   - Default
   - TransparentFX

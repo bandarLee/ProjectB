@@ -16,7 +16,11 @@ public class Scene2Boss : MonoBehaviour
     public GameObject healthBarUI;
     public TextMeshProUGUI damage;
     GameObject player;
+    public GameObject Attack1Thunder;
     public Quaternion additionalRotation = Quaternion.Euler(0, 0, 0);
+    public GameObject[] cubewallsPrefab;
+    public GameObject[] Attack5wallsPrefab;
+
 
     private Animator animator;
     public enum Boss2Pattern
@@ -34,6 +38,11 @@ public class Scene2Boss : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("PlayerHead");
 
         healthBarUI.SetActive(false);
+        Attack1Thunder.SetActive(false);
+        foreach (GameObject A5wall in Attack5wallsPrefab)
+        {
+            A5wall.SetActive(false);
+        }
         InitializeHealthBar();
         animator = GetComponent<Animator>();
         StartCoroutine(PatternCoroutine());
@@ -70,13 +79,18 @@ public class Scene2Boss : MonoBehaviour
 
                 case Boss2Pattern.Attack1:
                     animator.SetInteger("PatternIndex", (int)pattern);
+                    Attack1Thunder.SetActive(true);
+
                     yield return new WaitForSeconds(4.025f);
+                    Attack1Thunder.SetActive(false);
 
                     pattern = Boss2Pattern.Walk;
                     break;
 
                 case Boss2Pattern.Attack2:
                     animator.SetInteger("PatternIndex", (int)pattern);
+                    StartCoroutine(Attack2());
+
                     yield return new WaitForSeconds(5.05f);
                     pattern = Boss2Pattern.Walk;
                     break;
@@ -103,9 +117,17 @@ public class Scene2Boss : MonoBehaviour
                 case Boss2Pattern.Attack5:
                     animator.SetInteger("PatternIndex", (int)pattern);
                     additionalRotation = Quaternion.Euler(0, 55, 0);
+                    yield return new WaitForSeconds(3f);
 
-                    yield return new WaitForSeconds(4.0925f);
-
+                    foreach (GameObject A5wall in Attack5wallsPrefab)
+                    {
+                        A5wall.SetActive(true);
+                    }
+                    yield return new WaitForSeconds(1.0925f);
+                    foreach (GameObject A5wall in Attack5wallsPrefab)
+                    {
+                        A5wall.SetActive(false);
+                    }
                     pattern = Boss2Pattern.Walk;
                     additionalRotation = Quaternion.Euler(0, 0, 0);
 
@@ -113,6 +135,59 @@ public class Scene2Boss : MonoBehaviour
             }
         }
     }
+    public IEnumerator Attack2()
+    {
+        // 초기 위치와 회전 상태를 저장
+        Vector3[] initialPositions = new Vector3[cubewallsPrefab.Length];
+        Quaternion[] initialRotations = new Quaternion[cubewallsPrefab.Length];
+        for (int i = 0; i < cubewallsPrefab.Length; i++)
+        {
+            initialPositions[i] = cubewallsPrefab[i].transform.position;
+            initialRotations[i] = cubewallsPrefab[i].transform.rotation;
+        }
+
+        // 4방향 정의
+        Vector3[] directions = new Vector3[]
+        {
+        Vector3.back,
+        Vector3.right,
+        Vector3.forward,
+        Vector3.left,
+        };
+        yield return new WaitForSeconds(1.3f);
+
+        foreach (GameObject cube in cubewallsPrefab)
+        {
+            cube.SetActive(true);
+        }
+        yield return new WaitForSeconds(2.3f);
+
+        for (int i = 0; i < cubewallsPrefab.Length; i++)
+        {
+            Rigidbody cubeRb = cubewallsPrefab[i].GetComponent<Rigidbody>();
+            if (cubeRb != null)
+            {
+                cubeRb.velocity = Vector3.zero;
+                cubeRb.AddForce(directions[(i / 3) % directions.Length] * 10, ForceMode.Impulse);
+            }
+        }
+
+        yield return new WaitForSeconds(3.8f);
+
+        for (int i = 0; i < cubewallsPrefab.Length; i++)
+        {
+            cubewallsPrefab[i].transform.position = initialPositions[i];
+            cubewallsPrefab[i].transform.rotation = initialRotations[i];
+            cubewallsPrefab[i].SetActive(false);
+            Rigidbody cubeRb = cubewallsPrefab[i].GetComponent<Rigidbody>();
+            if (cubeRb != null)
+            {
+                cubeRb.velocity = Vector3.zero;
+                cubeRb.angularVelocity = Vector3.zero;
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         {

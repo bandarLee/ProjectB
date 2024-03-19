@@ -130,6 +130,27 @@ public class PlayerStat : MonoBehaviour
                 }
 
             }
+            if (other.gameObject.CompareTag("Boss2Bullet"))
+            {
+
+                playerhealth -= 2;
+                UpdateHealthBar();
+
+                TakeDamage();
+
+                Vector3 forceDirection = transform.position - other.transform.position;
+                forceDirection.y = 0;
+                forceDirection.Normalize();
+
+                playerRigidbody.AddForce(forceDirection * forceAmount);
+                StartCoroutine(ChangeTimeScale(1));
+
+                if (playerhealth <= 0)
+                {
+                    Debug.LogWarning("플레이어사망");
+                }
+
+            }
             else if (other.gameObject.CompareTag("MonsterElementBullet"))
             {
                 CyberpunkMonsterBullet cyberpunkmonsterBulletScript = other.gameObject.GetComponent<CyberpunkMonsterBullet>();
