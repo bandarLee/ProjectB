@@ -28,7 +28,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject wsmoke;
     public GameObject fsmoke;
     
-
+    private AudioSource audioSource; // AudioSource 변수 추가
 
     public static PlayerMove instance
     {
@@ -48,7 +48,6 @@ public class PlayerMove : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
 
 
@@ -57,9 +56,7 @@ public class PlayerMove : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
-       
-       
-            fsmoke.SetActive(false);
+        fsmoke.SetActive(false);
         
     }
 
@@ -172,56 +169,64 @@ public class PlayerMove : MonoBehaviour
             transform.Rotate(0f, turn, 0f);
      
     }
-   
+    public void StopAudio()
+    {
+        audioSource.Stop(); // AudioSource의 재생 중인 오디오를 중지
+    }
 
     public IEnumerator JumpCoroutine()
-{
-    isJumping = true;
-    playerAnimator.SetTrigger("Jump");
-    playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
-
-    yield return new WaitForSeconds(0.05f);
-
-    float timeInAir = 0f;
-    bool continueFlying = false; 
-
-    while (!isFlying && timeInAir < 1.2f)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        isJumping = true;
+        playerAnimator.SetTrigger("Jump");
+        playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(0.05f);
+
+        float timeInAir = 0f;
+        bool continueFlying = false;
+        bool spacePressed = false;
+
+        while (!isFlying && timeInAir < 1.2f)
         {
-            isFlying = true;
-            playerAnimator.SetBool("IsFlying", true);
-            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce / 2, playerRigidbody.velocity.z);
-            continueFlying = true;
-            break; 
-        }
-        yield return null;
-        timeInAir += Time.deltaTime;
-    }
-
-    while (continueFlying && Input.GetKey(KeyCode.Space))
-    {
-            Debug.Log("사운드 체크");
-
-            PlayerAudioManager.instance.PlayAudio(0);// 비행발사음
-            PlayerAudioManager.instance.PlayAudio(1);// 비행발사음
-            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce , playerRigidbody.velocity.z);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                isFlying = true;
+                playerAnimator.SetBool("IsFlying", true);
+                playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce / 2, playerRigidbody.velocity.z);
+                continueFlying = true;
+                spacePressed = true;
+                break;
+            }
             yield return null;
+            timeInAir += Time.deltaTime;
+        }
+
+        while (continueFlying && Input.GetKey(KeyCode.Space))
+        {
+            if (spacePressed) // 소리가 재생되지 않은 경우에만 소리 재생
+            {
+
+                Debug.Log("사운드 시작");
+                PlayerAudioManager.instance.PlayAudio(0); // 비행발사음
+                PlayerAudioManager.instance.PlayAudio(1); // 비행발사음
+            }
+            else if (!spacePressed) // 스페이스바를 놓았을 때 소리 중지
+            {
+                Debug.Log("사운드 중지");
+                StopAudio();
+            }
+
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce, playerRigidbody.velocity.z);
+            yield return null;
+        }
+
+        isJumping = false;
+        isFlying = false;
+
+        playerAnimator.SetBool("IsFlying", false);
+        yield return new WaitForSeconds(2f);
+
+        fsmoke.SetActive(false);
+        wsmoke.SetActive(true);
     }
-
-    isJumping = false;
-    isFlying = false;
-
-    playerAnimator.SetBool("IsFlying", false);
-    yield return new WaitForSeconds(2f);
-
-    fsmoke.SetActive(false);
-    wsmoke.SetActive(true);
-       
-    }
-
-
-
-
 }

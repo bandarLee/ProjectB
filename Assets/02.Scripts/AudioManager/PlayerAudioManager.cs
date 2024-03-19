@@ -41,4 +41,5 @@ public class PlayerAudioManager : MonoBehaviour
 
         isPlaying = false; // 재생 종료 후 재생 중 상태 해제
     }
+ 
 }
