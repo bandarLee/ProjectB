@@ -182,7 +182,6 @@ public class CyberpunkMonster1_Test : MonoBehaviour, IHitable
             _navMeshAgent.SetDestination(PatrolTarget[currentPatrolIndex].position);
             // 다음 순찰 인덱스로 이동
             currentPatrolIndex = (currentPatrolIndex + 1) % PatrolTarget.Length;
-            Debug.Log("상태 전환: Patrol1 -> Patrol2");
             _animator.SetTrigger("Patrol");
             _cyberpunkMonster1_TestState = CyberpunkMonster1_TestState.Patrol;
         }

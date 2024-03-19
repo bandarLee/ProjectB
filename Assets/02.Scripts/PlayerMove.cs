@@ -74,6 +74,15 @@ public class PlayerMove : MonoBehaviour
             }
 
             //SideMove();
+            if (isJumping && Input.GetKeyDown(KeyCode.Space) )
+            {
+                Debug.Log("비행 소리 재생");
+                PlayerAudioManager.instance.PlayAudio(0); 
+            }
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                PlayerAudioManager.instance.StopSpecificAudio(0); 
+            }
         }
 
     }
@@ -111,6 +120,11 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetKey(KeyCode.Space) && !isJumping)
             {
                 StartCoroutine(JumpCoroutine());
+            }
+            if (isFlying && Input.GetKeyDown(KeyCode.Space) && !isJumping)
+            {
+                Debug.Log("qlgod");
+                PlayerAudioManager.instance.PlayAudio(1);
             }
 
         }
@@ -184,7 +198,6 @@ public class PlayerMove : MonoBehaviour
 
         float timeInAir = 0f;
         bool continueFlying = false;
-        bool spacePressed = false;
 
         while (!isFlying && timeInAir < 1.2f)
         {
@@ -194,27 +207,17 @@ public class PlayerMove : MonoBehaviour
                 playerAnimator.SetBool("IsFlying", true);
                 playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce / 2, playerRigidbody.velocity.z);
                 continueFlying = true;
-                spacePressed = true;
                 break;
             }
+    
             yield return null;
             timeInAir += Time.deltaTime;
         }
 
         while (continueFlying && Input.GetKey(KeyCode.Space))
         {
-            if (spacePressed) // 소리가 재생되지 않은 경우에만 소리 재생
-            {
+           
 
-                Debug.Log("사운드 시작");
-                PlayerAudioManager.instance.PlayAudio(0); // 비행발사음
-                PlayerAudioManager.instance.PlayAudio(1); // 비행발사음
-            }
-            else if (!spacePressed) // 스페이스바를 놓았을 때 소리 중지
-            {
-                Debug.Log("사운드 중지");
-                StopAudio();
-            }
 
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce, playerRigidbody.velocity.z);
             yield return null;
