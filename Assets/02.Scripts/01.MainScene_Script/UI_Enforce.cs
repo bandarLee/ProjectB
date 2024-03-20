@@ -24,6 +24,8 @@ public class UI_Enforce : MonoBehaviour
     }
     public void EnforceClose()
     {
+        Inventory.Instance.ClearSelectedItems();
+
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
 

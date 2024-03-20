@@ -23,7 +23,14 @@ public class Inventory : MonoBehaviour
     //public InventorySlot[] inventorySlots;
     public List<InventorySlot> slots = new List<InventorySlot>();
     public List<InventorySlot> enforceslots = new List<InventorySlot>();
+    public List<EnforceSlot> equipslots = new List<EnforceSlot>();
+
+    private List<ItemData> selectedItems = new List<ItemData>();
+    private HashSet<int> selectedItemIDs = new HashSet<int>();
+
+
     public GameObject RemoveSelect;
+
 
     private InventorySlot _inventorySlot;
     private InventorySlot selectedSlot;
@@ -310,7 +317,55 @@ public class Inventory : MonoBehaviour
 
     public void SelectEnforceItem()
     {
-        Debug.Log("gd");
+        
+            if (selectedSlot != null && selectedSlot._c != null && selectedItems.Count < 3 && !selectedItemIDs.Contains(selectedSlot._c.itemID))
+            {
+                selectedItems.Add(selectedSlot._c);
+                selectedItemIDs.Add(selectedSlot._c.itemID);
+            }
+        for (int i = 0; i < 3; i++)
+        {
+            equipslots[i].ItemImage1.gameObject.SetActive(false);
+            equipslots[i].ItemImage2.gameObject.SetActive(false);
+            equipslots[i].ItemImage3.gameObject.SetActive(false);
+            if (i < equipslots.Count)
+            {
+                equipslots[i].gameObject.SetActive(true);
+                equipslots[i]._c = items[i];
+
+                // 아이템 ID에 따라 다른 이미지를 할당하는 로직을 추가합니다.
+                int itemIdDivision = items[i].itemID / 10000;
+                Debug.Log(itemIdDivision);
+                switch (itemIdDivision)
+                {
+                    case 1:
+                        equipslots[i].ItemImage1.gameObject.SetActive(true);
+                        equipslots[i].ItemImage2.gameObject.SetActive(false);
+                        equipslots[i].ItemImage3.gameObject.SetActive(false);
+                        break;
+                    case 2:
+                    case 3:
+                        equipslots[i].ItemImage1.gameObject.SetActive(false);
+                        equipslots[i].ItemImage2.gameObject.SetActive(true);
+                        equipslots[i].ItemImage3.gameObject.SetActive(false);
+                        break;
+                    case 4:
+                        equipslots[i].ItemImage1.gameObject.SetActive(false);
+                        equipslots[i].ItemImage2.gameObject.SetActive(false);
+                        equipslots[i].ItemImage3.gameObject.SetActive(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+    }
+    public void ClearSelectedItems()
+    {
+       
+        selectedItems.Clear();
+        selectedItemIDs.Clear();
     }
 
 
