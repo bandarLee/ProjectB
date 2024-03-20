@@ -70,16 +70,36 @@ public class Inventory : MonoBehaviour
         {
             inventorySlot.gameObject.SetActive(false);
         }
-        foreach (InventorySlot inventorySlot in slots) 
+        for (int i = 0; i < items.Count; i++)
         {
-            if (!inventorySlot.gameObject.activeSelf) 
+            if (i < slots.Count)
             {
-                for (int i = 0; i < items.Count; i++)
-                {
-                    slots[i].gameObject.SetActive(true);
-                    slots[i].ItemNameText.text = items[i].itemName;
-                    slots[i]._c = items[i];
+                slots[i].gameObject.SetActive(true);
+                slots[i].ItemNameText.text = items[i].itemName;
+                slots[i]._c = items[i];
 
+                // 아이템 ID에 따라 다른 이미지를 할당하는 로직을 추가합니다.
+                int itemIdDivision = items[i].itemID / 10000;
+                switch (itemIdDivision)
+                {
+                    case 1:
+                        slots[i].ItemImage1.gameObject.SetActive(true);
+                        slots[i].ItemImage2.gameObject.SetActive(false);
+                        slots[i].ItemImage3.gameObject.SetActive(false);
+                        break;
+                    case 2:
+                    case 3:
+                        slots[i].ItemImage1.gameObject.SetActive(false);
+                        slots[i].ItemImage2.gameObject.SetActive(true);
+                        slots[i].ItemImage3.gameObject.SetActive(false);
+                        break;
+                    case 4:
+                        slots[i].ItemImage1.gameObject.SetActive(false);
+                        slots[i].ItemImage2.gameObject.SetActive(false);
+                        slots[i].ItemImage3.gameObject.SetActive(true);
+                        break;
+                    default:
+                        break;
                 }
             }
         }

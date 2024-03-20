@@ -151,7 +151,6 @@ public class PlayerMove : MonoBehaviour
             {
                 PlayerAudioManager.instance.StopSpecificAudio(2);
 
-                Debug.Log("더블이동사운드 체크");
                 PlayerAudioManager.instance.PlayAudio(3,true);
                 // 오디오 사운드 Loop 이동시활성화true 작성 필요 
                 isRunning = true;
@@ -160,7 +159,6 @@ public class PlayerMove : MonoBehaviour
             {
                 PlayerAudioManager.instance.StopSpecificAudio(3);
 
-                Debug.Log("이동사운드 체크");
                 PlayerAudioManager.instance.PlayAudio(2,true);
                 // 오디오 사운드 Loop 이동시활성화 이동불가시 비활성화 필요
                 isRunning = false;

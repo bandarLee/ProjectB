@@ -11,4 +11,5 @@ public class InventorySlot : MonoBehaviour
     public Image ItemImage3;
     public TextMeshProUGUI ItemNameText;
     public ItemData _c;
+
 }
