@@ -18,6 +18,7 @@ public class UI_Enforce : MonoBehaviour
     public void EnforceOpen()
     {
         gameObject.SetActive(true);
+        Inventory.Instance.ListEnforceItems();
         Cursor.lockState = CursorLockMode.None;
 
     }

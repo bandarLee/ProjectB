@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
 
     //public InventorySlot[] inventorySlots;
     public List<InventorySlot> slots = new List<InventorySlot>();
-
+    public List<InventorySlot> enforceslots = new List<InventorySlot>();
     public GameObject RemoveSelect;
 
     private InventorySlot _inventorySlot;
@@ -66,9 +66,9 @@ public class Inventory : MonoBehaviour
     // 인벤토리에 있는 모든 아이템을 콘솔에 출력하는 메서드
     public void ListItems()
     {
-        foreach (InventorySlot inventorySlot in slots) 
+        foreach (InventorySlot slots in slots) 
         {
-            inventorySlot.gameObject.SetActive(false);
+            slots.gameObject.SetActive(false);
         }
         for (int i = 0; i < items.Count; i++)
         {
@@ -108,7 +108,50 @@ public class Inventory : MonoBehaviour
             Debug.Log("Item Name: " + item.itemName + item.itemID);
         }*/
     }
-    
+    public void ListEnforceItems()
+    {
+        foreach (InventorySlot inventorySlot in enforceslots)
+        {
+            inventorySlot.gameObject.SetActive(false);
+        }
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (i < enforceslots.Count)
+            {
+                enforceslots[i].gameObject.SetActive(true);
+                enforceslots[i].ItemNameText.text = items[i].itemName;
+                enforceslots[i]._c = items[i];
+
+                // 아이템 ID에 따라 다른 이미지를 할당하는 로직을 추가합니다.
+                int itemIdDivision = items[i].itemID / 10000;
+                switch (itemIdDivision)
+                {
+                    case 1:
+                        enforceslots[i].ItemImage1.gameObject.SetActive(true);
+                        enforceslots[i].ItemImage2.gameObject.SetActive(false);
+                        enforceslots[i].ItemImage3.gameObject.SetActive(false);
+                        break;
+                    case 2:
+                    case 3:
+                        enforceslots[i].ItemImage1.gameObject.SetActive(false);
+                        enforceslots[i].ItemImage2.gameObject.SetActive(true);
+                        enforceslots[i].ItemImage3.gameObject.SetActive(false);
+                        break;
+                    case 4:
+                        enforceslots[i].ItemImage1.gameObject.SetActive(false);
+                        enforceslots[i].ItemImage2.gameObject.SetActive(false);
+                        enforceslots[i].ItemImage3.gameObject.SetActive(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        /*foreach (ItemData item in items)
+        {
+            Debug.Log("Item Name: " + item.itemName + item.itemID);
+        }*/
+    }
     public void OnClickRemoveSelectButton() 
     {
         RemoveSelect.SetActive(true);
@@ -265,7 +308,10 @@ public class Inventory : MonoBehaviour
         }
     }//묶은 아이템을 정렬해서 List에 배치한다!
 
+    public void SelectEnforceItem()
+    {
+        Debug.Log("gd");
+    }
 
-   
 
 }
