@@ -43,6 +43,7 @@ public class LobbyScene : MonoBehaviour
     public void OnClickStartButton() 
     {
         SceneManager.LoadScene("Main");
+        LobbySceneAudioManager.instance.PlayAudio(4);// 클릭시 이동음
     }
     public void OnExitButtonClicked()
     {
