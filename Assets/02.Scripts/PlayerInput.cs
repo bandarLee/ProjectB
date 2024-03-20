@@ -53,15 +53,19 @@ public class PlayerInput : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.M))||(Input.GetKeyDown(KeyCode.I)) && !IsOptionOpen)
         {
+
             IsOptionOpen = !IsOptionOpen;
             if (IsOptionOpen)
-            {
+            {               
                 UI_Option.Instance.Open();
+                //PlayerAudioManager.instance.StopSpecificAudio(12); // 플레이어 UI 시작 사운드
             }
             else
-            {
+            {              
                 UI_Option.Instance.Close();
+                //PlayerAudioManager.instance.StopSpecificAudio(13);// 플레이어 UI 종료 사운드
             }
+
         }
     }
 }

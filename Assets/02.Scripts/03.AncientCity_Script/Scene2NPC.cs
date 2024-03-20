@@ -24,6 +24,7 @@ public class Scene2NPC : MonoBehaviour
 
     private void Start()
     {
+        //AncientCitySceneAudioManager.instance.PlayAudio(0);
         _animator = GetComponent<Animator>();
     }
     private void OnTriggerStay(Collider other)

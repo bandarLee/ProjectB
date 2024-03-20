@@ -176,6 +176,7 @@ MonoBehaviour:
   MaxHealth: 3
   HealthSliderUI: {fileID: 0}
   playerTag: Player
+  detectionRange: 2
   BoomEffect: {fileID: 0}
   explosionPrefab: {fileID: 0}
 --- !u!1 &4806419166819074570
@@ -188,7 +189,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5311757530827057440}
   - component: {fileID: 664864434673873041}
-  - component: {fileID: 3781883297987798932}
   m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
@@ -225,24 +225,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabsToSpawn:
   - {fileID: 8297950825551507361, guid: 58d0fd779fb0dc34b8bafcc6edc242cb, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
   spawnPoint: {fileID: 5311757530827057440}
   spawnInterval: 0.1
   monster: {fileID: 4217974944518010934}
-  playerTag: Player
---- !u!114 &3781883297987798932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4806419166819074570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7432ceae9ab440c409281a5eb525b75d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7089092879947110432
 GameObject:
   m_ObjectHideFlags: 0

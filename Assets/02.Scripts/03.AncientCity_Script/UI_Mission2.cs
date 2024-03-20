@@ -34,6 +34,7 @@ public class UI_Mission2 : MonoBehaviour
     public void NPC1MissionOpenText()
     {
         Open();
+
         text = "야호...\n신난다...\n행복해....";
         StartCoroutine(NPCMission(text));
     }

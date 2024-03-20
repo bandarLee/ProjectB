@@ -23,6 +23,7 @@ public class CyberpunkMonster2_Fly : MonoBehaviour
 
     void Update()
     {
+
         // 플레이어가 존재하면
         if (player != null)
         {
@@ -45,10 +46,9 @@ public class CyberpunkMonster2_Fly : MonoBehaviour
 
     private void Destroy()
     {
-        // 1초 뒤 폭발 필요성?
-
         // 1. 폭발 이펙트 생성
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        MonsterAudioManager.instance.StopSpecificAudio(3);// 사망시 음향
         // 2. BoomEffect 재생
         BoomEffect.Play();
         Destroy(gameObject);

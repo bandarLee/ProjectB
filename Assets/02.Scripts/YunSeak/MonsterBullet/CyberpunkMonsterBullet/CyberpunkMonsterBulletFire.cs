@@ -36,6 +36,7 @@ public class CyberpunkMonsterBulletFire : MonoBehaviour
     {
         while (true)
         {
+            MonsterAudioManager.instance.StopSpecificAudio(1);// 재장전 음향
             yield return new WaitForSeconds(spawnInterval);
 
             // 랜덤한 프리팹 선택
@@ -44,6 +45,7 @@ public class CyberpunkMonsterBulletFire : MonoBehaviour
 
             // 프리팹 생성
             GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPoint.position, monster.rotation);
+            MonsterAudioManager.instance.StopSpecificAudio(1);// 발포 음향
         }
     }
 }
