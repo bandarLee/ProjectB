@@ -10,9 +10,9 @@ public class LobbyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Image HoverImage2;
     void Start()
     {
+        LobbySceneAudioManager.instance.PlayAudio(2);// 시작 BGM
         HoverImage.gameObject.SetActive(false);
         HoverImage2.gameObject.SetActive(false);
-        
     }
 
     // 마우스 커서가 버튼 위에 올라갔을 때 호출되는 함수
@@ -21,6 +21,7 @@ public class LobbyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         // 이미지를 활성화합니다.
         HoverImage.gameObject.SetActive(true);
         HoverImage2.gameObject.SetActive(true);
+        LobbySceneAudioManager.instance.PlayAudio(1);
     }
 
     // 마우스 커서가 버튼에서 벗어났을 때 호출되는 함수
@@ -29,6 +30,7 @@ public class LobbyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         // 이미지를 비활성화합니다.
         HoverImage.gameObject.SetActive(false);
         HoverImage2.gameObject.SetActive(false);
+        LobbySceneAudioManager.instance.PlayAudio(3);// 버튼 이탈음
     }
     
 }

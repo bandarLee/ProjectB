@@ -80,7 +80,8 @@ public class PlayerMove : MonoBehaviour
                 PlayerAudioManager.instance.StopSpecificAudio(3);
                 PlayerAudioManager.instance.StopSpecificAudio(2);
                 PlayerAudioManager.instance.PlayAudio(0);
-             
+                PlayerAudioManager.instance.PlayAudio(1, true);
+
 
             }
             if (Input.GetKeyUp(KeyCode.Space))
@@ -131,8 +132,8 @@ public class PlayerMove : MonoBehaviour
             {
                 Debug.Log("비행 소리 재생");
                 PlayerAudioManager.instance.StopSpecificAudio(3);
-                PlayerAudioManager.instance.PlayAudio(2, true);
-                PlayerAudioManager.instance.PlayAudio(1);
+                PlayerAudioManager.instance.PlayAudio(2);
+                PlayerAudioManager.instance.PlayAudio(1, true);
             }
 
         }
@@ -253,6 +254,9 @@ public class PlayerMove : MonoBehaviour
         isFlying = false;
 
         playerAnimator.SetBool("IsFlying", false);
+
+        PlayerAudioManager.instance.PlayAudio(11);// 착지 사운드
+
         yield return new WaitForSeconds(2f);
 
         fsmoke.SetActive(false);
