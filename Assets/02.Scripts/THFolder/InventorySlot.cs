@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    public Image ItemImage;
+    public Image ItemImage1;
+    public Image ItemImage2;
+    public Image ItemImage3;
     public TextMeshProUGUI ItemNameText;
+    public ItemData _c;
 }

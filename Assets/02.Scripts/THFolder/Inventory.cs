@@ -25,9 +25,16 @@ public class Inventory : MonoBehaviour
 
     public GameObject RemoveSelect;
 
+    private InventorySlot _inventorySlot;
+    private InventorySlot selectedSlot;
+
+   
+
     private void Start()
     {
         RemoveSelect.SetActive(false);
+        _inventorySlot = GetComponent<InventorySlot>();
+
     }
     // 인벤토리 인스턴스 접근을 위한 프로퍼티
     public static Inventory Instance
@@ -71,6 +78,8 @@ public class Inventory : MonoBehaviour
                 {
                     slots[i].gameObject.SetActive(true);
                     slots[i].ItemNameText.text = items[i].itemName;
+                    slots[i]._c = items[i];
+
                 }
             }
         }
@@ -79,14 +88,20 @@ public class Inventory : MonoBehaviour
             Debug.Log("Item Name: " + item.itemName + item.itemID);
         }*/
     }
+    
     public void OnClickRemoveSelectButton() 
     {
         RemoveSelect.SetActive(true);
     }
     public void OnClickYesButton() 
     {
-        
-
+        if (selectedSlot != null && items.Contains(selectedSlot._c)) 
+        {
+            RemoveItem(selectedSlot._c); // 선택한 슬롯의 아이템 삭제
+            selectedSlot = null; // 선택한 슬롯 참조 제거
+        }
+        RemoveSelect.SetActive(false);
+        ListItems();
     }
     public void OnClickNoButton() 
     {
@@ -137,7 +152,10 @@ public class Inventory : MonoBehaviour
 
     }//아이템 타입별로 묶어준다!
 
-
+    public void SetSelectedSlot(InventorySlot slot)
+    {
+        selectedSlot = slot;
+    }
     // 아이템 ID를 통해 아이템의 종류를 반환하는 메서드
     private ItemChip.Item GetItemTypeFromID(int id)
     {
@@ -228,6 +246,6 @@ public class Inventory : MonoBehaviour
     }//묶은 아이템을 정렬해서 List에 배치한다!
 
 
-
+   
 
 }
