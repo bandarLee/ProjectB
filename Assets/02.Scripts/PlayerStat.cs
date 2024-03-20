@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -35,12 +36,18 @@ public class PlayerStat : MonoBehaviour
     private ColorAdjustments colorAdjustments;
     public Slider healthBarSlider;
     public Slider healthBarSlider_Option;
+    public GameObject GameOverUI;
 
 
     public bool isInvulnerable = false;
     public float invulnerabilityDuration = 1f;
+    public bool isdead = false;
 
     public TextMeshProUGUI[] StatusText;
+
+    public bool isPortalArrive = false;
+
+
     public static PlayerStat Instance
     {
         get
@@ -67,10 +74,13 @@ public class PlayerStat : MonoBehaviour
     }
     private void Start()
     {
+        GameOverUI.gameObject.SetActive(false);
         if (volume.profile.TryGet<ColorAdjustments>(out colorAdjustments))
         {
             colorAdjustments.saturation.Override(0);
         }
+        
+
         InitializeHealthBar();
         InitializeOptionUpdate();
 
@@ -101,13 +111,7 @@ public class PlayerStat : MonoBehaviour
                 StartCoroutine(ChangeTimeScale(1));
 
 
-                if (playerhealth <= 0)
-                {
-                    Debug.LogWarning("플레이어사망");
-                    PlayerAudioManager.instance.PlayAudio(9);// 사망 사운드
-                    PlayerAudioManager.instance.PlayAudio(10);// 사망 후 배경음 // 시간수정필요 혹은 사망UI에 적용
-                }
-                PlayerAudioManager.instance.PlayAudio(8);// 데미지 사운드
+                
                 Destroy(other.gameObject);
             }
             if (other.gameObject.CompareTag("Boss1Bullet"))
@@ -125,13 +129,7 @@ public class PlayerStat : MonoBehaviour
                 playerRigidbody.AddForce(forceDirection * forceAmount);
                 StartCoroutine(ChangeTimeScale(1));
 
-                if (playerhealth <= 0)
-                {
-                    Debug.LogWarning("플레이어사망");
-                    PlayerAudioManager.instance.PlayAudio(9);// 사망 사운드
-                    PlayerAudioManager.instance.PlayAudio(10);// 사망 후 배경음 // 시간수정필요 혹은 사망UI에 적용
-                }
-                PlayerAudioManager.instance.PlayAudio(8);// 데미지 사운드
+                
             }
             if (other.gameObject.CompareTag("Boss2Bullet"))
             {
@@ -147,13 +145,7 @@ public class PlayerStat : MonoBehaviour
                 playerRigidbody.AddForce(forceDirection * forceAmount);
                 StartCoroutine(ChangeTimeScale(1));
 
-                if (playerhealth <= 0)
-                {
-                    Debug.LogWarning("플레이어사망");
-                    PlayerAudioManager.instance.PlayAudio(9);// 사망 사운드
-                    PlayerAudioManager.instance.PlayAudio(10);// 사망 후 배경음 // 시간수정필요 혹은 사망UI에 적용
-                }
-                PlayerAudioManager.instance.PlayAudio(8);// 데미지 사운드
+                
             }
             else if (other.gameObject.CompareTag("MonsterElementBullet"))
             {
@@ -232,13 +224,7 @@ public class PlayerStat : MonoBehaviour
 
                 }
 
-                if (playerhealth <= 0)
-                {
-                    Debug.LogWarning("플레이어사망");
-                    PlayerAudioManager.instance.PlayAudio(9);// 사망 사운드
-                    PlayerAudioManager.instance.PlayAudio(10);// 사망 후 배경음 // 시간수정필요 혹은 사망UI에 적용
-                }
-                PlayerAudioManager.instance.PlayAudio(8);// 데미지 사운드
+                
                 Destroy(other.gameObject);
             }
 
@@ -262,13 +248,7 @@ public class PlayerStat : MonoBehaviour
                 }
 
 
-                if (playerhealth <= 0)
-                {
-                    Debug.LogWarning("플레이어사망");
-                    PlayerAudioManager.instance.PlayAudio(9);// 사망 사운드
-                    PlayerAudioManager.instance.PlayAudio(10);// 사망 후 배경음 // 시간수정필요 혹은 사망UI에 적용
-                }
-                PlayerAudioManager.instance.PlayAudio(8);// 데미지 사운드
+                
                 Destroy(other.gameObject);
 
             }
@@ -343,6 +323,28 @@ public class PlayerStat : MonoBehaviour
     }
     void Update()
     {
+
+        if (playerhealth <= 0 && !isdead)
+        {
+            isdead = true;
+            PlayerAudioManager.instance.PlayAudio(9);// 사망 사운드
+            PlayerAudioManager.instance.PlayAudio(10);// 사망 후 배경음 // 시간수정필요 혹은 사망UI에 적용
+
+            StartCoroutine(GameOver_Coroutine());
+
+            PlayerAudioManager.instance.PlayAudio(8);// 데미지 사운드
+
+        }
+    }
+    public IEnumerator GameOver_Coroutine() 
+    {
+        GameOverUI.gameObject.SetActive(true);
+        isPortalArrive = true;
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Main");
+        playerhealth = playermaxhealth;
+        GameOverUI.gameObject.SetActive(false);
+        isdead = false;
 
     }
 }

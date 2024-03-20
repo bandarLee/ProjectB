@@ -28,6 +28,7 @@ public class MainPortal : MonoBehaviour
     private IEnumerator NextScene() 
     {
         yield return new WaitForSeconds(0.5f);
+        PlayerStat.Instance.isPortalArrive = true;
         SceneManager.LoadScene("TestScene");
     }
     private IEnumerator NextScene2() 

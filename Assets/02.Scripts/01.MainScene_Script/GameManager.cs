@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject MinimapPortal;
 
+    public GameObject[] TutorialObject;
+
 
     private void Awake()
     {
@@ -28,6 +30,15 @@ public class GameManager : MonoBehaviour
 
         MinimapNPC.SetActive(false);
         MinimapPortal.SetActive(false);
+
+        if (PlayerStat.Instance.isPortalArrive == true) 
+        {
+            foreach (GameObject obj in TutorialObject) 
+            {
+                Destroy(obj);
+                PlayerMove.instance.isPositionFixed = false;
+            }
+        }
     }
 
     public void Pause()
