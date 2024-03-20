@@ -18,11 +18,13 @@ public class UI_Enforce : MonoBehaviour
     public void EnforceOpen()
     {
         gameObject.SetActive(true);
-        PlayerMove.instance.isPositionFixed = true;
+        Cursor.lockState = CursorLockMode.None;
+
     }
     public void EnforceClose()
     {
         gameObject.SetActive(false);
-        PlayerMove.instance.isPositionFixed = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 }
