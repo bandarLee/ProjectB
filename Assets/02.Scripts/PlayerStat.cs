@@ -105,6 +105,8 @@ public class PlayerStat : MonoBehaviour
                 if (playerhealth <= 0)
                 {
                     Debug.LogWarning("플레이어사망");
+                    PlayerAudioManager.instance.StopSpecificAudio(7);
+
                     PlayerAudioManager.instance.PlayAudio(9);// 사망시 플레이어 소리
                 }
                 PlayerAudioManager.instance.PlayAudio(10);// 플레이어 사망후 배경음
