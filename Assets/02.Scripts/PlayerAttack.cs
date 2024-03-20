@@ -42,9 +42,11 @@ public class PlayerAttack : MonoBehaviour
 
         isAttacking = true;
         playerAnimator.SetTrigger("Attack");
+        PlayerAudioManager.instance.PlayAudio(5);
         yield return new WaitForSeconds(0.15f); 
         if (Input.GetMouseButton(0))
         {
+            PlayerAudioManager.instance.PlayAudio(5);// 검소리수정필요
             doubleAttack = true;
         }
         playerAnimator.SetBool("DoubleAttack", doubleAttack); 
@@ -52,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (doubleAttack)
         {
-         
+            PlayerAudioManager.instance.PlayAudio(6);
             doubleAttack = false; 
         }
         swordweapon.GetComponentInChildren<BoxCollider>().enabled = false;
@@ -67,6 +69,7 @@ public class PlayerAttack : MonoBehaviour
 
         isAttacking = true;
         playerAnimator.SetTrigger("StrongAttack");
+        PlayerAudioManager.instance.PlayAudio(7);// 검기 소리 수정필요
         yield return new WaitForSeconds(1.15f);
         GameObject swordaura = Instantiate(swordauraprefab, strongAttackpoint.position, strongAttackpoint.rotation);
         Rigidbody rb = swordaura.GetComponent<Rigidbody>();

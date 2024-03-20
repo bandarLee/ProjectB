@@ -77,6 +77,8 @@ public class PlayerMove : MonoBehaviour
             if (isJumping && Input.GetKeyDown(KeyCode.Space) )
             {
                 Debug.Log("비행 소리 재생");
+                PlayerAudioManager.instance.StopSpecificAudio(3);
+                PlayerAudioManager.instance.StopSpecificAudio(2);
                 PlayerAudioManager.instance.PlayAudio(0);
              
 
@@ -84,7 +86,6 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 PlayerAudioManager.instance.StopSpecificAudio(1);
-
             }
         }
 
@@ -120,16 +121,17 @@ public class PlayerMove : MonoBehaviour
             Move();
             playerAnimator.SetFloat("Move", Mathf.Abs(playerInput.move));
             playerAnimator.SetFloat("MoveSide", playerInput.moveside);
+            
 
             if (Input.GetKey(KeyCode.Space) && !isJumping)
-            {
-                Debug.Log("점프사운드 체크");
-                PlayerAudioManager.instance.PlayAudio(4);
+            {                
                 StartCoroutine(JumpCoroutine());
             }
             if (isFlying && Input.GetKeyDown(KeyCode.Space) && !isJumping)
             {
-
+                Debug.Log("비행 소리 재생");
+                PlayerAudioManager.instance.StopSpecificAudio(3);
+                PlayerAudioManager.instance.PlayAudio(2, true);
                 PlayerAudioManager.instance.PlayAudio(1);
             }
 
@@ -138,8 +140,6 @@ public class PlayerMove : MonoBehaviour
         {
             PlayerAudioManager.instance.StopSpecificAudio(3);
             PlayerAudioManager.instance.StopSpecificAudio(2);
-
-
         }
     }
 
@@ -153,7 +153,7 @@ public class PlayerMove : MonoBehaviour
 
                 Debug.Log("더블이동사운드 체크");
                 PlayerAudioManager.instance.PlayAudio(3,true);
-                // 오디오 사운드 Loop 이동시활성화 이동불가시 비활성화 필요
+                // 오디오 사운드 Loop 이동시활성화true 작성 필요 
                 isRunning = true;
             }
             else
@@ -215,9 +215,12 @@ public class PlayerMove : MonoBehaviour
 
     public IEnumerator JumpCoroutine()
     {
+
         isJumping = true;
         playerAnimator.SetTrigger("Jump");
         playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        PlayerAudioManager.instance.PlayAudio(4); // 점프 음향
 
         yield return new WaitForSeconds(0.05f);
 
@@ -226,21 +229,24 @@ public class PlayerMove : MonoBehaviour
 
         while (!isFlying && timeInAir < 1.2f)
         {
+            
             if (Input.GetKeyDown(KeyCode.Space))
             {
+
                 isFlying = true;
                 playerAnimator.SetBool("IsFlying", true);
                 playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce / 2, playerRigidbody.velocity.z);
                 continueFlying = true;
                 break;
             }
-    
+            
+
             yield return null;
             timeInAir += Time.deltaTime;
         }
 
         while (continueFlying && Input.GetKey(KeyCode.Space))
-        {
+        {            
             playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, jumpForce, playerRigidbody.velocity.z);
             yield return null;
         }

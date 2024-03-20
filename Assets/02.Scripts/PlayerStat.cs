@@ -88,7 +88,7 @@ public class PlayerStat : MonoBehaviour
 
             if (other.gameObject.CompareTag("MonsterBullet"))
             {
-
+                PlayerAudioManager.instance.PlayAudio(7);// 데미지 플레이어 소리
                 playerhealth -= 1;
                 UpdateHealthBar();
 
@@ -105,8 +105,9 @@ public class PlayerStat : MonoBehaviour
                 if (playerhealth <= 0)
                 {
                     Debug.LogWarning("플레이어사망");
+                    PlayerAudioManager.instance.PlayAudio(9);// 사망시 플레이어 소리
                 }
-
+                PlayerAudioManager.instance.PlayAudio(10);// 플레이어 사망후 배경음
                 Destroy(other.gameObject);
             }
             if (other.gameObject.CompareTag("Boss1Bullet"))
@@ -114,7 +115,7 @@ public class PlayerStat : MonoBehaviour
 
                 playerhealth -= 1;
                 UpdateHealthBar();
-
+                PlayerAudioManager.instance.PlayAudio(7);// 데미지 플레이어 소리
                 TakeDamage();
 
                 Vector3 forceDirection = transform.position - other.transform.position;
@@ -127,13 +128,14 @@ public class PlayerStat : MonoBehaviour
                 if (playerhealth <= 0)
                 {
                     Debug.LogWarning("플레이어사망");
+                    PlayerAudioManager.instance.PlayAudio(9);// 사망시 플레이어 소리
                 }
 
             }
             if (other.gameObject.CompareTag("Boss2Bullet"))
             {
-
                 playerhealth -= 2;
+                PlayerAudioManager.instance.PlayAudio(7);// 데미지 플레이어 소리
                 UpdateHealthBar();
 
                 TakeDamage();
@@ -148,6 +150,7 @@ public class PlayerStat : MonoBehaviour
                 if (playerhealth <= 0)
                 {
                     Debug.LogWarning("플레이어사망");
+                    PlayerAudioManager.instance.PlayAudio(9);// 사망시 플레이어 소리
                 }
 
             }
@@ -161,6 +164,7 @@ public class PlayerStat : MonoBehaviour
                 {
                     case CyberpunkMonsterBulletType.Health:
                     {
+                        PlayerAudioManager.instance.PlayAudio(7);// 데미지 플레이어 소리
                         // 체력 -1 
                         playerhealth -= 1;
                         UpdateHealthBar();
@@ -185,6 +189,7 @@ public class PlayerStat : MonoBehaviour
                     case CyberpunkMonsterBulletType.Smoke:
                     {
                         playerhealth -= 1;
+                        PlayerAudioManager.instance.PlayAudio(7);// 데미지 플레이어 소리
                         UpdateHealthBar();
 
                     }
@@ -195,6 +200,7 @@ public class PlayerStat : MonoBehaviour
 
                         Timer -= Time.deltaTime;
                         playerhealth -= 3;
+                        PlayerAudioManager.instance.PlayAudio(7);// 데미지 플레이어 소리
                         UpdateHealthBar();
 
                         PlayerMove.instance.isJumping = true;
@@ -214,6 +220,7 @@ public class PlayerStat : MonoBehaviour
                         Timer = 3f;
                         Timer -= Time.deltaTime;
                         playerhealth -= 1;
+                        PlayerAudioManager.instance.PlayAudio(7);// 데미지 플레이어 소리
                         UpdateHealthBar();
 
                         frozenTimerBox = speed;
@@ -231,8 +238,9 @@ public class PlayerStat : MonoBehaviour
                 if (playerhealth <= 0)
                 {
                     Debug.LogWarning("플레이어사망");
+                    PlayerAudioManager.instance.PlayAudio(9);// 사망시 플레이어 소리
                 }
-
+                PlayerAudioManager.instance.PlayAudio(10);// 플레이어 사망후 배경음
                 Destroy(other.gameObject);
             }
 
@@ -248,6 +256,7 @@ public class PlayerStat : MonoBehaviour
                     {
                         // 체력 -1 
                         playerhealth -= 1;
+                        PlayerAudioManager.instance.PlayAudio(7);// 데미지 플레이어 소리
                         UpdateHealthBar();
 
                     }
@@ -259,8 +268,9 @@ public class PlayerStat : MonoBehaviour
                 if (playerhealth <= 0)
                 {
                     Debug.LogWarning("플레이어사망");
+                    PlayerAudioManager.instance.PlayAudio(9);// 사망시 플레이어 소리
                 }
-
+                PlayerAudioManager.instance.PlayAudio(10);// 플레이어 사망후 배경음
                 Destroy(other.gameObject);
             }
             IEnumerator ChangeTimeScale(float delay)
