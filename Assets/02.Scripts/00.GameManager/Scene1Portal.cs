@@ -10,6 +10,7 @@ public class Scene1Portal : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             StartCoroutine(NextScene());
+            LobbySceneAudioManager.instance.PlayAudio(0);
         }
     }
     private IEnumerator NextScene()

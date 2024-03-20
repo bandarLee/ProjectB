@@ -13,7 +13,6 @@ public class LobbyScene : MonoBehaviour
 
     public GameObject StartButton;
     public GameObject EndButton;
-    
 
     private void Start()
     {
@@ -24,7 +23,7 @@ public class LobbyScene : MonoBehaviour
     }
     private void Update()
     {
-        
+
     }
     
     private IEnumerator LobbyText(string talk)
