@@ -11,7 +11,6 @@ public class RightClickButtoninEnforce : MonoBehaviour, IPointerClickHandler
         slot = GetComponent<EnforceSlot>();
         if (slot == null)
         {
-            Debug.Log("EnforceSlot 컴포넌트를 찾을 수 없습니다.");
         }
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -28,7 +27,6 @@ public class RightClickButtoninEnforce : MonoBehaviour, IPointerClickHandler
             }
             else
             {
-                Debug.Log("slot 또는 slot._c가 null입니다.");
             }
         }
     }

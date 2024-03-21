@@ -50,7 +50,6 @@ public class UI_Option : MonoBehaviour
     public void PrintCurrentSceneName()
     {
         string currentSceneName = GetCurrentSceneName();
-        Debug.Log(currentSceneName);
         MinimapSceneName.text = "현재 행성 : "+currentSceneName;
     }
     public void OnContinueButtonClicked() 

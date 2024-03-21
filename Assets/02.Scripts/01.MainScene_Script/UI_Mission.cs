@@ -30,7 +30,6 @@ public class UI_Mission : MonoBehaviour
     {
         gameObject.SetActive(false);
         PlayerMove.instance.isPositionFixed = false;
-        Debug.Log("닫힘");
     }
 
     public void FirstMissionOpenText() 

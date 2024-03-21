@@ -66,7 +66,6 @@ public class NPCTest : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("충돌");
         EKeyObject.SetActive(true);
     }
     private void OnTriggerStay(Collider other)

@@ -76,7 +76,6 @@ public class PlayerMove : MonoBehaviour
             //SideMove();
             if (isJumping && Input.GetKeyDown(KeyCode.Space) )
             {
-                Debug.Log("비행 소리 재생");
                 PlayerAudioManager.instance.StopSpecificAudio(3);
                 PlayerAudioManager.instance.StopSpecificAudio(2);
                 PlayerAudioManager.instance.PlayAudio(0);
