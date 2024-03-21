@@ -354,14 +354,17 @@ public class Inventory : MonoBehaviour
         PlayerStat playerStat = PlayerStat.Instance;
         List<ItemData> usedItems = new List<ItemData>(); // 사용된 아이템을 추적하는 리스트
         List<KeyValuePair<int, StatChangeLog>> changesToApply = new List<KeyValuePair<int, StatChangeLog>>();
-        bool hasWeaponA1 = false, hasWeaponA2 = false, hasWeaponA3 = false;
-        bool hasWeaponB1 = false, hasWeaponB2 = false, hasWeaponB3 = false;
+
+
+        bool[] hasWeaponASet = { false, false, false };
+        bool[] hasWeaponBSet = { false, false, false };
+        int statChipsCount = 0; // 스탯 칩 개수를 추적
 
         foreach (var itemId in playerStat.statChangeLogs.Keys.ToList())
         {
             foreach (var slot in equipslots)
             {
-                if (slot._c != null)
+                if (slot._c != null )
                 {
                     playerStat.RemoveStatChange(itemId);
                 }
@@ -379,52 +382,75 @@ public class Inventory : MonoBehaviour
                 StatChangeLog change = new StatChangeLog();
                 switch (GetItemTypeFromID(slot._c.itemID))
                 {
-                    case ItemChip.Item.WeaponA1: hasWeaponA1 = true; break;
-                    case ItemChip.Item.WeaponA2: hasWeaponA2 = true; break;
-                    case ItemChip.Item.WeaponA3: hasWeaponA3 = true; break;
-                    case ItemChip.Item.WeaponB1: hasWeaponB1 = true; break;
-                    case ItemChip.Item.WeaponB2: hasWeaponB2 = true; break;
-                    case ItemChip.Item.WeaponB3: hasWeaponB3 = true; break;
+                    case ItemChip.Item.WeaponA1: hasWeaponASet[0] = true;  break;
+                    case ItemChip.Item.WeaponA2: hasWeaponASet[1] = true;  break;
+                    case ItemChip.Item.WeaponA3: hasWeaponASet[2] = true; break;
+                    case ItemChip.Item.WeaponB1: hasWeaponBSet[0] = true; break;
+                    case ItemChip.Item.WeaponB2: hasWeaponBSet[1] = true; break;
+                    case ItemChip.Item.WeaponB3: hasWeaponBSet[2] = true; break;
 
 
                     case ItemChip.Item.statSTRSmall:
                         change = new StatChangeLog { strChange = 0.1f };
+                        statChipsCount++;
                         break;
                     case ItemChip.Item.statSTRMedium:
                         change = new StatChangeLog { strChange = 0.2f };
+                        statChipsCount++;
+
                         break;
                     case ItemChip.Item.statSTRLarge:
                         change = new StatChangeLog { strChange = 0.3f };
+                        statChipsCount++;
+
                         break;
 
                     case ItemChip.Item.statDMGSmall:
                         change = new StatChangeLog { dmgChange = 0.1f };
+                        statChipsCount++;
+
                         break;
                     case ItemChip.Item.statDMGMedium:
                         change = new StatChangeLog { dmgChange = 0.2f };
+                        statChipsCount++;
+
                         break;
                     case ItemChip.Item.statDMGLarge:
                         change = new StatChangeLog { dmgChange = 0.3f };
+                        statChipsCount++;
+
                         break;
 
                     case ItemChip.Item.statDEXSmall:
                         change = new StatChangeLog { dexChange = 0.1f };
+                        statChipsCount++;
+
                         break;
                     case ItemChip.Item.statDEXMedium:
                         change = new StatChangeLog { dexChange = 0.2f };
+                        statChipsCount++;
+
                         break;
                     case ItemChip.Item.statDEXLarge:
                         change = new StatChangeLog { dexChange = 0.3f };
+                        statChipsCount++;
+
                         break;
 
                     case ItemChip.Item.statSpeedSmall:
                         change = new StatChangeLog { speedChange = 0.1f };
+                        statChipsCount++;
+
                         break;
                     case ItemChip.Item.statSpeedMedium:
                         change = new StatChangeLog { speedChange = 0.2f };
+                        statChipsCount++;
+
                         break;
                     case ItemChip.Item.statSpeedLarge:
                         change = new StatChangeLog { speedChange = 0.3f };
+                        statChipsCount++;
+
                         break;
 
                 }
@@ -439,7 +465,8 @@ public class Inventory : MonoBehaviour
                 Debug.Log("Equipped Slot is empty");
             }
         }
-
+        bool isASetComplete = hasWeaponASet.All(has => has);
+        bool isBSetComplete = hasWeaponBSet.All(has => has);
         if (hasEmptySlot)
         {
             Debug.Log("칩 세 개를 전부 장착해야 합니다.");
@@ -450,19 +477,25 @@ public class Inventory : MonoBehaviour
         }
         if (!hasEmptySlot)
         {
-            foreach (var pair in changesToApply)
+            if (statChipsCount == 3)
             {
-                playerStat.ApplyStatChange(pair.Key, pair.Value);
+                foreach (var pair in changesToApply)
+                {
+                    playerStat.ApplyStatChange(pair.Key, pair.Value);
+                }
             }
-            foreach (var usedItem in usedItems)
+            if (statChipsCount == 3 || statChipsCount == 0)
             {
-                items.Remove(usedItem); // 인벤토리에서 아이템 제거
+                foreach (var usedItem in usedItems)
+                {
+                    items.Remove(usedItem); // 인벤토리에서 아이템 제거
+                }
             }
-            if(hasWeaponA1 && hasWeaponA2 && hasWeaponA3)
+            if(isASetComplete)
             {
                 PlayerAttack.Instance.ChangeWeapon(1);
             }
-            if (hasWeaponB1 && hasWeaponB2 && hasWeaponB3)
+            if (isBSetComplete)
             {
                 PlayerAttack.Instance.ChangeWeapon(2);
 
