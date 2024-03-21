@@ -134,15 +134,7 @@ public class ItemChip : MonoBehaviour
                 itemName = "< B >무기 도안[3]";
                 break;
 
-            case Item.WeaponC1:
-                itemName = "< C >무기 도안[1]";
-                break;
-            case Item.WeaponC2:
-                itemName = "< C >무기 도안[2]";
-                break;
-            case Item.WeaponC3:
-                itemName = "< C >무기 도안[3]";
-                break;
+
 
             default:
                 itemName = "알 수 없는 아이템";

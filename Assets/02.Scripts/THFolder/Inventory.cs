@@ -352,6 +352,10 @@ public class Inventory : MonoBehaviour
     {
         bool hasEmptySlot = false; // 비어있는 슬롯이 있는지 추적
         PlayerStat playerStat = PlayerStat.Instance;
+        List<ItemData> usedItems = new List<ItemData>(); // 사용된 아이템을 추적하는 리스트
+        List<KeyValuePair<int, StatChangeLog>> changesToApply = new List<KeyValuePair<int, StatChangeLog>>();
+        bool hasWeaponA1 = false, hasWeaponA2 = false, hasWeaponA3 = false;
+        bool hasWeaponB1 = false, hasWeaponB2 = false, hasWeaponB3 = false;
 
         foreach (var itemId in playerStat.statChangeLogs.Keys.ToList())
         {
@@ -367,12 +371,22 @@ public class Inventory : MonoBehaviour
         {
             if (slot._c != null)
             {
+                usedItems.Add(slot._c);
+
                 Debug.Log("Equipped Item: " + slot._c.itemName + ", ID: " + slot._c.itemID);
 
                 // 아이템에 따른 스탯 효과 적용
                 StatChangeLog change = new StatChangeLog();
                 switch (GetItemTypeFromID(slot._c.itemID))
                 {
+                    case ItemChip.Item.WeaponA1: hasWeaponA1 = true; break;
+                    case ItemChip.Item.WeaponA2: hasWeaponA2 = true; break;
+                    case ItemChip.Item.WeaponA3: hasWeaponA3 = true; break;
+                    case ItemChip.Item.WeaponB1: hasWeaponB1 = true; break;
+                    case ItemChip.Item.WeaponB2: hasWeaponB2 = true; break;
+                    case ItemChip.Item.WeaponB3: hasWeaponB3 = true; break;
+
+
                     case ItemChip.Item.statSTRSmall:
                         change = new StatChangeLog { strChange = 0.1f };
                         break;
@@ -414,7 +428,9 @@ public class Inventory : MonoBehaviour
                         break;
 
                 }
-                playerStat.ApplyStatChange(slot._c.itemID, change);
+                int itemId = slot._c.itemID; // 혹은 다른 고유 식별자 사용
+                changesToApply.Add(new KeyValuePair<int, StatChangeLog>(itemId, change));
+
 
             }
             else
@@ -432,7 +448,28 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log("이미 장착한 칩이 있을 경우, 장착한 칩은 삭제됩니다.");
         }
+        if (!hasEmptySlot)
+        {
+            foreach (var pair in changesToApply)
+            {
+                playerStat.ApplyStatChange(pair.Key, pair.Value);
+            }
+            foreach (var usedItem in usedItems)
+            {
+                items.Remove(usedItem); // 인벤토리에서 아이템 제거
+            }
+            if(hasWeaponA1 && hasWeaponA2 && hasWeaponA3)
+            {
+                PlayerAttack.Instance.ChangeWeapon(1);
+            }
+            if (hasWeaponB1 && hasWeaponB2 && hasWeaponB3)
+            {
+                PlayerAttack.Instance.ChangeWeapon(2);
 
+            }
+        }
+        ListItems(); // UI 업데이트
+        ListEnforceItems();
         // 스탯 변경 후 UI 업데이트 등
     }
 
