@@ -25,8 +25,10 @@ public class NPCTest : MonoBehaviour
     // 이벤트
     public event Action One;
 
-    public GameObject otherObject;
     public GameObject EKeyObject;
+
+    public GameObject Scene1PortalLimitedWall;
+    public GameObject Scene2PortalLimitedWall;
 
     private bool isOpen = false;
     private bool isMinimapPoral = false;
@@ -48,8 +50,16 @@ public class NPCTest : MonoBehaviour
     }
     private void DoorIsTrigger() 
     {
-        Collider otherCollider = otherObject.GetComponent<Collider>();
-        if (otherObject != null) 
+        Collider otherCollider = Scene1PortalLimitedWall.GetComponent<Collider>();
+        if (Scene1PortalLimitedWall != null) 
+        {
+            otherCollider.isTrigger = true;
+        }
+    }
+    private void DoorIsTrigger2()
+    {
+        Collider otherCollider = Scene2PortalLimitedWall.GetComponent<Collider>();
+        if (Scene2PortalLimitedWall != null)
         {
             otherCollider.isTrigger = true;
         }
@@ -70,14 +80,25 @@ public class NPCTest : MonoBehaviour
                 {
                     NameTextUI.text = "MissionNPC";
                     _animator.SetTrigger("Turn");
-                    StartCoroutine(Quest_Coroutine());
-                    GameManager.instance.StopBlinking();
                     
-                    if (!isMinimapPoral) 
+                    GameManager.instance.StopBlinking();
+
+                    if (PlayerStat.Instance.isPortalArrive != true)
                     {
-                        GameManager.instance.MinimapPortalStart();
-                        isMinimapPoral = true;
+                        StartCoroutine(Scene1Mission_Coroutine());
+
+                        if (!isMinimapPoral)
+                        {
+                            GameManager.instance.MinimapPortalStart();
+                            isMinimapPoral = true;
+                        }
                     }
+                    else if (PlayerStat.Instance.isPortalArrive == true) 
+                    {
+                        StartCoroutine(Scene2Mission_Coroutine());
+                        Scene1PortalLimitedWall.GetComponent <Collider>().isTrigger = true;
+                    }
+                    
                 }
                 else if (_NPCType == NPCType.MerchantNPC)
                 {
@@ -110,7 +131,7 @@ public class NPCTest : MonoBehaviour
     }
 
     // 미션 진행을 나타내는 코루틴
-    private IEnumerator Quest_Coroutine()
+    private IEnumerator Scene1Mission_Coroutine()
     {
         MissionUI.Open();                            // 미션 UI 열기 
         One?.Invoke();                               // One 이벤트를 호출
@@ -118,7 +139,14 @@ public class NPCTest : MonoBehaviour
         MissionUI.Close();                           // 미션 UI 닫기
         DoorIsTrigger();                             // 문이 트리거 되었음을 처리
     }
-
+    private IEnumerator Scene2Mission_Coroutine()
+    {
+        MissionUI.Open();                            // 미션 UI 열기 
+        One?.Invoke();                               // One 이벤트를 호출
+        yield return new WaitForSeconds(3f);        // 10초간 대기
+        MissionUI.Close();                           // 미션 UI 닫기
+        DoorIsTrigger2();                             // 문이 트리거 되었음을 처리
+    }
     // One 이벤트 핸들러 - 미션의 첫 번째 메세지를 표시
     private void OneText_Delegate()
     {
