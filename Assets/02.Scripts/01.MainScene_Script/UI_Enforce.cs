@@ -8,6 +8,7 @@ public class UI_Enforce : MonoBehaviour
 {
     public Image EnforceImage;
     public TextMeshProUGUI EnforceTextUI;
+    public List<EnforceSlot> enforceSlots;
 
 
 
@@ -24,10 +25,14 @@ public class UI_Enforce : MonoBehaviour
     }
     public void EnforceClose()
     {
-        Inventory.Instance.ClearSelectedItems();
+        foreach (var slot in enforceSlots)
+        {
+            slot.ResetSlot();
+        }
+        Inventory.Instance.ResetAllEquipSlots();
 
+        // 나머지 EnforceClose 로직
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
-
     }
 }

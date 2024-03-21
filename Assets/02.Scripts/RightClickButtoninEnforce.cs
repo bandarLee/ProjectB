@@ -5,18 +5,31 @@ using UnityEngine.EventSystems;
 
 public class RightClickButtoninEnforce : MonoBehaviour, IPointerClickHandler
 {
-    private InventorySlot slot;
+    private EnforceSlot slot;
     void Start()
     {
-        slot = GetComponentInParent<InventorySlot>();
+        slot = GetComponent<EnforceSlot>();
+        if (slot == null)
+        {
+            Debug.Log("EnforceSlot 컴포넌트를 찾을 수 없습니다.");
+        }
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+       
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Inventory.Instance.SetSelectedSlot(slot);
-
-            Inventory.Instance.SelectEnforceItem();
+            // 여기서 slot이 null인지 확인해야 합니다.
+            // null 체크를 추가해봅시다.
+            if (slot != null && slot._c != null)
+            {
+                Inventory.Instance.AddItemToNextEquipSlot(slot._c);
+                // 아이템을 다음 EquipSlot에 추가하는 로직을 여기에 구현합니다.
+            }
+            else
+            {
+                Debug.Log("slot 또는 slot._c가 null입니다.");
+            }
         }
     }
 }

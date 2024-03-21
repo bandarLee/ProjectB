@@ -22,12 +22,13 @@ public class Inventory : MonoBehaviour
 
     //public InventorySlot[] inventorySlots;
     public List<InventorySlot> slots = new List<InventorySlot>();
-    public List<InventorySlot> enforceslots = new List<InventorySlot>();
+    public List<EnforceSlot> enforceslots = new List<EnforceSlot>();
     public List<EnforceSlot> equipslots = new List<EnforceSlot>();
 
     private List<ItemData> selectedItems = new List<ItemData>();
     private HashSet<int> selectedItemIDs = new HashSet<int>();
 
+    private int currentEquipSlotIndex = 0;
 
     public GameObject RemoveSelect;
 
@@ -35,7 +36,8 @@ public class Inventory : MonoBehaviour
     private InventorySlot _inventorySlot;
     private InventorySlot selectedSlot;
 
-   
+
+    private HashSet<int> allocatedItemIDs = new HashSet<int>();
 
     private void Start()
     {
@@ -117,17 +119,17 @@ public class Inventory : MonoBehaviour
     }
     public void ListEnforceItems()
     {
-        foreach (InventorySlot inventorySlot in enforceslots)
+        foreach (EnforceSlot enforceSlot in enforceslots)
         {
-            inventorySlot.gameObject.SetActive(false);
+            enforceSlot.gameObject.SetActive(false);
         }
         for (int i = 0; i < items.Count; i++)
         {
             if (i < enforceslots.Count)
             {
                 enforceslots[i].gameObject.SetActive(true);
-                enforceslots[i].ItemNameText.text = items[i].itemName;
                 enforceslots[i]._c = items[i];
+                enforceslots[i].ItemNameText.text = items[i].itemName;
 
                 // 아이템 ID에 따라 다른 이미지를 할당하는 로직을 추가합니다.
                 int itemIdDivision = items[i].itemID / 10000;
@@ -226,6 +228,7 @@ public class Inventory : MonoBehaviour
     {
         selectedSlot = slot;
     }
+  
     // 아이템 ID를 통해 아이템의 종류를 반환하는 메서드
     private ItemChip.Item GetItemTypeFromID(int id)
     {
@@ -314,59 +317,43 @@ public class Inventory : MonoBehaviour
             }
         }
     }//묶은 아이템을 정렬해서 List에 배치한다!
-
-    public void SelectEnforceItem()
+    public void AddItemToNextEquipSlot(ItemData itemData)
     {
-        
-            if (selectedSlot != null && selectedSlot._c != null && selectedItems.Count < 3 && !selectedItemIDs.Contains(selectedSlot._c.itemID))
-            {
-                selectedItems.Add(selectedSlot._c);
-                selectedItemIDs.Add(selectedSlot._c.itemID);
-            }
-        for (int i = 0; i < 3; i++)
+        // 아이템이 이미 할당되었는지 확인
+        if (allocatedItemIDs.Contains(itemData.itemID))
         {
-            equipslots[i].ItemImage1.gameObject.SetActive(false);
-            equipslots[i].ItemImage2.gameObject.SetActive(false);
-            equipslots[i].ItemImage3.gameObject.SetActive(false);
-            if (i < equipslots.Count)
-            {
-                equipslots[i].gameObject.SetActive(true);
-                equipslots[i]._c = items[i];
-
-                // 아이템 ID에 따라 다른 이미지를 할당하는 로직을 추가합니다.
-                int itemIdDivision = items[i].itemID / 10000;
-                Debug.Log(itemIdDivision);
-                switch (itemIdDivision)
-                {
-                    case 1:
-                        equipslots[i].ItemImage1.gameObject.SetActive(true);
-                        equipslots[i].ItemImage2.gameObject.SetActive(false);
-                        equipslots[i].ItemImage3.gameObject.SetActive(false);
-                        break;
-                    case 2:
-                    case 3:
-                        equipslots[i].ItemImage1.gameObject.SetActive(false);
-                        equipslots[i].ItemImage2.gameObject.SetActive(true);
-                        equipslots[i].ItemImage3.gameObject.SetActive(false);
-                        break;
-                    case 4:
-                        equipslots[i].ItemImage1.gameObject.SetActive(false);
-                        equipslots[i].ItemImage2.gameObject.SetActive(false);
-                        equipslots[i].ItemImage3.gameObject.SetActive(true);
-                        break;
-                    default:
-                        break;
-                }
-            }
+            Debug.Log("이미 할당된 아이템입니다.");
+            return; // 메서드 종료
         }
 
+        if (currentEquipSlotIndex < equipslots.Count)
+        {
+            EnforceSlot currentSlot = equipslots[currentEquipSlotIndex];
+            currentSlot.UpdateItemImage(itemData); // 현재 슬롯에 아이템 이미지 업데이트
+            currentEquipSlotIndex++; // 다음 슬롯으로 인덱스 업데이트
+
+            // 아이템 ID를 할당된 아이템의 HashSet에 추가
+            allocatedItemIDs.Add(itemData.itemID);
+        }
+        else
+        {
+            // 모든 슬롯이 차있는 경우, 오류 메시지 또는 처리 로직
+            Debug.Log("모든 강화 슬롯이 차있습니다.");
+        }
     }
-    public void ClearSelectedItems()
+    public void ResetAllEquipSlots()
     {
-       
-        selectedItems.Clear();
-        selectedItemIDs.Clear();
+        foreach (var slot in equipslots)
+        {
+            slot.ResetSlot(); // 각 EnforceSlot 내의 ResetSlot 메서드 호출
+        }
+        currentEquipSlotIndex = 0; // 인덱스 초기화
+        allocatedItemIDs.Clear();
+
     }
+
+
+
 
 
 }
