@@ -14,7 +14,7 @@ public class UI_Enforce : MonoBehaviour
 
     private void Awake()
     {
-        EnforceClose();
+      
     }
     public void EnforceOpen()
     {

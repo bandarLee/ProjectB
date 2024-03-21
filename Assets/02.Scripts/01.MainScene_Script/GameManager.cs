@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject MinimapNPC;
     private Coroutine _blinkingCoroutine;
     private Coroutine _blinkingCoroutine2;
-
+    public GameObject Enforce;
     public GameObject MinimapPortal;
 
     public GameObject[] TutorialObject;
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
         MinimapNPC.SetActive(false);
         MinimapPortal.SetActive(false);
-
+        Enforce.SetActive(false);
         if (PlayerStat.Instance.isPortalArrive == true) 
         {
             foreach (GameObject obj in TutorialObject) 
