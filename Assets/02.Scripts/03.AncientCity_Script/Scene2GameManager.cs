@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -21,6 +22,10 @@ public class Scene2GameManager : MonoBehaviour
     public bool _isCandle2 = false;
     public bool _isCandle3 = false;
 
+    public GameObject RealQuestUI;
+    public TextMeshProUGUI RealQuestTextUI;
+    string RealQuestText;
+
 
     private void Awake()
     {
@@ -33,6 +38,8 @@ public class Scene2GameManager : MonoBehaviour
         MinimapNPC.SetActive(false);
         MinimapNPC2.SetActive(false);
 
+        RealQuestUI.SetActive(false);
+        StartCoroutine(StartNPCQuestOpen());
     }
 
     public void Pause()
@@ -130,7 +137,56 @@ public class Scene2GameManager : MonoBehaviour
     
     private IEnumerator DestroyWall() 
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Destroy(Wall);
+    }
+
+    private IEnumerator Quest(string talk)
+    {
+        RealQuestTextUI.text = null;
+        for (int i = 0; i < talk.Length; i++)
+        {
+            RealQuestTextUI.text += talk[i];
+            yield return new WaitForSeconds(0.08f);
+        }
+        /*yield return new WaitForSeconds(1f);
+        ImageClose();
+        yield return new WaitForSeconds(1f);
+        Scene2GameManager.instance.StartBlinking();*/
+
+    }
+
+
+    // NPC 퀘스트
+    public void RealQuestImageOpen()
+    {
+        RealQuestUI.gameObject.SetActive(true);
+
+        PlayerMove.instance.isPositionFixed = true;
+    }
+    public void RealQuestImageClose()
+    {
+        RealQuestUI.gameObject.SetActive(false);
+
+        PlayerMove.instance.isPositionFixed = false;
+    }
+    public void RealQuestTextOpen()
+    {
+        RealQuestImageOpen();
+        RealQuestText = "NPC1을 찾으세요.";
+        StartCoroutine(Quest(RealQuestText));
+    }
+
+    public void RealQuestTextOpen2()
+    {
+        RealQuestImageOpen();
+        RealQuestText = "집에 가고싶다.";
+        StartCoroutine(Quest(RealQuestText));
+    }
+
+    private IEnumerator StartNPCQuestOpen()
+    {
+        yield return new WaitForSeconds(4f);
+        RealQuestTextOpen();
     }
 }

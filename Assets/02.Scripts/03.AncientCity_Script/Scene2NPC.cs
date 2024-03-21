@@ -22,10 +22,12 @@ public class Scene2NPC : MonoBehaviour
 
     private bool _isEnforceUIOpen = false;
 
+
     private void Start()
     {
         //AncientCitySceneAudioManager.instance.PlayAudio(0);
         _animator = GetComponent<Animator>();
+       
     }
     private void OnTriggerStay(Collider other)
     {
@@ -38,9 +40,12 @@ public class Scene2NPC : MonoBehaviour
                 {
                     UI_Mission2.instance.NPC1MissionOpenText();
                     _openText = true;
+                    Scene2GameManager.instance.RealQuestImageClose();
+                    StartCoroutine(NPC2QuestOpen());
                 }
                 else if (AncientNPC == AncientNPC.NPC2 && !_openText)
                 {
+                    Scene2GameManager.instance.RealQuestImageClose();
                     Rotate();
                     if (!_isTalking)
                     {
@@ -80,4 +85,11 @@ public class Scene2NPC : MonoBehaviour
     {
         transform.LookAt(Player);
     }
+
+    private IEnumerator NPC2QuestOpen() 
+    {
+        yield return new WaitForSeconds(3f);
+        Scene2GameManager.instance.RealQuestTextOpen2();
+    }
+    
 }

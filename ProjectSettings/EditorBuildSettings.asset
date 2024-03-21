@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.Scenes/GameScenes/LobbyScene.unity
     guid: 2c19b17b75253e148986be4b9541a97f
+  - enabled: 1
+    path: Assets/01.Scenes/GameScenes/AncientCity_Boss.unity
+    guid: 8cc059ae3961407448f3766bfd073525
   m_configObjects: {}

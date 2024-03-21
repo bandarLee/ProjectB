@@ -20,6 +20,6 @@ public class AncientCityPortal : MonoBehaviour
     private IEnumerator NextScene()
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("LobbyScene");
+        SceneManager.LoadScene("AncientCity_Boss");
     }
 }
