@@ -16,7 +16,6 @@ public class Scene2GameManager : MonoBehaviour
     private Coroutine _blinkingCoroutine2;
 
     public GameObject Wall;
-    public GameObject Wall2;
 
     public bool _isCandle1 = false;
     public bool _isCandle2 = false;
@@ -57,10 +56,6 @@ public class Scene2GameManager : MonoBehaviour
             OnOptionButtonClicked();
         }
 
-        if(_isCandle1 == true && _isCandle2 == true) 
-        {
-            Destroy(Wall2);
-        }
     }
     public void OnOptionButtonClicked()
     {
@@ -173,6 +168,7 @@ public class Scene2GameManager : MonoBehaviour
     public void RealQuestTextOpen()
     {
         RealQuestImageOpen();
+        PlayerMove.instance.isPositionFixed = false;
         RealQuestText = "NPC1을 찾으세요.";
         StartCoroutine(Quest(RealQuestText));
     }
