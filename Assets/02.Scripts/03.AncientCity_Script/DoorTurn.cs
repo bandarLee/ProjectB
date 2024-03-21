@@ -11,10 +11,12 @@ public class DoorTurn : MonoBehaviour
     public bool clockwise = false;
     public bool clear = false;
 
+
     void Update()
     {
-        if (clear)
+        if (clear == true)
         {
+            //Debug.Log("clear is true");
             if (currentRotation < targetAngle)
             {
                 float step = rotationSpeed * Time.deltaTime; // 이번 프레임에서 회전할 각도
@@ -31,11 +33,13 @@ public class DoorTurn : MonoBehaviour
                 }
             }
         }
-        else 
+        else
         {
             // 원하는 상황에..
-            
+            //Debug.Log("clear is false");
         }
+        
+        
     }
-    
+   
 }

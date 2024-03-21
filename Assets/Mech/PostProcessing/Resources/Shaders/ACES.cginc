@@ -302,7 +302,8 @@ half3 ACEScg_to_ACES(half3 x)
 //
 // Reference Rendering Transform (RRT)
 //
-//   Input is ACES
+//   
+is ACES
 //   Output is OCES
 //
 half rgb_2_saturation(half3 rgb)

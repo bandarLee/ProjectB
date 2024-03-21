@@ -34,6 +34,6 @@ public class MainPortal : MonoBehaviour
     private IEnumerator NextScene2() 
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("Scene2");
+        SceneManager.LoadScene("AncientCityScene");
     }
 }
