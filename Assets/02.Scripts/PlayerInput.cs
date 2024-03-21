@@ -45,9 +45,10 @@ public class PlayerInput : MonoBehaviour
 
         UIManage();
 
-
-
     }
+
+
+    
     private void UIManage()
     {
 

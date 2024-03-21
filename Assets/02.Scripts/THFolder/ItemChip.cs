@@ -33,9 +33,7 @@ public class ItemChip : MonoBehaviour
         WeaponB2,
         WeaponB3,
 
-        WeaponC1, 
-        WeaponC2,
-        WeaponC3
+
 
     }
 
@@ -146,55 +144,29 @@ public class ItemChip : MonoBehaviour
         if (Player.CompareTag("Player"))
         {
             // 아이템 데이터 생성
-            ItemData newItem = new ItemData(itemName, itemID, item);
 
-            // 인벤토리에 아이템 추가
-            Inventory.Instance.AddItem(newItem);
+            switch (item)
+            {
+                case Item.HealthSmall: 
+                    PlayerStat.Instance.SmallPotion++;
+                    break;
+
+                case Item.HealthMedium:
+                    PlayerStat.Instance.MediumPotion++;
+                    break;
+                case Item.HealthLarge:
+                    PlayerStat.Instance.LargePotion++;
+
+                    break;
+                default:
+                    ItemData newItem = new ItemData(itemName, itemID, item);
+
+                    Inventory.Instance.AddItem(newItem);
+                    break;
+            }
             
-            // 아이템 게임 오브젝트 제거
             Destroy(gameObject);
 
-
-
-
-
-            /*if (item == Item.Health)
-            {
-                itemName = "체력 회복 칩(중)";
-                *//*       if (PlayerStat.instance.playerhealth <= PlayerStat.instance.playermaxhealth - 1)
-                       {
-                           PlayerStat.instance.playerhealth = PlayerStat.instance.playerhealth + 1f;
-                       }
-                       else
-                       {
-                           PlayerStat.instance.playerhealth = PlayerStat.instance.playermaxhealth;
-
-                       }
-                       PlayerStat.instance.UpdateHealthBar();*//*
-                ItemData newItem = new ItemData(gameObject.name, item);
-
-                // Inventory에 아이템 데이터 객체를 추가
-                Inventory.Instance.AddItem(newItem);
-                Destroy(this.gameObject);
-
-
-            }
-            if (item == Item.Stat)
-            {
-                itemName = "근력 강화 칩(Lv 1)";
-
-                *//*                PlayerStat.instance.str = PlayerStat.instance.str + 0.1f;
-                *//*
-                Destroy(this.gameObject);
-
-            }
-            if (item == Item.Weapon)
-            {
-                itemName = "무기 도안 칩(불의 검1)";
-
-                Destroy(this.gameObject);
-            } 
-        }*/
         }
     }
 }

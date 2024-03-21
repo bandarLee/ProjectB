@@ -49,6 +49,13 @@ public class PlayerStat : MonoBehaviour
     public bool isPortalArrive = false;
     public Dictionary<int, StatChangeLog> statChangeLogs = new Dictionary<int, StatChangeLog>();
 
+    public int SmallPotion = 0;
+    public int MediumPotion = 0;
+    public int LargePotion = 0;
+
+    public TextMeshPro PotionNotice;
+
+
 
     public static PlayerStat Instance
     {
@@ -87,6 +94,7 @@ public class PlayerStat : MonoBehaviour
         InitializeOptionUpdate();
 
     }
+ 
 
     void OnTriggerEnter(Collider other)
     {
@@ -359,6 +367,7 @@ public class PlayerStat : MonoBehaviour
             PlayerAudioManager.instance.PlayAudio(8);// 데미지 사운드
 
         }
+        UsePotion();
     }
     public IEnumerator GameOver_Coroutine() 
     {
@@ -414,5 +423,57 @@ public class PlayerStat : MonoBehaviour
         public float dmgChange;
 
     }
+    public void UsePotion()
+    {
+        PotionNotice.text = $"{SmallPotion} / {MediumPotion} / {LargePotion}";
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (SmallPotion > 0)
+            {
+                SmallPotion--;
+                playerhealth += 1;
+                CheckMaxHealth();
+
+                UpdateHealthBar();
+
+            }
+
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (MediumPotion > 0)
+            {
+                MediumPotion--;
+                playerhealth += 2;
+                CheckMaxHealth();
+
+                UpdateHealthBar();
+
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (LargePotion > 0)
+            {
+                LargePotion--;
+                playerhealth += 3;
+                CheckMaxHealth();
+                UpdateHealthBar();
+
+
+            }
+        }
+    }
+    public void CheckMaxHealth()
+    {
+        if(playerhealth > playermaxhealth)
+        {
+            playerhealth = playermaxhealth;
+        }
+    }
+
 
 }

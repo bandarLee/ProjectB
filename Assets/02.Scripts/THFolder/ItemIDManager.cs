@@ -57,9 +57,7 @@ public class ItemIDManager : MonoBehaviour
             { ItemChip.Item.WeaponB1, 43000 },
             { ItemChip.Item.WeaponB2, 44000 },
             { ItemChip.Item.WeaponB3, 45000 },
-            { ItemChip.Item.WeaponC1, 46000 },
-            { ItemChip.Item.WeaponC2, 47000 },
-            { ItemChip.Item.WeaponC3, 48000 }
+
         };
     }
 

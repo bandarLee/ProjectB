@@ -283,12 +283,7 @@ public class Inventory : MonoBehaviour
                 return ItemChip.Item.WeaponB2;
             case 45:
                 return ItemChip.Item.WeaponB3;
-            case 46:
-                return ItemChip.Item.WeaponC1;
-            case 47:
-                return ItemChip.Item.WeaponC2;
-            case 48:
-                return ItemChip.Item.WeaponC3;
+
             default:
                 return 0;
         }
