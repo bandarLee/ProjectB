@@ -12,12 +12,14 @@ public class Scene2BossRoomEnter : MonoBehaviour
 {
     public GameObject EKey;
     public CandleLightType CandleType;
-
+    public GameObject CandleVFX1;
    
 
     private void Start()
     {
         EKey.gameObject.SetActive(false);
+
+        CandleVFX1.gameObject.SetActive(false);
         
     }
     private void OnTriggerEnter(Collider other)
@@ -36,16 +38,17 @@ public class Scene2BossRoomEnter : MonoBehaviour
                 if (CandleType == CandleLightType.Candle1)
                 {
                     Scene2GameManager.instance.OnCandle1();
-                    
+                    CandleVFX1.gameObject.SetActive(true);
                 }
                 else if (CandleType == CandleLightType.Candle2)
                 {
                     Scene2GameManager.instance.OnCandle2();
-                    
+                    CandleVFX1.gameObject.SetActive(true);
                 }
                 else if (CandleType == CandleLightType.Candle3)
                 {
                     Scene2GameManager.instance.OnCandle3();
+                    CandleVFX1.gameObject.SetActive(true);
                 }
             }
         }
