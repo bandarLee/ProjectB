@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Scene2GameManager : MonoBehaviour
@@ -13,6 +14,12 @@ public class Scene2GameManager : MonoBehaviour
     private Coroutine _blinkingCoroutine;
     private Coroutine _blinkingCoroutine2;
 
+    public GameObject Wall;
+    public GameObject Wall2;
+
+    public bool _isCandle1 = false;
+    public bool _isCandle2 = false;
+    public bool _isCandle3 = false;
 
 
     private void Awake()
@@ -25,6 +32,7 @@ public class Scene2GameManager : MonoBehaviour
 
         MinimapNPC.SetActive(false);
         MinimapNPC2.SetActive(false);
+
     }
 
     public void Pause()
@@ -40,6 +48,11 @@ public class Scene2GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OnOptionButtonClicked();
+        }
+
+        if(_isCandle1 == true && _isCandle2 == true) 
+        {
+            Destroy(Wall2);
         }
     }
     public void OnOptionButtonClicked()
@@ -88,5 +101,36 @@ public class Scene2GameManager : MonoBehaviour
     public void StartBlinking2()
     {
         _blinkingCoroutine = StartCoroutine(BlinkingEffect2());
+    }
+
+    public void OnCandle1()
+    {
+        _isCandle1 = true;
+        CheckWall();
+    }
+    public void OnCandle2()
+    {
+        _isCandle2 = true;
+        CheckWall();
+    }
+    public void OnCandle3()
+    {
+        _isCandle3 = true;
+        CheckWall();
+        
+    }
+    private void CheckWall()
+    {
+        if (_isCandle1 && _isCandle2 && _isCandle3)
+        {
+            StartCoroutine(DestroyWall());
+        }
+        
+    }
+    
+    private IEnumerator DestroyWall() 
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(Wall);
     }
 }
