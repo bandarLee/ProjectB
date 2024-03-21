@@ -19,6 +19,11 @@ public class TeampleMonster6_Dragon : MonoBehaviour
     int TakeOff;
     int Die;
 
+    public Transform _target;         // 플레이어
+    public float moveSpeed = 5f;
+    private float moveBox;
+    private const float IDLE_DURATION = 3f;// 대기 상태에서의 최대 대기 시간
+    private float _idleTimer;// 대기 상태에서 경과한 시간을 추적하는 타이머
     // Use this for initialization
     void Start()
     {
@@ -36,6 +41,8 @@ public class TeampleMonster6_Dragon : MonoBehaviour
         Lands = Animator.StringToHash("Lands");
         TakeOff = Animator.StringToHash("TakeOff");
         Die = Animator.StringToHash("Die");
+
+        _target = GameObject.FindGameObjectWithTag("Player").transform;
 
     }
 
