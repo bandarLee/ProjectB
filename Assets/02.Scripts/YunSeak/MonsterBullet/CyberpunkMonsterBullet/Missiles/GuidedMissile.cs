@@ -79,7 +79,7 @@ public class GuidedMissile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("basicwepon"))
         {
             Debug.Log("충돌");
             PlayerStat playerStat = other.GetComponent<PlayerStat>();
@@ -96,7 +96,7 @@ public class GuidedMissile : MonoBehaviour
                 DestroyMonster();
             }
         }
-        else if (other.CompareTag("Wall") || other.CompareTag("Monster") || other.CompareTag("Grund") || other.CompareTag("MonsterBullet"))
+        else if (other.CompareTag("Wall") || other.CompareTag("Monster") || other.CompareTag("Environment") || other.CompareTag("MonsterBullet"))
         {
             DestroyMonster();
         }

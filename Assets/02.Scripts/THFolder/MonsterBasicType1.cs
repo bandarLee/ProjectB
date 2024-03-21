@@ -10,7 +10,7 @@ public enum MonsterBasicType1State // 몬스터의 상태
     Patrol,         // 순찰
     Gun,            // 공격
     Comeback,       // 복귀
-
+    Damaged,        // 피격
     Die             // 사망
 }
 
@@ -34,6 +34,7 @@ public class MonsterBasicType1 : MonoBehaviour
 
     public Transform patrolTarget1;  // 몬스터가 순찰하는 지점1
     public Transform patrolTarget2;  // 몬스터가 순찰하는 지점2
+    public float FindDistance = 5f;  // 감지 거리
     private Animator _animator;
     private MonsterBasicType1State _monsterBasicType1State = MonsterBasicType1State.Getup;
     public float moveSpeed = 5f;
@@ -72,6 +73,10 @@ public class MonsterBasicType1 : MonoBehaviour
                 Comeback();
                 break;
 
+            case MonsterBasicType1State.Damaged:
+                Damaged();
+                break;
+
             case MonsterBasicType1State.Die:
                 Die();
                 break;
@@ -93,28 +98,36 @@ public class MonsterBasicType1 : MonoBehaviour
     {
         // 몬스터의 이동 속도를 원래의 값으로 설정
         moveSpeed = moveBox;
-
-        // patrolTarget1으로 향하는 방향을 계산하고, 이 방향으로 이동
-        Vector3 direction = (patrolTarget1.position - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
-        transform.LookAt(patrolTarget1);
-
-        // 플레이어가 공격 범위 내에 있고 현재 공격 중이 아닌 경우
-        if (Time.time - lastTimePlayerInRange < attackGracePeriod && !isShooting)
+        if (patrolTarget1 != null)
         {
-            // Patrol 상태에서 Gun 상태로 전환
-            Debug.Log("상태 전환: Patrol -> Gun");
-            _animator.SetTrigger("PatrolToGun");
-            _monsterBasicType1State = MonsterBasicType1State.Gun;
+            float distanceToTarget = Vector3.Distance(patrolTarget1.position, transform.position);
+            // patrolTarget1으로 향하는 방향을 계산하고, 이 방향으로 이동
+            if(distanceToTarget <= FindDistance)
+            {
+                Vector3 direction = (patrolTarget1.position - transform.position).normalized;
+                transform.position += direction * moveSpeed * Time.deltaTime;
+                transform.LookAt(patrolTarget1);
+            }
+
+            // 플레이어가 공격 범위 내에 있고 현재 공격 중이 아닌 경우
+            if (Time.time - lastTimePlayerInRange < attackGracePeriod && !isShooting)
+            {
+                // Patrol 상태에서 Gun 상태로 전환
+                Debug.Log("상태 전환: Patrol -> Gun");
+                _animator.SetTrigger("PatrolToGun");
+                _monsterBasicType1State = MonsterBasicType1State.Gun;
+            }
+            // patrolTarget1에 도착한 경우
+            float distanceToPatrolTarget = Vector3.Distance(patrolTarget1.position, transform.position);
+            if (Vector3.Distance(transform.position, patrolTarget1.position) < 0.1f)
+            {
+                // 다음 순찰 지점인 patrolTarget2로 전환
+                Debug.Log("상태 전환: Patrol -> Comeback");
+                _animator.SetTrigger("PatrolToComeback");
+                _monsterBasicType1State = MonsterBasicType1State.Comeback;
+            }
         }
-        // patrolTarget1에 도착한 경우
-        else if (Vector3.Distance(transform.position, patrolTarget1.position) < 0.1f)
-        {
-            // 다음 순찰 지점인 patrolTarget2로 전환
-            Debug.Log("상태 전환: Patrol -> Comeback");
-            _animator.SetTrigger("PatrolToComeback");
-            _monsterBasicType1State = MonsterBasicType1State.Comeback;
-        }
+
     }
     private void Gun()
     {
@@ -127,49 +140,41 @@ public class MonsterBasicType1 : MonoBehaviour
             StartCoroutine(ShootAtPlayerCoroutine());
         }
 
-        if (Time.time - lastTimePlayerInRange < attackGracePeriod && !isShooting)
-        {
-            StartCoroutine(ShootAtPlayerCoroutine());
-        }
-
-        if(Time.time - lastTimePlayerInRange > attackGracePeriod && !isShooting)// 감지 범위에서 적이 벗어나면
+        // 감지 범위에서 적이 벗어나면
+        if (Time.time - lastTimePlayerInRange > attackGracePeriod && !isShooting)
         {
             Debug.Log("상태 전환: Gun -> Patrol");
             _animator.SetTrigger("GunToPatrol");
             _monsterBasicType1State = MonsterBasicType1State.Patrol;
         }
-
     }
     private void Comeback()
     {
         moveSpeed = moveBox;
-        Vector3 direction = (patrolTarget2.position - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
-        transform.LookAt(patrolTarget2);
-
-        if(Vector3.Distance(transform.position, patrolTarget2.position) < 0.1f)// patrolTarget2에 도착하면
+        if(patrolTarget2 != null)
         {
-            Debug.Log("상태 전환: Comeback-> Patrol");
-            _animator.SetTrigger("ComebackToPatrol");
-            _monsterBasicType1State = MonsterBasicType1State.Patrol;
-        }
-        if(Time.time - lastTimePlayerInRange < attackGracePeriod && !isShooting)// 감지범위에 적이 나타나면
-        {
-            Debug.Log("상태 전환: Comeback -> Gun");
-            _animator.SetTrigger("ComebackToGun");
-            _monsterBasicType1State = MonsterBasicType1State.Gun;
-        }
+            Vector3 direction = (patrolTarget2.position - transform.position).normalized;
+            transform.position += direction * moveSpeed * Time.deltaTime;
+            transform.LookAt(patrolTarget2);
 
+            if (Vector3.Distance(transform.position, patrolTarget2.position) < 0.1f)// patrolTarget2에 도착하면
+            {
+                Debug.Log("상태 전환: Comeback-> Patrol");
+                _animator.SetTrigger("ComebackToPatrol");
+                _monsterBasicType1State = MonsterBasicType1State.Patrol;
+            }
+            if (Time.time - lastTimePlayerInRange < attackGracePeriod && !isShooting)// 감지범위에 적이 나타나면
+            {
+                Debug.Log("상태 전환: Comeback -> Gun");
+                _animator.SetTrigger("ComebackToGun");
+                _monsterBasicType1State = MonsterBasicType1State.Gun;
+            }
+        }
     }
-    private void Die()
+
+    private void Damaged()
     {
-        if (health <= 0)
-        {
-            Debug.Log("상태 전환: Die");
-            _animator.SetTrigger("Die");
-            _monsterBasicType1State = MonsterBasicType1State.Die;
-            Destroy(this.gameObject);
-        }
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -187,11 +192,11 @@ public class MonsterBasicType1 : MonoBehaviour
 
                 lastAttackTime = Time.time;
             }
-            if (other.gameObject.CompareTag("bullet")) 
+            if (other.gameObject.CompareTag("bullet"))
             {
                 healthBarUI.SetActive(true);
                 PlayerBullet playerbullet = other.gameObject.GetComponent<PlayerBullet>();
-                if(playerbullet.playerbullettype == PlayerBullet.PlayerBulletType.DroneBullet)
+                if (playerbullet.playerbullettype == PlayerBullet.PlayerBulletType.DroneBullet)
                 {
                     damageAmount = PlayerStat.Instance.dronestr;
                     health -= damageAmount;
@@ -211,6 +216,17 @@ public class MonsterBasicType1 : MonoBehaviour
             }
         }
     }
+    private void Die()
+    {
+        if (health <= 0)
+        {
+            Debug.Log("상태 전환: Die");
+            _animator.SetTrigger("Die");
+            _monsterBasicType1State = MonsterBasicType1State.Die;
+            Destroy(this.gameObject);
+        }
+    }
+
     private IEnumerator ShootAtPlayerAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -233,8 +249,6 @@ public class MonsterBasicType1 : MonoBehaviour
 
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
-
-
     }
     void InitializeHealthBar()
     {
