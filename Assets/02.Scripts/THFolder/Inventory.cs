@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.UI;
+using static PlayerStat;
 public class Inventory : MonoBehaviour
 {
     // 인벤토리 인스턴스 변수
@@ -250,29 +251,24 @@ public class Inventory : MonoBehaviour
                 return ItemChip.Item.statSTRMedium;
             case 22:
                 return ItemChip.Item.statSTRLarge;
+
             case 23:
-                return ItemChip.Item.statATKSmall;
-            case 24:
-                return ItemChip.Item.statATKMedium;
-            case 25:
-                return ItemChip.Item.statATKLarge;
-            case 26:
                 return ItemChip.Item.statDMGSmall;
-            case 27:
+            case 24:
                 return ItemChip.Item.statDMGMedium;
-            case 28:
+            case 25:
                 return ItemChip.Item.statDMGLarge;
-            case 29:
+            case 26:
                 return ItemChip.Item.statDEXSmall;
-            case 30:
+            case 27:
                 return ItemChip.Item.statDEXMedium;
-            case 31:
+            case 28:
                 return ItemChip.Item.statDEXLarge;
-            case 32:
+            case 29:
                 return ItemChip.Item.statSpeedSmall;
-            case 33:
+            case 30:
                 return ItemChip.Item.statSpeedMedium;
-            case 34:
+            case 31:
                 return ItemChip.Item.statSpeedLarge;
 
             case 40:
@@ -352,37 +348,96 @@ public class Inventory : MonoBehaviour
 
     }
 
-    public void DebugEquippedItems()
+    public void DebugEquippedItemsAndApplyEffects()
     {
         bool hasEmptySlot = false; // 비어있는 슬롯이 있는지 추적
+        PlayerStat playerStat = PlayerStat.Instance;
 
+        foreach (var itemId in playerStat.statChangeLogs.Keys.ToList())
+        {
+            foreach (var slot in equipslots)
+            {
+                if (slot._c != null)
+                {
+                    playerStat.RemoveStatChange(itemId);
+                }
+            }
+        }
         foreach (var slot in equipslots)
         {
             if (slot._c != null)
             {
-                // 아이템의 이름과 ID를 디버그 로그에 출력
                 Debug.Log("Equipped Item: " + slot._c.itemName + ", ID: " + slot._c.itemID);
+
+                // 아이템에 따른 스탯 효과 적용
+                StatChangeLog change = new StatChangeLog();
+                switch (GetItemTypeFromID(slot._c.itemID))
+                {
+                    case ItemChip.Item.statSTRSmall:
+                        change = new StatChangeLog { strChange = 0.1f };
+                        break;
+                    case ItemChip.Item.statSTRMedium:
+                        change = new StatChangeLog { strChange = 0.2f };
+                        break;
+                    case ItemChip.Item.statSTRLarge:
+                        change = new StatChangeLog { strChange = 0.3f };
+                        break;
+
+                    case ItemChip.Item.statDMGSmall:
+                        change = new StatChangeLog { dmgChange = 0.1f };
+                        break;
+                    case ItemChip.Item.statDMGMedium:
+                        change = new StatChangeLog { dmgChange = 0.2f };
+                        break;
+                    case ItemChip.Item.statDMGLarge:
+                        change = new StatChangeLog { dmgChange = 0.3f };
+                        break;
+
+                    case ItemChip.Item.statDEXSmall:
+                        change = new StatChangeLog { dexChange = 0.1f };
+                        break;
+                    case ItemChip.Item.statDEXMedium:
+                        change = new StatChangeLog { dexChange = 0.2f };
+                        break;
+                    case ItemChip.Item.statDEXLarge:
+                        change = new StatChangeLog { dexChange = 0.3f };
+                        break;
+
+                    case ItemChip.Item.statSpeedSmall:
+                        change = new StatChangeLog { speedChange = 0.1f };
+                        break;
+                    case ItemChip.Item.statSpeedMedium:
+                        change = new StatChangeLog { speedChange = 0.2f };
+                        break;
+                    case ItemChip.Item.statSpeedLarge:
+                        change = new StatChangeLog { speedChange = 0.3f };
+                        break;
+
+                }
+                playerStat.ApplyStatChange(slot._c.itemID, change);
+
             }
             else
             {
-                hasEmptySlot = true; // 비어있는 슬롯 발견
+                hasEmptySlot = true;
                 Debug.Log("Equipped Slot is empty");
             }
         }
 
         if (hasEmptySlot)
         {
-            // 하나라도 null인 아이템이 있을 경우
             Debug.Log("칩 세 개를 전부 장착해야 합니다.");
         }
         else
         {
-            // 모든 슬롯에 아이템이 할당되어 있을 경우
             Debug.Log("이미 장착한 칩이 있을 경우, 장착한 칩은 삭제됩니다.");
         }
 
+        // 스탯 변경 후 UI 업데이트 등
     }
 
-
-
 }
+
+
+
+

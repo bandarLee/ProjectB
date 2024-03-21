@@ -13,9 +13,7 @@ public class ItemChip : MonoBehaviour
         statSTRSmall,
         statSTRMedium,
         statSTRLarge,
-        statATKSmall,
-        statATKMedium,
-        statATKLarge,
+
         statDMGSmall,
         statDMGMedium,
         statDMGLarge,
@@ -87,15 +85,7 @@ public class ItemChip : MonoBehaviour
                 itemName = "STR 강화칩[Lv3]";
                 break;
 
-            case Item.statATKSmall:
-                itemName = "ATK 강화칩[Lv1]";
-                break;
-            case Item.statATKMedium:
-                itemName = "ATK 강화칩[Lv2]";
-                break;
-            case Item.statATKLarge:
-                itemName = "ATK 강화칩[Lv3]";
-                break;
+
 
             case Item.statDMGSmall:
                 itemName = "DMG 강화칩[Lv1]";

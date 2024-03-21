@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using System;
 
 public class PlayerStat : MonoBehaviour
 {
@@ -44,8 +44,10 @@ public class PlayerStat : MonoBehaviour
     public bool isdead = false;
 
     public TextMeshProUGUI[] StatusText;
+    public TextMeshProUGUI[] EquipStatusText;
 
     public bool isPortalArrive = false;
+    public Dictionary<int, StatChangeLog> statChangeLogs = new Dictionary<int, StatChangeLog>();
 
 
     public static PlayerStat Instance
@@ -313,11 +315,33 @@ public class PlayerStat : MonoBehaviour
         StatusText[2].text = $"{exp}/{maxexp}";
         StatusText[3].text = $"{gold}G";
 
-        StatusText[4].text = $"{str}";
-        StatusText[5].text = $"{str*1.5}";
-        StatusText[6].text = $"{dronestr}";
-        StatusText[7].text = $"{dronedex}";
-        StatusText[8].text = $"{speed}";
+        StatusText[4].text = $"{10 * str}";
+        StatusText[5].text = $"{10 * str *1.5f}";
+        StatusText[6].text = $"{10 * dronestr}";
+        StatusText[7].text = $"{10 * dronedex}";
+        StatusText[8].text = $"{10 * speed}";
+
+        float totalStrChange = 0;
+        float totalDexChange = 0;
+        float totalDmgChange = 0;
+        float totalSpeedChange = 0;
+
+        foreach (var log in statChangeLogs.Values)
+        {
+            totalStrChange += log.strChange;
+            totalDexChange += log.dexChange;
+            totalDmgChange += log.dmgChange;
+            totalSpeedChange += log.speedChange;
+        }
+
+        EquipStatusText[0].text = $"(+{10 * totalStrChange})";
+        EquipStatusText[1].text = $"(+{10 * totalStrChange * 1.5f})";
+
+        EquipStatusText[2].text = $"(+{10 * totalDexChange})";
+        EquipStatusText[3].text = $"(+{10 * totalDmgChange})";
+        EquipStatusText[4].text = $"(+{10 * totalSpeedChange})";
+
+
 
 
     }
@@ -347,13 +371,48 @@ public class PlayerStat : MonoBehaviour
         isdead = false;
 
     }
+    public void ApplyStatChange(int itemId, StatChangeLog change)
+    {
+        StatChangeLog roundedChange = new StatChangeLog
+        {
+            strChange = (float)Math.Round(change.strChange, 4),
+            dexChange = (float)Math.Round(change.dexChange, 4),
+            dmgChange = (float)Math.Round(change.dmgChange, 4),
+            speedChange = (float)Math.Round(change.speedChange, 4),
+        };
+
+        str = (float)Math.Round(str + roundedChange.strChange, 4);
+        dronedex = (float)Math.Round(dronedex + roundedChange.dexChange, 4);
+        speed = (float)Math.Round(speed + roundedChange.speedChange, 4);
+        dronestr = (float)Math.Round(dronestr + roundedChange.dmgChange, 4);
+
+        statChangeLogs[itemId] = roundedChange;
+
+        InitializeOptionUpdate();
+    }
+
+    public void RemoveStatChange(int itemId)
+    {
+        if (statChangeLogs.TryGetValue(itemId, out StatChangeLog change))
+        {
+            str = (float)Math.Round(str - change.strChange, 4);
+            dronedex = (float)Math.Round(dronedex - change.dexChange, 4);
+            speed = (float)Math.Round(speed - change.speedChange, 4);
+            dronestr = (float)Math.Round(dronestr - change.dmgChange, 4);
+
+            statChangeLogs.Remove(itemId);
+
+            InitializeOptionUpdate();
+        }
+    }
     [System.Serializable]
     public struct StatChangeLog
     {
         public float strChange;
         public float dexChange;
+        public float speedChange;
         public float dmgChange;
 
-        public float speedChange;
     }
+
 }
