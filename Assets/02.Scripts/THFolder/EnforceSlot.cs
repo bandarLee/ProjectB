@@ -12,7 +12,7 @@ public class EnforceSlot : MonoBehaviour
     public Image ItemImage3;
     public TextMeshProUGUI ItemNameText;
 
-    public ItemData _c = null;
+    public ItemData _c;
     public void Start()
     {
         ItemImage1.gameObject.SetActive(false);
@@ -45,6 +45,7 @@ public class EnforceSlot : MonoBehaviour
                 // 기본 상태 또는 예외 처리
                 break;
         }
+        _c = itemData;
     }
     public void ResetSlot()
     {

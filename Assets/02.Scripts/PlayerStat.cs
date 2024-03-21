@@ -347,4 +347,13 @@ public class PlayerStat : MonoBehaviour
         isdead = false;
 
     }
+    [System.Serializable]
+    public struct StatChangeLog
+    {
+        public float strChange;
+        public float dexChange;
+        public float dmgChange;
+
+        public float speedChange;
+    }
 }

@@ -352,7 +352,36 @@ public class Inventory : MonoBehaviour
 
     }
 
+    public void DebugEquippedItems()
+    {
+        bool hasEmptySlot = false; // 비어있는 슬롯이 있는지 추적
 
+        foreach (var slot in equipslots)
+        {
+            if (slot._c != null)
+            {
+                // 아이템의 이름과 ID를 디버그 로그에 출력
+                Debug.Log("Equipped Item: " + slot._c.itemName + ", ID: " + slot._c.itemID);
+            }
+            else
+            {
+                hasEmptySlot = true; // 비어있는 슬롯 발견
+                Debug.Log("Equipped Slot is empty");
+            }
+        }
+
+        if (hasEmptySlot)
+        {
+            // 하나라도 null인 아이템이 있을 경우
+            Debug.Log("칩 세 개를 전부 장착해야 합니다.");
+        }
+        else
+        {
+            // 모든 슬롯에 아이템이 할당되어 있을 경우
+            Debug.Log("이미 장착한 칩이 있을 경우, 장착한 칩은 삭제됩니다.");
+        }
+
+    }
 
 
 
