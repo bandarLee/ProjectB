@@ -36,12 +36,12 @@ public class UI_Mission : MonoBehaviour
     {
         if (PlayerStat.Instance.isPortalArrive != true)
         {
-            text = "Zeta-3 행성 .. 생명 반응 감지..\n'첫 번째 임무'\nZeta-3으로 이동하는 포탈을 타고\n생명반응의 원인을 조사바람.";
+            text = "Zeta-3 행성 .. 생명 반응 감지..\n'첫 번째 임무'\nZeta-3으로 이동하는 포탈을 타고\n생명반응에 대한 조사 명령 하달.";
             StartCoroutine(FirstMission(text));
         }
         else if (PlayerStat.Instance.isPortalArrive == true) 
         {
-            text = "디짐?ㅋ";
+            text = "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ디짐?\n상점이나 가셈ㅋ";
             StartCoroutine(FirstMission(text));
         }
         

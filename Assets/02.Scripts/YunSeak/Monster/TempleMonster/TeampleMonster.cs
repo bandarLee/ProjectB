@@ -176,8 +176,8 @@ public class TeampleMonster : MonoBehaviour
     }
     public IEnumerator StrongAttackCoroutine()
     {
-        var collider = currentWeapon.GetComponentInChildren<BoxCollider>();
-        collider.enabled = true;
+        /*var collider = currentWeapon.GetComponentInChildren<BoxCollider>();
+        collider.enabled = true;*/
         _animator.SetTrigger("AttackToPatrol");
         yield return new WaitForSeconds(1.15f);
         GameObject swordaura = Instantiate(swordauraprefab, strongAttackpoint.position, strongAttackpoint.rotation);
@@ -186,7 +186,7 @@ public class TeampleMonster : MonoBehaviour
 
         yield return new WaitForSeconds(0.55f);
 
-        collider.enabled = false;
+        //collider.enabled = false;
     }
 
     private void Comeback()
